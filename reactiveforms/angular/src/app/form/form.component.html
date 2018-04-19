@@ -1,0 +1,30 @@
+<hr>
+<h1>  Dynamic Example 2 !!</h1>
+<form>
+  <div>
+    <form [formGroup]="dform" (ngSubmit)="submit(dform.value)">
+      <label formGroupName="name">
+      enter first name 
+      <input type="text" formControlName="firstname" required> 
+      <br><br>     
+      enter second name
+      <input type="text" formControlName="lastname" required>
+      </label>
+      <br><br>
+      <input type="submit" value="click here " [disabled]="!dform.valid">
+      <h4>
+          {{dform.value | json }}
+      </h4> 
+      <h5>{{message}}</h5>
+      <hr>
+    </form>
+  </div>
+<div>
+  <button type="submit" > Click to Save </button>
+</div>
+
+<div>
+  <strong> saving the values here :</strong>
+  {{message}}
+</div>
+</form>

@@ -1,0 +1,34 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "snigdha",
+      "username": "snigi"
+    },
+    {
+      "id": 2,
+      "name": "parul",
+      "username": "pari"
+    },
+    {
+      "id": 3,
+      "name": "harpreet",
+      "username": "happy"
+    },
+    {
+      "name": "bikram",
+      "username": "bik",
+      "id": 4
+    },
+    {
+      "name": "sunny",
+      "username": "s",
+      "id": 5
+    },
+    {
+      "name": "wsq",
+      "username": "qwsws",
+      "id": 6
+    }
+  ]
+}

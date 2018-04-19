@@ -1,0 +1,11 @@
+.borderc
+{
+  
+    border-style: none;
+    border-radius: 25px;
+    background: rgb(206, 216, 215);
+    padding: 20px; 
+    width: 280px;
+    height: 200px; 
+    margin-left: 450px;
+}

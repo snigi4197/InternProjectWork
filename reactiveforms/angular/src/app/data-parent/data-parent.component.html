@@ -1,0 +1,15 @@
+<form [formGroup]="forms" (ngSubmit)="SubmitHere()">
+  <div *ngFor="let inputdata of inputdata">
+      <app-data-child [inputdata]="inputdata" [forms]="forms"></app-data-child>
+  </div>
+  <div>
+      <button type="submit" [disabled]="!forms.valid">Submit Here</button>
+  </div>
+  <br>
+  <div *ngIf="message">
+      <strong>Entered values are : </strong><br>{{message}}
+      <br>
+      <strong>Entered values are :</strong><br>{{msg}}
+<br>
+    </div>
+</form>

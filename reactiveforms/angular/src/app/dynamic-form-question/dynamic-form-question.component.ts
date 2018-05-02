@@ -6,9 +6,14 @@ import { QuestionBase }     from '../question-base';
   templateUrl: './dynamic-form-question.component.html',
   styleUrls: ['./dynamic-form-question.component.css']
 })
-export class DynamicFormQuestionComponent {
+export class DynamicFormQuestionComponent implements OnInit{
 
   @Input() question: QuestionBase<any>;
   @Input() form: FormGroup;
-  get isValid() { return this.form.controls[this.question.key].valid; }
+
+  isValid() { return this.form.controls[this.question.key].valid; }
+  
+  ngOnInit(){
+      console.log("form",this.form);
+  }
 }

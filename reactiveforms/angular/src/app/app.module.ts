@@ -9,14 +9,16 @@ import { FormsModule,FormGroup,ReactiveFormsModule }        from '@angular/forms
 import { FormComponent }                from './form/form.component';
 import { DataControlService }           from './data-control.service';
 import { DataService }                  from './data.service';
-import { FormControlComponent } from './form-control/form-control.component';
+import { DataParentComponent } from './data-parent/data-parent.component';
+import { DataChildComponent } from './data-child/data-child.component';
 @NgModule({
   declarations: [
     AppComponent,
     DynamicFormComponent,
     DynamicFormQuestionComponent,
     FormComponent,
-    FormControlComponent
+    DataParentComponent,
+    DataChildComponent
   ],
   imports: [
     BrowserModule,

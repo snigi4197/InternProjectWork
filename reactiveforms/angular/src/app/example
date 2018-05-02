@@ -1,0 +1,142 @@
+import { Component, OnInit,Input }            from '@angular/core';
+import {FormControl , Validators}             from '@angular/forms';
+import {FormGroup,ReactiveFormsModule }       from '@angular/forms';
+import { dataFormat }                         from '../dataformat'; 
+import { DataControlService }                 from '../data-control.service';
+@Component({
+  selector: 'app-data-parent',
+  templateUrl: './data-parent.component.html',
+  styleUrls: ['./data-parent.component.css'],
+  providers:[DataControlService]
+})
+export class DataParentComponent {
+  @Input() inputdata: dataFormat<any>[] = [];
+  forms:FormGroup;
+  message="";
+  constructor(private datacontrol:DataControlService) {
+   // this.forms= this.datacontrol.checkFormParameters(this.inputdata);
+ 
+   }
+  ngOnInit()
+  {
+    console.log("input",this.inputdata);
+    this.forms= this.datacontrol.checkFormParameters(this.inputdata);
+  }
+
+  SubmitHere=function(value)
+  {
+    let checkelements:any[];
+    let elements=[];
+    let val=[];
+
+for(let control in this.inputdata)
+    {
+      if(this.inputdata[control].controlType=="checkbox")
+      {
+        let op=this.inputdata[control]['options'];
+        console.log("op : " ,op);
+        for(let i=0;i<op.length;i++)
+        {
+          if(op[i].selected==true)
+          {
+            ele.push(op[i]);
+          }
+        }
+        this.forms.value[this.inputdata.key]=ele;
+        console.log(this.forms.value[this.inputdata.key]);
+        let a=this.forms.value[this.inputdata.key];
+        this.msg=JSON.stringify(a);
+        
+        // console.log("k : ",ele);
+        // for(let y in this.forms.value)
+        // {
+        //   if(y==this.inputdata[control].key)
+        //   {
+        //       console.log(this.forms.value[y]);
+        //       this.forms.value[y]=ele;
+        //       this.msg = JSON.stringify(this.forms.value[y]);
+        //   }
+        // }
+      }
+     
+    }
+    
+
+
+
+
+
+    // console.log("the values are ",this.forms.value);
+    // console.log("options",this.inputdata[3].options);
+    // console.log("length is : "+this.inputdata.length);
+
+    //this.message = JSON.stringify(this.forms.value);     
+    for(let i=0;i<this.inputdata[3].options.length;i++)
+    {     
+       if(this.inputdata[3].options[i].selected==true)
+      {
+        elements.push(this.inputdata[3].options[i]);
+        //console.log("",this.inputdata[3].options[i]);
+      }
+    }
+    // console.log("elements",elements);
+    // console.log("forms value", this.forms.value);    
+    
+ 
+    for(let sn in this.forms.value) // hell imp to understand 
+    {
+     // if sn==this,inputdata[3].key ( then ) this.form.value[sn]==elements
+     if(sn==this.inputdata[3].key)
+     {
+      //console.log("key if ",this.forms.value[sn]);
+      this.forms.value[sn]=elements;
+      //console.log("key else ",this.forms.value[sn]);
+      this.message = JSON.stringify(this.forms.value[sn]);
+     }
+     else{
+      this.message = JSON.stringify(this.forms.value);     
+     }
+      // console.log("keys : ",sn ," ", "value :",this.forms.value[sn]);
+      // console.log("elements :",elements);
+      
+
+
+
+      // if(this.forms.value[sn]==elements)
+      // {
+      //     console.log("ji : ");
+      // }
+      //this.forms.value[sn]='snigdha';
+
+    }
+    //console.log("forms value after changes", this.forms.value);    
+    
+    
+    // for(var item of val) 
+    // {
+    //   console.log("value of item is ",item);
+    //   // if (item.key==this.inputdata[3].key)
+    //   // {
+
+    //   // }
+    //   // if (item.key==this.inputdata[3].key)
+    //   // {
+    //   //   console.log("options : ",item.options);
+    //   //   console.log("length : ",item.options.length);
+        
+    //   //   for(var i=0;i<item.options.length;i++)
+    //   //   {
+    //   //     console.log("optns : ",item.options[i].key);
+    //   //     console.log("elmts :",elements[i]);
+          
+    //   //     // if(item.options[i].key==elements[i])
+    //   //     // {
+    //   //     //   console.log("matched !!!");
+    //   //     // }
+
+    //   //   }
+    //   // }
+      
+    // }
+    }
+}

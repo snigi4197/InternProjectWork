@@ -6,9 +6,11 @@ export class dataFormat<T>
     key:string;
     label:string;
     required:boolean;
+    order: number;
     controlType:string;
-
-    // now making a constructor for the dataFormat class
+    type:string;
+    //options:string;
+    //now making a constructor for the dataFormat class
 
     constructor( 
         //all below are constructor parameters
@@ -18,17 +20,22 @@ export class dataFormat<T>
             key?: string,
             label?: string,
             required?: boolean,
-            controlType?: string
+            order?: number,
+            controlType?: string,
+            type?:string;
+            //options?:string;
         } = {}
     )
   {
-      // initialising the values to the values of the class
+    // initialising the values to the values of the class
     this.value = options.value;
     this.key = options.key || '';
     this.label = options.label || '';
     this.required = !!options.required;
     this.controlType = options.controlType || '';
-
+    this.order = options.order === undefined ? 1 : options.order;
+    this.type=options.type||'';
+    //this.options=options.options||'';
   }
 
 }

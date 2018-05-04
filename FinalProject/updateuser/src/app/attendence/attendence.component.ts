@@ -17,6 +17,7 @@ aform;
   {
     this.aform=new FormGroup(
       {
+        date:new FormControl("",Validators.required),
         class:new FormControl("",Validators.required)
       });
   }

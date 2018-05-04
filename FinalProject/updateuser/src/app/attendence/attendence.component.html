@@ -11,21 +11,27 @@
       <tr>
         <td> Select date: </td>
         <td>
-            <select name="class" formControlName="class">
-              <option value="1">1st class</option>
-              <option value="2">2nd class</option>
-              <option value="3">3rd class</option>
-              <option value="4">4th class</option>
-              <option value="5">5th class</option>
-              <option value="6">6th class</option>
-              <option value="7">7th class</option>
-              <option value="8">8th class</option>
-              <option value="9">9th class</option>
-              <option value="10">10th class</option>
-              <option value="11">11th class</option>
-              <option value="12">12th class</option>
-            </select>
-          </td>
+          <input type="date" name="date" placeholder="Choose Date" formControlName="date">
+        </td>
+      </tr>
+      <tr>
+        <td> Select class: </td>
+        <td>
+          <select name="class" formControlName="class">
+            <option value="1">1st class</option>
+            <option value="2">2nd class</option>
+            <option value="3">3rd class</option>
+            <option value="4">4th class</option>
+            <option value="5">5th class</option>
+            <option value="6">6th class</option>
+            <option value="7">7th class</option>
+            <option value="8">8th class</option>
+            <option value="9">9th class</option>
+            <option value="10">10th class</option>
+            <option value="11">11th class</option>
+            <option value="12">12th class</option>
+          </select>        
+        </td>
       </tr>
       <tr colspan="2">
         <td style="padding: 10px 0 10px 104px;">
@@ -53,7 +59,7 @@
       <td>{{ device.age }}</td>
       <td>{{ device.address }}</td>
       <td>{{ device.class }}</td> 
-      <td>{{ device.attendence }}</td>     
+      <td>{{ device.status }}</td>     
       <td>{{ device.date}}</td>
     </tr>
 </tbody>

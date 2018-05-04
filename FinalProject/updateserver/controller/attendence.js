@@ -2,8 +2,10 @@ var connectionProvider=require('./../conn_details/connect-con');
 module.exports.attendence=function(req,res)
 {
     console.log(sql);
-    var select=req.body.class;
-    var sql="SELECT * FROM student WHERE class='select'";
+    var date=req.body.date;
+    var cls=req.body.class;
+   // console.log(select);
+    var sql="SELECT * FROM student WHERE date='"+date+"' AND class='"+cls+"' ";
     var connection =connectionProvider.getSqlConnection();
     connection.query(sql, function (error, results, fields) 
     {

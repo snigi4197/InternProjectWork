@@ -44,7 +44,7 @@ export class DataParentComponent
         {
           if(op[i].selected==true)
           {
-            ele.push(op[i].key);
+            ele.push(op[i].value);
              //if we not add this ( . key ) then it will show 
               //     all full value of inputdata ie ( key , value and selected  value)
           }
@@ -62,9 +62,9 @@ export class DataParentComponent
     {     
        if(this.inputdata[3].options[i].selected==true)
       {
-        elements.push(this.inputdata[3].options[i].key);
+        elements.push(this.inputdata[3].options[i].value);
         //if we not add this ( . key ) then it will show 
-        //     all full value of inputdata ie ( key , value and selected  value)
+        //all full value of inputdata ie ( key , value and selected  value)
       }
     }
     for(let sn in this.forms.value) // hell important to understand 

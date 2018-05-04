@@ -22,7 +22,7 @@ export class dataFormat<T>
             required?: boolean,
             order?: number,
             controlType?: string,
-            type?:string;
+            type?:string; 
             //options?:string;
         } = {}
     )

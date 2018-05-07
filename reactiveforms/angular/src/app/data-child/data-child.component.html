@@ -5,19 +5,21 @@
                 {{inputdata.key}}
         </u>
     </label>
-   
+  
     <div [ngSwitch]="inputdata.controlType">
+            {{inputdata.name}}
             <input *ngSwitchCase="'textbox'" 
-                                [formControlName]="inputdata.key"
+                                [name]="inputdata.name"
+                                formControlName="{{inputdata.name}}"
                                 [id]="inputdata.key" 
                                 [type]="inputdata.type">
 
             <div *ngSwitchCase="'radio'" >
                 <div *ngFor='let r of inputdata.options' >
                   <input *ngSwitchCase="'radio'" 
-                                [formControlName]="inputdata.key"
+                                [formControlName]="inputdata.name"
                                 [id]="inputdata.key" 
-                                [name]="inputdata.type" 
+                                [name]="inputdata.name" 
                                 [type]="inputdata.type" 
                                 [value]='r.value'> 
                   {{r.key}}
@@ -25,6 +27,7 @@
             </div>            
 
             <div *ngSwitchCase=" 'checkbox' ">
+                
                 <div *ngFor="let d of forms.get(inputdata.key).controls;let i=index;"> 
                     <input  (change)="checkBoxClicked($event,inputdata.options[i])"
                                 [formControl]="d"

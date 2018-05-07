@@ -1,8 +1,11 @@
 import { Component, OnInit,Input }            from '@angular/core';
 import {FormControl , Validators}             from '@angular/forms';
-import {FormGroup,ReactiveFormsModule }       from '@angular/forms';
+import { AuthguardService }                   from '../authguard.service';
+import { FormGroup,ReactiveFormsModule }       from '@angular/forms';
 import { dataFormat }                         from '../dataformat'; 
 import { DataControlService }                 from '../data-control.service';
+import { Http} from '@angular/http';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-data-parent',
   templateUrl: './data-parent.component.html',
@@ -15,25 +18,24 @@ export class DataParentComponent
   forms:FormGroup;
   message="";
   msg="";
-  constructor(private datacontrol:DataControlService) {
-   // this.forms= this.datacontrol.checkFormParameters(this.inputdata);
- 
-   }
+  constructor(private datacontrol:DataControlService,private authData:AuthguardService) {}
   ngOnInit()
   {
     
+    console.log("a : ",this.authData.a);
     this.forms= this.datacontrol.checkFormParameters(this.inputdata);
   }
 
   SubmitHere=function(value)
   {
+    console.log(value);
+    this.authData.abc();
+    console.log("jjj",this.inputdata);
     let checkelements:any[];
     let elements=[];
     let ele=[];
-    //console.log("input data is : ",this.inputdata[3].controlType);
-
-//USING THE RUN TIME CONTROL METHOD
-
+   //USING THE RUN TIME CONTROL METHOD
+   
     for(let control in this.inputdata)
     {
       if(this.inputdata[control].controlType=="checkbox")
@@ -79,7 +81,16 @@ export class DataParentComponent
         this.message = JSON.stringify(this.forms.value);     
       }
     }
-  //   this.forms.value[this.inputdata.key]=elements;
-  // this.message=JSON.stringify(this.forms.value);
-    }
+    console.log("gg ",this.forms.value);
+   
+   
+   
+   
+    this.authData.register(value).subscribe((data)=>
+    {
+      console.log("hey");
+      console.log(data);
+
+    });
+    }   
 }

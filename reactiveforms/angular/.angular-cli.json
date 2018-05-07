@@ -6,7 +6,7 @@
   "apps": [
     {
       "root": "src",
-      "outDir": "dist",
+      "outDir": "../node/dist",
       "assets": [
         "assets",
         "favicon.ico"

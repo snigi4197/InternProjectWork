@@ -1,4 +1,4 @@
-<form [formGroup]="forms" (ngSubmit)="SubmitHere()">
+<form [formGroup]="forms" (ngSubmit)="SubmitHere(forms.value)">
   <div *ngFor="let inputdata of inputdata">
       <app-data-child [inputdata]="inputdata" [forms]="forms"></app-data-child>
   </div>

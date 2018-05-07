@@ -1602,7 +1602,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/home/home.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<table>\n   <tr>\n     <td>\n        <h1>\n          welcome {{g}}\n        </h1>\n     </td>\n    <td>\n      <a routerLink='/update'>   \n         <input type=\"button\" name=\"update\" value=\"MANAGE USER\">\n      </a>\n    </td>\n    <td>\n    <a routerLink=''>   \n      <input type=\"button\" name=\"update\" value=\"LOGOUT\" (click)=logout() > \n    </a>\n    </td>\n    <td>\n        <a routerLink='/attendence'>   \n        <input type=\"button\" name=\"list\" value=\" VIEW ATTENDENDENCE DETAILS \">\n        </a>\n    </td>\n    <td>\n        <a routerLink='/entry'>   \n        <input type=\"button\" name=\"list\" value=\"TAKE ATTENDENDENCE\">\n        </a>\n    </td>\n  </tr>\n</table>\n<h2 align=\"center\">\n  ABOUT US\n</h2>"
+module.exports = "<table>\n   <tr>\n     <td>\n        <h1>\n          welcome {{g}}\n        </h1>\n     </td>\n    <td>\n      <a routerLink='/update'>   \n         <input type=\"button\" name=\"update\" value=\"MANAGE USER\">\n      </a>\n    </td>\n  \n    <td>\n        <a routerLink='/attendence'>   \n        <input type=\"button\" name=\"list\" value=\" VIEW ATTENDENDENCE DETAILS \">\n        </a>\n    </td>\n    <td>\n        <a routerLink='/entry'>   \n        <input type=\"button\" name=\"list\" value=\"TAKE ATTENDENDENCE\">\n        </a>\n    </td>\n    <td>\n      <a routerLink='' style=\"margin-left: 530px;\">   \n        <input type=\"button\" name=\"update\" value=\"LOGOUT\" (click)=logout() > \n      </a>\n      </td>\n  </tr>\n</table>\n<h2 align=\"center\">\n  ABOUT US\n</h2>"
 
 /***/ }),
 

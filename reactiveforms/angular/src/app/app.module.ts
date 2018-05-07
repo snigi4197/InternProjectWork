@@ -11,6 +11,8 @@ import { DataControlService }           from './data-control.service';
 import { DataService }                  from './data.service';
 import { DataParentComponent } from './data-parent/data-parent.component';
 import { DataChildComponent } from './data-child/data-child.component';
+import {AuthguardService} from './authguard.service';
+import { HttpModule } from '@angular/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,13 +25,15 @@ import { DataChildComponent } from './data-child/data-child.component';
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpModule
   ],
   providers: [
     QuestionService,
     QuestionControlService,
     DataService,
-    DataControlService
+    DataControlService,
+    AuthguardService
   ],
   bootstrap: [AppComponent]
 })

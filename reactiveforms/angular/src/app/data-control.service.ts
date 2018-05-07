@@ -26,6 +26,7 @@ export class DataControlService {
             {
               console.log("2");
               let fc=new FormControl(data.options[i].selected);
+              
               console.log(data.options[i].key);
                fg.push(fc);  
             }
@@ -34,7 +35,7 @@ export class DataControlService {
           else 
           {
             console.log("in else");
-            group[data.key]=data.required 
+            group[data.name]=data.required 
                             ?
                             new FormControl(data.value||'',Validators.required)
                             :

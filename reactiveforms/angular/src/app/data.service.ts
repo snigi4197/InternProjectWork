@@ -18,6 +18,7 @@ export class DataService
        {   
         key: 'Enter your Name',
         label: 'Name',
+        name:'name',
         //required: true,
         value: '',
         order:1,
@@ -29,6 +30,7 @@ export class DataService
        {   
         key: 'Enter your Age',
         label: 'Age',
+        name:'age',
         value: '',
         order:2,
         //required: true,
@@ -40,17 +42,20 @@ export class DataService
        {   
         key: 'Comment Here',
         label: 'Comment',
+        name:'comment',
         //required: true,
         value: '',
         order:3,
         type:'textbox'
        }
      ),
+     
      new dataRadio
      (
        {
          key:'Choose your Qualification',
          label:'Subject',
+         name:'qualification',
          //required: true,
          options:
          [
@@ -66,8 +71,9 @@ export class DataService
      new dataCheckbox
      (
        {
-          key:'Enter hobbies Details',
+          key:'Enter_hobbies_Details',
           label:'Hobbies',
+          name:'hobbies',
           //required: true,
           order:4,
           type:'checkbox',

@@ -5,6 +5,7 @@ export class dataFormat<T>
     value:T;
     key:string;
     label:string;
+    name:string;
     required:boolean;
     order: number;
     controlType:string;
@@ -19,6 +20,7 @@ export class dataFormat<T>
             value?: T, //this " ? " will tell that this option is optional which is send via options
             key?: string,
             label?: string,
+            name?:string,
             required?: boolean,
             order?: number,
             controlType?: string,
@@ -29,6 +31,7 @@ export class dataFormat<T>
   {
     // initialising the values to the values of the class
     this.value = options.value;
+    this.name=options.name;
     this.key = options.key || '';
     this.label = options.label || '';
     this.required = !!options.required;

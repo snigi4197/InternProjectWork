@@ -18,6 +18,7 @@ export class DataParentComponent
   forms:FormGroup;
   message="";
   msg="";
+  list;
   constructor(private datacontrol:DataControlService,private authData:AuthguardService) {}
   ngOnInit()
   {
@@ -97,14 +98,35 @@ export class DataParentComponent
     {
       console.log("display data using mongodb");
       console.log(data);
+      this.list=data;
+      console.log("dataview ",this.list);
     });
 
 
     this.authData.displaydata(value).subscribe((data)=>
     {
-      console.log("entring data using mongo db");
-      console.log(data);
+      console.log("entring data using mongodb");
+      console.log(data);  
     });
+
+    // this.authData.showdata().subscribe((data)=>
+    // {
+    //   if(data.status)
+    //   {
+    //     this.router.navigate(['/display']);
+    //     console.log("showing data using mongodb");
+    //     console.log(data);
+    //     this.list=data;
+    //     console.log(this.data);
+    //   }
+    //   else
+    //   {
+    //     console.log("Unsuccessfull !!!!");
+    //     this.c=data.message;
+    //     console.log(this.c);
+    //   }
+      
+    // });
 
     }   
 }

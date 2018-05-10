@@ -98,6 +98,7 @@ var data_parent_component_1 = __webpack_require__("./src/app/data-parent/data-pa
 var data_child_component_1 = __webpack_require__("./src/app/data-child/data-child.component.ts");
 var authguard_service_1 = __webpack_require__("./src/app/authguard.service.ts");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+var display_component_1 = __webpack_require__("./src/app/display/display.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -109,13 +110,14 @@ var AppModule = /** @class */ (function () {
                 dynamic_form_question_component_1.DynamicFormQuestionComponent,
                 form_component_1.FormComponent,
                 data_parent_component_1.DataParentComponent,
-                data_child_component_1.DataChildComponent
+                data_child_component_1.DataChildComponent,
+                display_component_1.DisplayComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
                 forms_1.ReactiveFormsModule,
-                http_1.HttpModule
+                http_1.HttpModule,
             ],
             providers: [
                 question_service_1.QuestionService,
@@ -367,7 +369,7 @@ module.exports = ""
 /***/ "./src/app/data-parent/data-parent.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"forms\" (ngSubmit)=\"SubmitHere(forms.value)\">\n  <div *ngFor=\"let inputdata of inputdata\">\n      <app-data-child [inputdata]=\"inputdata\" [forms]=\"forms\"></app-data-child>\n  </div>\n  <div>\n      <button type=\"submit\" [disabled]=\"!forms.valid\">Submit Here</button>\n  </div>\n  <br>\n  <div *ngIf=\"message\">\n      <strong>Entered values are : </strong><br>{{message}}\n      <br>\n      <strong>Entered values are :</strong><br>{{msg}}\n<br>\n    </div>\n</form>"
+module.exports = "<form [formGroup]=\"forms\" (ngSubmit)=\"SubmitHere(forms.value)\">\n  <div *ngFor=\"let inputdata of inputdata\">\n      <app-data-child [inputdata]=\"inputdata\" [forms]=\"forms\"></app-data-child>\n  </div>\n  <div>\n      <button type=\"submit\" [disabled]=\"!forms.valid\">Submit Here</button>\n  </div>\n  <br>\n  <div *ngIf=\"message\">\n      <strong>Entered values are : </strong><br>{{message}}\n      <br>\n      <strong>Entered values are :</strong><br>{{msg}}\n<br>\n    </div>\n</form>\n\n\n\n    <table border=\"1px\">\n        <tr>\n            <td>NAME</td>\n            <td>AGE</td>\n            <td>COMMENT</td>\n            <td>HOBBIES</td>\n            <td>QUALIFICATION</td>\n        </tr>\n        <tr *ngFor=\"let l of list\"> \n            <td>{{ l.name }}</td>\n            <td>{{ l.age }}</td>\n            <td>{{ l.comment }}</td>\n            <td>{{ l.Enter_hobbies_Details }}</td>\n            <td>{{ l.qualification }}</td>\n        </tr>\n    </table>"
 
 /***/ }),
 
@@ -397,6 +399,7 @@ var DataParentComponent = /** @class */ (function () {
         this.message = "";
         this.msg = "";
         this.SubmitHere = function (value) {
+            var _this = this;
             console.log(value);
             this.authData.abc();
             console.log("jjj", this.inputdata);
@@ -446,11 +449,30 @@ var DataParentComponent = /** @class */ (function () {
             this.authData.entry().subscribe(function (data) {
                 console.log("display data using mongodb");
                 console.log(data);
+                _this.list = data;
+                console.log("dataview ", _this.list);
             });
             this.authData.displaydata(value).subscribe(function (data) {
-                console.log("entring data using mongo db");
+                console.log("entring data using mongodb");
                 console.log(data);
             });
+            // this.authData.showdata().subscribe((data)=>
+            // {
+            //   if(data.status)
+            //   {
+            //     this.router.navigate(['/display']);
+            //     console.log("showing data using mongodb");
+            //     console.log(data);
+            //     this.list=data;
+            //     console.log(this.data);
+            //   }
+            //   else
+            //   {
+            //     console.log("Unsuccessfull !!!!");
+            //     this.c=data.message;
+            //     console.log(this.c);
+            //   }
+            // });
         };
     }
     DataParentComponent.prototype.ngOnInit = function () {
@@ -694,6 +716,56 @@ var dataFormat = /** @class */ (function () {
     return dataFormat;
 }());
 exports.dataFormat = dataFormat;
+
+
+/***/ }),
+
+/***/ "./src/app/display/display.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/display/display.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  display works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/display/display.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var DisplayComponent = /** @class */ (function () {
+    function DisplayComponent() {
+    }
+    DisplayComponent.prototype.ngOnInit = function () {
+    };
+    DisplayComponent = __decorate([
+        core_1.Component({
+            selector: 'app-display',
+            template: __webpack_require__("./src/app/display/display.component.html"),
+            styles: [__webpack_require__("./src/app/display/display.component.css")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], DisplayComponent);
+    return DisplayComponent;
+}());
+exports.DisplayComponent = DisplayComponent;
 
 
 /***/ }),

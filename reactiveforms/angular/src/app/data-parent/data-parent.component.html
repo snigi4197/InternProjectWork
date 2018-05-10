@@ -13,3 +13,22 @@
 <br>
     </div>
 </form>
+
+
+
+    <table border="1px">
+        <tr>
+            <td>NAME</td>
+            <td>AGE</td>
+            <td>COMMENT</td>
+            <td>HOBBIES</td>
+            <td>QUALIFICATION</td>
+        </tr>
+        <tr *ngFor="let l of list"> 
+            <td>{{ l.name }}</td>
+            <td>{{ l.age }}</td>
+            <td>{{ l.comment }}</td>
+            <td>{{ l.Enter_hobbies_Details }}</td>
+            <td>{{ l.qualification }}</td>
+        </tr>
+    </table>

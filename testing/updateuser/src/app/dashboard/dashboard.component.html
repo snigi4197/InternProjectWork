@@ -1,0 +1,53 @@
+<div align="center">
+ <form [formGroup]='form' (ngSubmit) = "onSubmit(form.value)">
+  <tr>
+    <td>
+      Hostname:
+    </td>
+    <td>
+      <input type="text" name="hostname" formControlName="hostname" >
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Loopback:
+    </td>
+    <td> 
+      <input type="text" name="loopback" formControlName="loopback" >
+    </td>
+  </tr>
+  <tr colspan="2" align="center">
+    <td>
+      <input type="submit" name="add" value="Add">
+    </td>
+  </tr>
+</form>
+<br>
+<hr>
+<table border="1px">
+  <tr>
+    <td>
+      id
+    </td>
+    <td>
+      Hostname
+    </td>
+    <td>
+      Loopback
+    </td>
+  </tr>
+  <tr *ngFor="let dis of list; index as i" >
+    <td>{{dis.id}}</td>
+    <td>{{dis.hostname}}</td>
+    <td>{{dis.loopback}}</td>
+    
+    <td>Edit
+      <input type="button" name="edit" name="edit" (click)="edit(i)">
+    </td>
+
+    <td>Delete
+        <input type="button" name="delete" name="delete" (click)="delete()">
+      </td>
+  </tr>
+</table>
+</div>

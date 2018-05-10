@@ -13,6 +13,9 @@ import { DataParentComponent } from './data-parent/data-parent.component';
 import { DataChildComponent } from './data-child/data-child.component';
 import {AuthguardService} from './authguard.service';
 import { HttpModule } from '@angular/http';
+import { DisplayComponent } from './display/display.component';
+import {RouterModule,Routes} from '@angular/router';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,13 +23,21 @@ import { HttpModule } from '@angular/http';
     DynamicFormQuestionComponent,
     FormComponent,
     DataParentComponent,
-    DataChildComponent
+    DataChildComponent,
+    DisplayComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    // RouterModule.forRoot
+    //     (
+    //      [
+    //       {path:'',component:DataParentComponent},
+    //       {path:'display',component:DisplayComponent}
+    //      ]
+    //     )
   ],
   providers: [
     QuestionService,

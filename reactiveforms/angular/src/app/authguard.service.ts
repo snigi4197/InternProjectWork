@@ -17,5 +17,20 @@ export class AuthguardService {
     headers.append('charset', 'UTF-8');
      return this.http.post("/api/register",user,{headers:headers}).map((res:Response) => res.json());
   }
+  entry()
+  {
+    let headers = new Headers();
+    headers.append('content-type', 'application/json');
+    headers.append('charset', 'UTF-8');
+     return this.http.get("/api/entry",{headers:headers}).map((res:Response) => res.json());
+  }
+  
+  displaydata(user)
+  {
+    let headers = new Headers();
+    headers.append('content-type', 'application/json');
+    headers.append('charset', 'UTF-8');
+     return this.http.post("/api/displaydata",user,{headers:headers}).map((res:Response) => res.json());
+  }
   
 }

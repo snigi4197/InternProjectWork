@@ -1,21 +1,26 @@
 const mongoose = require('mongoose');
 console.log();
 const schema=mongoose.Schema({
-    name:{
+    name:
+    {
         type:String
     },
-    age:{
+    age:
+    {
         type:Number
     },
-    comment:{
+    comment:
+    {
         type:String
     },
-    hobbies:{
+    qualification:
+    {
         type:String
     },
-    qualification:{
+    hobbies:
+    {
         type:String
-    }
+    }   
 });
 
 const DataEntry=module.exports=mongoose.model('DataEntry',schema);

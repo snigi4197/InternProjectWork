@@ -88,9 +88,23 @@ export class DataParentComponent
    
     this.authData.register(value).subscribe((data)=>
     {
-      console.log("hey");
+      console.log("Using sql database");
       console.log(data);
-
     });
+
+
+    this.authData.entry().subscribe((data)=>
+    {
+      console.log("display data using mongodb");
+      console.log(data);
+    });
+
+
+    this.authData.displaydata(value).subscribe((data)=>
+    {
+      console.log("entring data using mongo db");
+      console.log(data);
+    });
+
     }   
 }

@@ -166,6 +166,18 @@ var AuthguardService = /** @class */ (function () {
         headers.append('charset', 'UTF-8');
         return this.http.post("/api/register", user, { headers: headers }).map(function (res) { return res.json(); });
     };
+    AuthguardService.prototype.entry = function () {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        headers.append('charset', 'UTF-8');
+        return this.http.get("/api/entry", { headers: headers }).map(function (res) { return res.json(); });
+    };
+    AuthguardService.prototype.displaydata = function (user) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        headers.append('charset', 'UTF-8');
+        return this.http.post("/api/displaydata", user, { headers: headers }).map(function (res) { return res.json(); });
+    };
     AuthguardService = __decorate([
         core_1.Injectable(),
         __metadata("design:paramtypes", [http_1.Http])
@@ -428,7 +440,15 @@ var DataParentComponent = /** @class */ (function () {
             }
             console.log("gg ", this.forms.value);
             this.authData.register(value).subscribe(function (data) {
-                console.log("hey");
+                console.log("Using sql database");
+                console.log(data);
+            });
+            this.authData.entry().subscribe(function (data) {
+                console.log("display data using mongodb");
+                console.log(data);
+            });
+            this.authData.displaydata(value).subscribe(function (data) {
+                console.log("entring data using mongo db");
                 console.log(data);
             });
         };

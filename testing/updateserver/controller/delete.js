@@ -4,10 +4,7 @@ var connectionProvider=require('../conn_details/connect-con');
 module.exports.delete=function(req,res)
 {
     var id=req.body.id;
-  
-  
-     var sql = "DELETE FROM  test WHERE id = '"+id+"' ";
-    
+    var sql = "DELETE FROM test WHERE id='"+id+"' ";
     console.log(sql);
     var connection =connectionProvider.getSqlConnection();
     connection.query(sql,function (error, results, fields) {
@@ -16,7 +13,8 @@ module.exports.delete=function(req,res)
             status:false,
             message:'there are some error with query'+error
         })
-      } else
+      } 
+      else
       {
         if(results.affectedRows >0)
         {

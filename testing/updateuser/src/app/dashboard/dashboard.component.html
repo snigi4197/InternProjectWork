@@ -36,17 +36,17 @@
       Loopback
     </td>
   </tr>
-  <tr *ngFor="let dis of list; index as i" >
+  <tr *ngFor="let dis of list;" >
     <td>{{dis.id}}</td>
     <td>{{dis.hostname}}</td>
     <td>{{dis.loopback}}</td>
     
     <td>Edit
-      <input type="button" name="edit" name="edit" (click)="edit(i)">
+      <input type="button" name="edit" name="edit" (click)="edit(dis)">
     </td>
 
     <td>Delete
-        <input type="button" name="delete" name="delete" (click)="delete()">
+        <input type="button" name="delete" name="delete" (click)="delete(dis)">
       </td>
   </tr>
 </table>

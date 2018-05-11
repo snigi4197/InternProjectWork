@@ -8,10 +8,12 @@ import { Router } from '@angular/router';
 import {RouterModule,Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UpdateComponent } from './update/update.component';
 @NgModule({
   declarations: [
   AppComponent,
   DashboardComponent,
+  UpdateComponent,
     
   ],
   imports: [
@@ -23,7 +25,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
      RouterModule.forRoot
         (
          [
-          {path:'',component:DashboardComponent}
+          {path:'',component:DashboardComponent},
+          {path:'update',component:UpdateComponent}        
           ]
       )
   ],

@@ -13,14 +13,14 @@ const schema=mongoose.Schema({
     {
         type:String
     },
+    Enter_hobbies_Details:
+    {
+        type:String
+    }, 
     qualification:
     {
         type:String
-    },
-    hobbies:
-    {
-        type:String
-    }   
+    }  
 });
 
 const DataEntry=module.exports=mongoose.model('DataEntry',schema);

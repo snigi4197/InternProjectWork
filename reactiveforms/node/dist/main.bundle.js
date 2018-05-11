@@ -399,7 +399,6 @@ var DataParentComponent = /** @class */ (function () {
         this.message = "";
         this.msg = "";
         this.SubmitHere = function (value) {
-            var _this = this;
             console.log(value);
             this.authData.abc();
             console.log("jjj", this.inputdata);
@@ -442,19 +441,9 @@ var DataParentComponent = /** @class */ (function () {
                 }
             }
             console.log("gg ", this.forms.value);
-            this.authData.register(value).subscribe(function (data) {
-                console.log("Using sql database");
-                console.log(data);
-            });
-            this.authData.entry().subscribe(function (data) {
-                console.log("display data using mongodb");
-                console.log(data);
-                _this.list = data;
-                console.log("dataview ", _this.list);
-            });
             this.authData.displaydata(value).subscribe(function (data) {
-                console.log("entring data using mongodb");
-                console.log(data);
+                console.log("Using sql database");
+                console.log("data is ", data);
             });
             // this.authData.showdata().subscribe((data)=>
             // {
@@ -476,8 +465,15 @@ var DataParentComponent = /** @class */ (function () {
         };
     }
     DataParentComponent.prototype.ngOnInit = function () {
+        var _this = this;
         console.log("a : ", this.authData.a);
         this.forms = this.datacontrol.checkFormParameters(this.inputdata);
+        this.authData.entry().subscribe(function (data) {
+            console.log("display data using mongodb");
+            console.log(data);
+            _this.list = data;
+            console.log("dataview ", _this.list);
+        });
     };
     __decorate([
         core_1.Input(),

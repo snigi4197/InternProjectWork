@@ -1,6 +1,6 @@
 const Contact= require('../model/dataentry');
 
-module.exports.displaydata=function(req,res)
+module.exports.update=function(req,res)
 {
     let newContact=new Contact(
     {
@@ -12,7 +12,7 @@ module.exports.displaydata=function(req,res)
     });
     newContact.save((err,contact)=>
     {
-        console.log(contact);
+        console.log("s",contact);
         if(err)
         {
             res.json({msg:'failed to connect'});

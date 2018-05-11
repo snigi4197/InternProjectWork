@@ -7,9 +7,9 @@ module.exports.register=function(req,res)
     var name=req.body.name;
     var age=req.body.age;
     var comment=req.body.comment;
-    var hobbies=req.body.Enter_hobbies_Details;
+    var Enter_hobbies_Details=req.body.Enter_hobbies_Details;
     var qualification=req.body.qualification;
-    var sql="INSERT INTO reactiveforms (name,age,comment,hobbies,qualification) Values('"+name+"','"+age+"','"+comment+"','"+hobbies+"','"+qualification+"')"
+    var sql="INSERT INTO reactiveforms (name,age,comment,hobbies,qualification) Values('"+name+"','"+age+"','"+comment+"','"+Enter_hobbies_Details+"','"+qualification+"')"
     //console.log(sql);
     var connection =connectionProvider.getSqlConnection();
     connection.query(sql, function (error, results, fields)

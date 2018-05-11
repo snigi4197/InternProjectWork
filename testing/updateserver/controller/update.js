@@ -7,7 +7,7 @@ module.exports.update=function(req,res)
   
     var hostname=req.body.hostname;
     var loopback=req.body.loopback;
-     var sql = "UPDATE test SET hostname = '"+hostname+"' , loopback='"+loopback+"'  WHERE id = '16'"
+     var sql = "UPDATE test SET hostname = '"+hostname+"' , loopback='"+loopback+"'  WHERE id = '"+id+"'"
     
     console.log(sql);
     var connection =connectionProvider.getSqlConnection();

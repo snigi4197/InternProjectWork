@@ -25,6 +25,13 @@ export class DataParentComponent
     
     console.log("a : ",this.authData.a);
     this.forms= this.datacontrol.checkFormParameters(this.inputdata);
+    this.authData.entry().subscribe((data)=>
+    {
+      console.log("display data using mongodb");
+      console.log(data);
+      this.list=data;
+      console.log("dataview ",this.list);
+    });
   }
 
   SubmitHere=function(value)
@@ -85,29 +92,14 @@ export class DataParentComponent
     console.log("gg ",this.forms.value);
    
    
-   
-   
-    this.authData.register(value).subscribe((data)=>
-    {
-      console.log("Using sql database");
-      console.log(data);
-    });
-
-
-    this.authData.entry().subscribe((data)=>
-    {
-      console.log("display data using mongodb");
-      console.log(data);
-      this.list=data;
-      console.log("dataview ",this.list);
-    });
-
-
     this.authData.displaydata(value).subscribe((data)=>
     {
-      console.log("entring data using mongodb");
-      console.log(data);  
+      console.log("Using sql database");
+      console.log("data is ",data);
     });
+
+
+
 
     // this.authData.showdata().subscribe((data)=>
     // {

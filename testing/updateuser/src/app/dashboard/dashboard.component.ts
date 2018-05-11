@@ -13,7 +13,8 @@ import {RouterModule,Routes} from '@angular/router';
 export class DashboardComponent implements OnInit {
 form;
 list;
-  constructor(private auth:AuthService,private http:Http) { }
+a;
+  constructor(private auth:AuthService,private http:Http,private router: Router) { }
 
   ngOnInit() 
   {
@@ -24,12 +25,17 @@ list;
       }
     );
     console.log(this.form);
+   this.getdata();
+  }
+  getdata()
+  {
     this.auth.display().subscribe((data)=>
     {
       if(data.status)
       {
         this.list=data.data;
         console.log("kk",this.list);
+       
       }
     });
   }
@@ -39,17 +45,26 @@ list;
    this.auth.entry(value).subscribe((data)=>
   {
     console.log(value);
+    this.getdata();
   });
   }
   edit(i)
   {
-    console.log("hey");
-    console.log("i is: ",i);
-    //console.log(i);
+    this.a=i;
+    console.log("mm",this.a);
+    this.auth.i=this.a;
+    this.router.navigate(['/update']);
   }
-  delete()
+  delete(i)
   {
+    this.a=i.id;
+    console.log("mm",this.a);
+    let id = this.a;
+    this.auth.deletes(i).subscribe((data)=>
+    {
+      console.log(data);
+      this.getdata();
+    });
     console.log("bye");
   }
-
 }

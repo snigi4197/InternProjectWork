@@ -1,0 +1,29 @@
+<h1 align="center">EDIT DATA </h1>
+  <form [formGroup]="rform" (ngSubmit)=onSubmit(rform.value)>
+    <table align="center">
+        <tr>
+            <td>ID: :</td>
+            <td>
+              <input type="text" name="id" formControlName="id" [(ngModel)]="getdata.id" disabled> 
+            </td>
+          </tr>
+      <tr>
+        <td>HOSTNAME: :</td>
+        <td>
+          <input type="text" name="hostname" formControlName="hostname" [(ngModel)]="getdata.hostname"> 
+        </td>
+      </tr>
+      <tr>
+        <td>LOOPBACK: :</td>
+        <td>
+          <input type="text" name="loopback" formControlName="loopback" [(ngModel)]="getdata.loopback">
+        </td>
+      </tr>
+     
+      <tr>
+        <td colspan="2" align="center">
+          <input type="submit" name="submit"  value="submit" [disabled]="!rform.valid">  
+        </td>
+      </tr>
+    </table>   
+  </form>

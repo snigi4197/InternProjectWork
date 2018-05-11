@@ -6,7 +6,7 @@ var Request = require("request");
 var registerController=require('./controller/register');
 var entryController= require('./controller/entry');
 var displayController=require('./controller/displaydata');
-var showController=require('./controller/showdata');
+var updateController=require('./controller/update');
 var app = express();
 var port=9000;
 //connect moongoose
@@ -30,7 +30,7 @@ app.post('/api/register',registerController.register);
 
 app.get('/api/entry',entryController.entry);
 app.post('/api/displaydata',displayController.displaydata);
-//app.get('/api/showdata',showController.showdata);
+app.post('/api/update',updateController.update);
 
 app.use(express.static(path.join(__dirname,'dist')));
 app.get('*', function(req, res) {

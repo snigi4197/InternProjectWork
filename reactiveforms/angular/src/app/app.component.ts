@@ -5,15 +5,10 @@ import { DataService } from './data.service';
 @Component({
   selector: 'app-root',
   template: `
-  <div align="center">
-  
-<h2 style="font-style:italic">
-<u>
-Dynamic Form Example
-</u>
-</h2>
-<app-data-parent [inputdata]="inputdata"></app-data-parent>
-</div>
+  <div>
+  <router-outlet></router-outlet>
+ </div>
+ 
 `,
   styleUrls: ['./app.component.css'],
   providers:  [QuestionService]
@@ -29,10 +24,3 @@ export class AppComponent {
   }
 }
 
-
-// <h2>Dynamic Form Example</h2>
-//   <div>
-//   <app-dynamic-form [questions]="questions"></app-dynamic-form>
-//   </div>
-//   <app-form></app-form>
-//   <div>

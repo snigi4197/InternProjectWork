@@ -1,0 +1,47 @@
+
+
+<h1 align="center">UPDATE FORM DATA </h1>
+  <form [formGroup]="rform" (ngSubmit)=onSubmit(rform.value)>
+    <table align="center">
+      <tr>
+        <td> ID :</td>
+        <td>
+          <input type="text" name="id" formControlName="_id" [(ngModel)]="getdata._id" > 
+        </td>
+      </tr>
+      <tr>
+        <td>NAME :</td>
+        <td>
+          <input type="text" name="name" formControlName="name" >
+        </td>
+      </tr>
+      <tr>
+        <td>AGE :</td>
+        <td>
+          <input type="text" name="age" formControlName="age" >
+        </td>
+      </tr>
+      <tr>
+        <td>COMMENT :</td>
+        <td>
+          <input type="text" name="comment" formControlName="comment" >
+        </td>
+      </tr>        
+      <tr>
+        <td>
+          Qualification
+        </td>
+        <td>
+          <input type="radio" formControlName="qualification" value="male" checked> Male<br>
+          <input type="radio" formControlName="qualification" value="female"> Female<br>
+          <input type="radio" formControlName="qualification" value="male" > Male<br>
+          <input type="radio" formControlName="qualification" value="female"> Female<br>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" align="center">
+          <input type="submit" name="submit"  value="submit" [disabled]="!rform.valid">  
+        </td>
+      </tr>
+    </table>   
+  </form>

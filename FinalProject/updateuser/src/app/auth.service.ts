@@ -2,19 +2,14 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 //import { JwtHelperService } from '@auth0/angular-jwt';
-
 @Injectable()
 export class AuthService {
-
 public username;
-
 private isLoggedIn;
   constructor(private http: Http) { 
     this.isLoggedIn=false;
   }
-  
-
-  setUserLoggedIn() //for checking routing guard example
+setUserLoggedIn() //for checking routing guard example
   {
     this.isLoggedIn=true;
 
@@ -23,9 +18,6 @@ private isLoggedIn;
     console.log("hey the value of toke is "+this.username);
     return this.username;
   }
- 
- 
-  
   /*
   public isAuthenticated():boolean
   {
@@ -39,7 +31,6 @@ insert(user) {
       return this.http.post('/api/insert', user, { headers: headers })
         .map(res => res.json());
 }
-
 display(user)
 {
   let headers = new Headers();
@@ -122,9 +113,7 @@ test(user)
     headers.append('charset','UTF-8');
     return this.http.post("/api/entry",user,{headers:headers}).map((res:Response)=>res.json());
   }
- 
-
-  nsodevices()
+ nsodevices()
   {
     let headers = new Headers();
     headers.append('content-type', 'application/json');
@@ -135,7 +124,5 @@ test(user)
   example()
   {
     console.log("the value of a is "+this.a);
+  } 
   }
-
-
-}

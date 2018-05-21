@@ -5,7 +5,7 @@
                 {{inputdata.key}}
         </u>
     </label>
-  
+
     <div [ngSwitch]="inputdata.controlType">
             {{inputdata.name}}
             <input *ngSwitchCase="'textbox'" 
@@ -22,23 +22,21 @@
                                 [name]="inputdata.name" 
                                 [type]="inputdata.type" 
                                 [value]='r.value'> 
-                  {{r.key}}
+                    {{r.key}} 
                 </div>
             </div>            
 
             <div *ngSwitchCase=" 'checkbox' ">
-                
                 <div *ngFor="let d of forms.get(inputdata.key).controls;let i=index;"> 
-                    <input  (change)="checkBoxClicked($event,inputdata.options[i])"
+                    <input (change)="checkBoxClicked($event,inputdata.options[i])"
                                 [formControl]="d"
                                 [type]="inputdata.type">                   
                     {{inputdata.options[i].key}}              
                 </div>
             </div> 
-            
+        </div>
+        <hr>
     </div>
-    <hr>
-</div>
 <div class="errorMessage" *ngIf="!isValid">
     {{inputdata.label}} is required
 </div>

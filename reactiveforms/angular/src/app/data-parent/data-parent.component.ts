@@ -19,21 +19,25 @@ export class DataParentComponent
   message="";
   msg="";
   list;
-  constructor(private datacontrol:DataControlService,private authData:AuthguardService) {}
+ i;
+  constructor(private datacontrol:DataControlService,private authData:AuthguardService,private router: Router) {}
   ngOnInit()
-  {
-    
-    console.log("a : ",this.authData.a);
+  {    
+    console.log("INPUTDATA : ",this.inputdata);
     this.forms= this.datacontrol.checkFormParameters(this.inputdata);
-    this.authData.entry().subscribe((data)=>
-    {
-      console.log("display data using mongodb");
-      console.log(data);
-      this.list=data;
-      console.log("dataview ",this.list);
-    });
+    console.log("FORMS :::: ",this.forms);
+    this.show();    
   }
-
+  show()
+{
+  this.authData.entry().subscribe((data)=>
+  {
+    console.log("display data using mongodb");
+    console.log(data);
+    this.list=data;
+    console.log("dataview ",this.list);
+  });
+}
   SubmitHere=function(value)
   {
     console.log(value);
@@ -65,8 +69,7 @@ export class DataParentComponent
         this.msg=JSON.stringify(a);
       }
     }
-    
-// USING THE MANUAL METHOD
+  // USING THE MANUAL METHOD
 
     for(let i=0;i<this.inputdata[3].options.length;i++)
     {     
@@ -90,35 +93,36 @@ export class DataParentComponent
       }
     }
     console.log("gg ",this.forms.value);
-   
-   
     this.authData.displaydata(value).subscribe((data)=>
     {
       console.log("Using sql database");
       console.log("data is ",data);
+      this.show();
     });
 
-
-
-
-    // this.authData.showdata().subscribe((data)=>
-    // {
-    //   if(data.status)
-    //   {
-    //     this.router.navigate(['/display']);
-    //     console.log("showing data using mongodb");
-    //     console.log(data);
-    //     this.list=data;
-    //     console.log(this.data);
-    //   }
-    //   else
-    //   {
-    //     console.log("Unsuccessfull !!!!");
-    //     this.c=data.message;
-    //     console.log(this.c);
-    //   }
-      
-    // });
-
     }   
+    update(value)
+    {
+      this.i=value;
+      console.log("data to be updated is: ",value);
+      this.authData.data=this.i;
+      console.log("in update funtion :",this.authData.data);
+      this.router.navigate(['/update']);
+    }
+    edit(value)
+    {
+      this.i=value;
+      console.log("data to be updated is: ",value);
+      this.authData.data=this.i;
+      console.log("in update funtion :",this.authData.data);
+      this.router.navigate(['/edit']);
+    }
+    delete(value)
+    {
+      console.log("data to be deleted is: ",value);
+      this.authData.delete(value).subscribe((data)=>{
+        console.log("delete data is :",data);
+      });
+      this.show();
+    }
 }

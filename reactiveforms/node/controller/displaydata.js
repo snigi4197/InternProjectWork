@@ -2,8 +2,9 @@ const Contact= require('../model/dataentry');
 
 module.exports.displaydata=function(req,res)
 {
-    let newContact=new Contact(
+     let newContact=new Contact(
     {
+        _id:req.body._id,
         name:req.body.name,
         age:req.body.age,
         comment:req.body.comment,

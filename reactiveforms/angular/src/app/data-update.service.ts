@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import {dataFormat} from './dataformat';
 import {dataTextbox} from './data-textbox';
 import {dataRadio} from './data-radio';
 import {dataCheckbox} from './data-checkbox';
 import {AuthguardService} from '../app/authguard.service';
+
 @Injectable()
-export class DataService
- {
-   
+export class DataUpdateService {
+
   data={
     _id:"",
     name:"",
@@ -16,12 +17,14 @@ export class DataService
     Enter_hobbies_Details:"",
     qualification:""
   };
-  constructor( private auth :AuthguardService) { 
+  constructor(private authData :AuthguardService) { }
 
-  }
-    getdata()
+  getdata()
   {
+  this.data=this.authData.data;
+    console.log(this.data.name);
 
+  
     let dataformat:dataFormat<any>[]=
     [
      new dataTextbox
@@ -31,7 +34,7 @@ export class DataService
         label: 'Name',
         name:'name',
         //required: true,
-        value: '',
+        value: this.data.name,
         order:1,
         type:'textbox'
        }
@@ -42,7 +45,7 @@ export class DataService
         key: 'Enter your Age',
         label: 'Age',
         name:'age',
-        value: '',
+        value: this.data.age,
         order:2,
         //required: true,
         type:'textbox'
@@ -55,11 +58,12 @@ export class DataService
         label: 'Comment',
         name:'comment',
         //required: true,
-        value: '',
+        value: this.data.comment,
         order:3,
         type:'textbox'
        }
      ),
+     
      new dataRadio
      (
        {
@@ -84,6 +88,7 @@ export class DataService
           key:'Enter_hobbies_Details',
           label:'Hobbies',
           name:'hobbies',
+          //required: true,
           order:4,
           type:'checkbox',
           options:

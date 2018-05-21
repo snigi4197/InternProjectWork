@@ -1,0 +1,91 @@
+import { Component, OnInit,Input } from '@angular/core';
+import { Http} from '@angular/http';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import {FormGroup, FormControl , Validators} from '@angular/forms';
+import { DISABLED } from '@angular/forms/src/model';
+import { Router } from '@angular/router';
+import { AuthguardService } from '../authguard.service';
+import {DataUpdateService} from '../data-update.service';
+import { dataFormat }                         from '../dataformat'; 
+
+@Component({
+  selector: 'app-display',
+  templateUrl: './display.component.html',
+  styleUrls: ['./display.component.css']
+})
+export class DisplayComponent implements OnInit 
+{
+  @Input() details: dataFormat<any>[] = [];
+rform;
+getdata={
+  _id:"",
+  name:"",
+  age:"",
+  comment:"",
+  Enter_hobbies_Details:"",
+  qualification:""
+};
+a='';
+msg;
+constructor(private router: Router,private authData:AuthguardService ,private datacontrol:DataUpdateService) { }
+ngOnInit() 
+  {
+    console.log("DETAILS ::: ",this.details);
+    console.log("GETDATA ::::",this.getdata);
+    this.rform= this.datacontrol.checkParameters(this.details);
+    console.log("FORMING ::::::::::::",this.rform);
+
+
+
+    console.log("in update component :",this.authData.data);
+    this.rform=new FormGroup(
+      {
+        _id:new FormControl(" "),
+        name:new FormControl(" "),
+        age:new FormControl(" "),
+        comment:new FormControl(" ")
+      }
+    );
+    console.log("in update : ",this.authData.data);
+    this.a=this.authData.data;
+    console.log("a is", this.a);
+    this.authData.view(this.a).subscribe((data)=>
+    {
+      this.getdata=this.authData.data;
+      console.log("getdata:",this.getdata);
+    });
+  }
+  onSubmit(value)
+  {
+  console.log("on submit",value);
+  console.log("DATA GROUP :::::",this.details);
+  let checkelements:any[];
+  let elements=[];
+  let ele=[];
+
+  // for(let control in this.details)
+  // {
+  //   if(this.details[control].controlType=="checkbox")
+  //   {
+  //     let op=this.details[control]['options'];
+  //     //console.log("op : " ,op);
+  //     for(let i=0;i<op.length;i++)
+  //     {
+  //       if(op[i].selected==true)
+  //       {
+  //         ele.push(op[i].value);
+  //       }
+  //     }
+  //     //this.msg=JSON.stringify(a);
+  //   }
+  // }
+
+  //   this.authData.update(value).subscribe((data)=>
+  // {
+  //   console.log("in snigi : ", value);
+  //   console.log(data);
+  //   this.router.navigate(['']);
+  // });
+  this.router.navigate(['']);
+  }
+}

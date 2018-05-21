@@ -3,18 +3,15 @@ import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import {dataFormat} from './dataformat';
 @Injectable()
 export class DataControlService {
-
   constructor() { }
-
   checkFormParameters(get_data:any)
   {
     let i;
     let group:any={};
-    console.log("getdata",get_data);
-
+    console.log("getdata ::::::::::::::::::::::",get_data);
       get_data.forEach(data=>
         {
-          console.log("data is : "+data);
+          console.log("data is : ",data);
           if(data.controlType=='checkbox')
           {
             console.log("In if");
@@ -26,13 +23,12 @@ export class DataControlService {
             {
               console.log("2");
               let fc=new FormControl(data.options[i].selected);
-              
               console.log(data.options[i].key);
-               fg.push(fc);  
+              fg.push(fc);  
             }
             group[data.key]=fg;
           }
-          else 
+          else         
           {
             console.log("in else");
             group[data.name]=data.required 
@@ -40,10 +36,8 @@ export class DataControlService {
                             new FormControl(data.value||'',Validators.required)
                             :
                             new FormControl(data.value||'');
-            console.log("data is else is : "+data.value);
-
+            console.log("data is else is : ", data);
           }
-          //this is the ternary operator
         }
         );
     return new FormGroup(group); 

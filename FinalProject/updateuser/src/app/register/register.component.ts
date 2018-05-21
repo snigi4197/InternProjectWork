@@ -10,14 +10,12 @@ import { CookieService } from 'ngx-cookie-service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-
 export class RegisterComponent implements OnInit {
   //setting the value of cookiee
   cookieValue = 'UNKNOWN';
 regform;
 constructor(private authService: AuthService, private router: Router,private cookieService: CookieService) { }
 ngOnInit() { 
-
   // this.cookieService.set( 'register', 'Hello World' );//key=test, value=hello world
   // this.cookieValue = this.cookieService.get('register');
 
@@ -39,7 +37,6 @@ ngOnInit() {
   });
   console.log(this.regform);
 }
-
 onSubmit=function(form)
   {
   console.log(form);

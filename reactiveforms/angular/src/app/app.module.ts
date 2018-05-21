@@ -15,7 +15,10 @@ import {AuthguardService} from './authguard.service';
 import { HttpModule } from '@angular/http';
 import { DisplayComponent } from './display/display.component';
 import {RouterModule,Routes} from '@angular/router';
-
+import {DataUpdateService} from './data-update.service';
+import { EditComponent } from './edit/edit.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DataUpdateComponent } from './data-update/data-update.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,27 +27,32 @@ import {RouterModule,Routes} from '@angular/router';
     FormComponent,
     DataParentComponent,
     DataChildComponent,
-    DisplayComponent
-  ],
+    DisplayComponent,
+    EditComponent,
+    DashboardComponent,
+    DataUpdateComponent
+    ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    // RouterModule.forRoot
-    //     (
-    //      [
-    //       {path:'',component:DataParentComponent},
-    //       {path:'display',component:DisplayComponent}
-    //      ]
-    //     )
+    RouterModule.forRoot
+        (
+         [
+          {path:'',component:DashboardComponent},
+          {path:'update',component:DisplayComponent},
+          {path:'edit', component:EditComponent}
+         ]
+        )
   ],
   providers: [
     QuestionService,
     QuestionControlService,
     DataService,
     DataControlService,
-    AuthguardService
+    AuthguardService,
+    DataUpdateService
   ],
   bootstrap: [AppComponent]
 })

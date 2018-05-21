@@ -5,8 +5,6 @@ import {FormsModule,ReactiveFormsModule} from '@angular/forms';
 import {FormGroup, FormControl , Validators} from '@angular/forms';
 import { DISABLED } from '@angular/forms/src/model';
 import { Router } from '@angular/router';
-
-
 @Component({
   selector: 'app-form-update',
   templateUrl: './form-update.component.html',
@@ -49,13 +47,11 @@ export class FormUpdateComponent implements OnInit {
       if (data.status) {
         this.getdata=data.userList[0];
         console.log("welcome :::  "+this.getdata.username);
-        
        } else {
         console.log("Unsuccessful !!!!");
       }
     });
   }
-
   onSubmit=function(form)
   {
     form['email']=this.gemail;
@@ -71,7 +67,6 @@ export class FormUpdateComponent implements OnInit {
           console.log(data);
           console.log("error"+data.message)
         }
-       
      });
    }
 }

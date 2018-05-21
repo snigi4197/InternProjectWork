@@ -1,8 +1,9 @@
 const Contact= require('../model/dataentry');
 
-module.exports.update=function(req,res)
+module.exports.edit=function(req,res)
 {
-    //Contact.update({name:"snigdha"},{name:"snigi"},(err,contact)=>
+    //"5af960f782020505701aaeb9"
+//req.body._id
     Contact.update({_id:req.body._id},
                         {name:req.body.name,
                         age:req.body.age,
@@ -22,3 +23,4 @@ module.exports.update=function(req,res)
         }
     });
 }
+//Contact.update({name:"snigdha"},{name:"snigi"},(err,contact)=>

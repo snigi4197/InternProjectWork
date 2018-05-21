@@ -1,3 +1,60 @@
-<p>
-  display works!
-</p>
+
+
+<h1 align="center">UPDATE FORM DATA </h1>
+  <form [formGroup]="rform" (ngSubmit)=onSubmit(rform.value)>
+    <table align="center">
+      <tr>
+        <td> ID :</td>
+        <td>
+          <input type="text" name="id" formControlName="_id" [(ngModel)]="getdata._id" disabled> 
+        </td>
+      </tr>
+      <tr>
+        <td>NAME :</td>
+        <td>
+          <input type="text" name="name" formControlName="name" [(ngModel)]="getdata.name">
+        </td>
+      </tr>
+      <tr>
+        <td>AGE :</td>
+        <td>
+          <input type="text" name="age" formControlName="age" [(ngModel)]="getdata.age">
+        </td>
+      </tr>
+      <tr>
+        <td>COMMENT :</td>
+        <td>
+          <input type="text" name="comment" formControlName="comment" [(ngModel)]="getdata.comment">
+        </td>
+      </tr>    
+      <tr>
+          <td>
+            Hobbies
+          </td>
+          <td > 
+            <input type="checkbox" name="DANCING" value="dancing" formControlName="Enter_hobbies_Details"> DANCING
+            <input type="checkbox" name="READING" value="reading" formControlName="Enter_hobbies_Details"> READING <br>
+            <input type="checkbox" name="TRAVELLING" value="travelling" formControlName="Enter_hobbies_Details"> TRAVELLING
+            <input type="checkbox" name="GAMES" value="games" formControlName="Enter_hobbies_Details"> GAMES 
+          </td>
+        </tr>    
+      <tr>
+          <td>
+            Qualification
+          </td>
+          <td >
+            <input type="radio" name="qualification" key="bba" value="BBA" formControlName="qualification" selected="false"> BBA
+            <input type="radio" name="qualification" key="bca" value="BCA" formControlName="qualification" selected="false"> BCA<br>
+            <input type="radio" name="qualification" key="mba" value="MBA" formControlName="qualification" selected="false"> MBA
+            <input type="radio" name="qualification" key="mca" value="MCA" formControlName="qualification" selected="false"> MCA<br>
+          </td>
+        </tr> 
+        
+      <tr>
+        <td colspan="2" align="center">
+          <input type="submit" name="submit"  value="submit" [disabled]="!rform.valid">  
+        </td>
+      </tr>
+    </table>   
+  </form>
+  {{message}}

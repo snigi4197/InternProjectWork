@@ -9,7 +9,10 @@ import { dataFormat }                  from '../dataformat';
 export class DataChildComponent implements OnInit {
   @Input() inputdata: dataFormat<any>;
   @Input() forms: FormGroup;
-  isValid() { return this.forms.controls[this.inputdata.key].valid; }
+  isValid() 
+  {
+     return this.forms.controls[this.inputdata.key].valid; 
+  }
   constructor() { }
   ngOnInit() 
   {
@@ -18,7 +21,6 @@ export class DataChildComponent implements OnInit {
   checkBoxClicked(evt,data)
   {
     //this event is triggered when we will click the submit button
-    
     console.log("evt",evt);
     data.selected=evt.target.checked;
   }

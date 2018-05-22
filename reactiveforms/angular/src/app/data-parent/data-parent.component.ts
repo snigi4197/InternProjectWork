@@ -111,9 +111,8 @@ export class DataParentComponent
     // }
     edit(value)
     {
-      this.i=value;
       //console.log("data to be updated is: ",value);
-      this.authData.data=this.i;
+      this.authData.data=value;
       //console.log("in update funtion :",this.authData.data);
       this.router.navigate(['/edit']);
     }

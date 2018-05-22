@@ -69,10 +69,10 @@ export class DataService
          //required: true,
          options:
          [
-          {key: 'BCA',  value: 'BCA'},
-          {key: 'MCA',  value: 'MCA'},
-          {key: 'MBA',   value: 'MBA'},
-          {key: 'BBA', value: 'BBA'}
+          {key: 'BCA',  value: 'bca'},
+          {key: 'MCA',  value: 'mca'},
+          {key: 'MBA',   value: 'mba'},
+          {key: 'BBA', value: 'bba'}
         ],
         order:5,
         type:'radio'

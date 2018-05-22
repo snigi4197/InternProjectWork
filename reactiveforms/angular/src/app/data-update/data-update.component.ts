@@ -25,7 +25,6 @@ export class DataUpdateComponent implements OnInit {
     Enter_hobbies_Details:"",
     qualification:""
   };
-  f;
   constructor(private datacontrol:DataControlService,
               private authData:AuthguardService,
               private router: Router) 
@@ -33,23 +32,22 @@ export class DataUpdateComponent implements OnInit {
   ngOnInit() 
   {   
   this.data=this.authData.data;
-  console.log("DATA : ",this.data);
+  //console.log("DATA : ",this.data);
   this.forms= this.datacontrol.checkFormParameters(this.inputdata);
-  console.log("FORMS  ::",this.forms);
-  console.log("FORMS.VALUE :::",this.forms.value);
-  console.log("INPUTDATA :::",this.inputdata);
+  //console.log("FORMS  ::",this.forms);
+  //console.log("FORMS.VALUE :::",this.forms.value);
+  //ssconsole.log("INPUTDATA :::",this.inputdata);
   //this.forms.patchValue(this.data);
-  let elements=[];
-  for(let a in this.data)
+  let ele=[];
+  // for(let a in this.data)
+  // {
+  // console.log(a);
+  // console.log("the data is ::: ", this.forms.value);
+  // }
+  ele.push(this.data);
+  for(let control in ele)
   {
-   // console.log(a);
-   // console.log("the data is ::: ", this.forms.value);
-
-  }
-  elements.push(this.data);
-  for(let control in elements)
-  {
-    this.id_data=elements[control]._id;
+    this.id_data=ele[control]._id;
    // console.log("Id generated is : ",this.id_data);
   }
 }
@@ -93,6 +91,7 @@ this.authData.edit(this.data).subscribe((data)=>
   //console.log("dddddd",data);
   this.router.navigate(['']);
   //ssalert('Data Updated !!!');
+  this.authData.data=undefined;
 });
 }
 }

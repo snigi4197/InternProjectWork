@@ -12,26 +12,34 @@
                                 [name]="inputdata.name"
                                 formControlName="{{inputdata.name}}"
                                 [id]="inputdata.key" 
-                                [type]="inputdata.type" >
+                                [type]="inputdata.type" 
+                                >
 
              <div *ngSwitchCase="'radio'" >
-                <div *ngFor='let r of inputdata.options' >
+                <div *ngFor='let r of inputdata.options;let i=index;' >
                   <input *ngSwitchCase="'radio'" 
+                        
                                 [formControlName]="inputdata.name"
                                 [id]="inputdata.key" 
                                 [name]="inputdata.name" 
                                 [type]="inputdata.type" 
-                                [value]='r.value'> 
+                                [value]='r.value'
+                                [checked]='i===msg'
+                                >
                     {{r.key}} 
+                   
                 </div>
             </div>           
-
              <div *ngSwitchCase=" 'checkbox' ">
                 <div *ngFor="let d of forms.get(inputdata.key).controls;let i=index;"> 
                     <input (change)="checkBoxClicked($event,inputdata.options[i])"
                                 [formControl]="d"
-                                [type]="inputdata.type">                   
-                    {{inputdata.options[i].key}}              
+                                [type]="inputdata.type"
+                                [checked]='inputdata.options[i].selected'
+
+                                >            
+                    {{inputdata.options[i].key}}   
+                    {{inputdata.options[i].selected}}   
                 </div>
             </div> 
         </div>

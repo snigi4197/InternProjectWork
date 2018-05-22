@@ -1,6 +1,9 @@
 import { Component, OnInit,Input }     from '@angular/core';
 import { FormGroup }                   from '@angular/forms';
 import { dataFormat }                  from '../dataformat'; 
+import { AuthguardService }            from '../authguard.service';
+import { Options } from 'selenium-webdriver/opera';
+
 @Component({
   selector: 'app-data-child',
   templateUrl: './data-child.component.html',
@@ -11,19 +14,75 @@ export class DataChildComponent implements OnInit {
   @Input() forms: FormGroup;
   isValid() 
   {
-     return this.forms.controls[this.inputdata.key].valid; 
+    return this.forms.controls[this.inputdata.key].valid; 
   }
-  constructor() { }
-  ngOnInit() 
+  data=
   {
-    //console.log("forms",this.forms);
-    //console.log("inputdata",this.inputdata);
-    //this.forms.patchValue(this.inputdata);
+    _id:"",
+    name:"",
+    age:"",
+    comment:"",
+    Enter_hobbies_Details:"",
+    qualification:""
+  };
+  msg;
+  m;
+ ele=[];
+ a=[];
+  b=[];
+  e;
+  aa;
+  constructor( private authData:AuthguardService) { }
+  ngOnInit()
+  {
+    this.data=this.authData.data;
+if(this.authData.data!=undefined)
+{
+  if(this.inputdata.controlType=="radio")
+  {
+    let op=this.inputdata['options'];
+      //console.log("op : " ,op);
+    for(let i=0;i<op.length;i++)
+    {
+      if(op[i].value==this.authData.data.qualification)
+      {
+        this.msg=i;
+      }
+    }
   }
+      //for checkboxes 
+  if(this.inputdata.controlType=="checkbox")
+  {
+      let op=this.inputdata['options'];
+      let c=this.authData.data.Enter_hobbies_Details.split(",");
+      console.log("selected elements are : ",c);
+      for(let i=0;i<op.length;i++)
+      {
+        this.a.push(op[i].value);
+        //console.log(c);
+        //console.log(this.authData.data.Enter_hobbies_Details);
+        //console.log(op[i].value);
+        // if(op[i].value==this.authData.data.Enter_hobbies_Details)
+        // {
+        //   this.m=i;
+        //   op[i].selected=true;
+        // }
+      }
+      console.log("the original array was : ",this.a);
+      for(let d=0;d<c.length;d++)
+      {
+        this.aa=this.a.indexOf(c[d],0);
+        console.log("index values of selected values are :: ",this.aa);
+        op[this.aa].selected=true;
+      }
+  }
+}
+}
   checkBoxClicked(evt,data)
   {
     //this event is triggered when we will click the submit button
     console.log("evt",evt);
     data.selected=evt.target.checked;
+    console.log(data.selected);
   }
 }

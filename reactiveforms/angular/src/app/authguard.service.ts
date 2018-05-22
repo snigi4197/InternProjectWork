@@ -63,4 +63,10 @@ export class AuthguardService {
     return this.http.post("/api/edit",user,{headers:headers}).map((res:Response) => res.json());
   }
 
+  // insertData()
+  // {
+  //   return this.http.post("localhost:9000/post",this.data).map((res:Response)=> res.json());
+  // }
+
+
 }

@@ -47,7 +47,7 @@ var AppComponent = /** @class */ (function () {
         this.title = 'app';
         this.questions = service.getQuestions();
         this.inputdata = inputdata.getdata();
-        console.log("input data", this.inputdata);
+        //sssconsole.log("input data",this.inputdata);
     }
     AppComponent = __decorate([
         core_1.Component({
@@ -98,6 +98,7 @@ var data_update_service_1 = __webpack_require__("./src/app/data-update.service.t
 var edit_component_1 = __webpack_require__("./src/app/edit/edit.component.ts");
 var dashboard_component_1 = __webpack_require__("./src/app/dashboard/dashboard.component.ts");
 var data_update_component_1 = __webpack_require__("./src/app/data-update/data-update.component.ts");
+var postservice_component_1 = __webpack_require__("./src/app/postservice/postservice.component.ts");
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -113,7 +114,8 @@ var AppModule = /** @class */ (function () {
                 display_component_1.DisplayComponent,
                 edit_component_1.EditComponent,
                 dashboard_component_1.DashboardComponent,
-                data_update_component_1.DataUpdateComponent
+                data_update_component_1.DataUpdateComponent,
+                postservice_component_1.PostserviceComponent
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -123,7 +125,8 @@ var AppModule = /** @class */ (function () {
                 router_1.RouterModule.forRoot([
                     { path: '', component: dashboard_component_1.DashboardComponent },
                     { path: 'update', component: display_component_1.DisplayComponent },
-                    { path: 'edit', component: edit_component_1.EditComponent }
+                    { path: 'edit', component: edit_component_1.EditComponent },
+                    { path: 'post', component: postservice_component_1.PostserviceComponent }
                 ])
             ],
             providers: [
@@ -259,7 +262,7 @@ var DashboardComponent = /** @class */ (function () {
     function DashboardComponent(service, inputdata) {
         this.questions = service.getQuestions();
         this.inputdata = inputdata.getdata();
-        console.log("input data", this.inputdata);
+        //console.log("input data",this.inputdata); 
     }
     DashboardComponent.prototype.ngOnInit = function () {
     };
@@ -325,7 +328,7 @@ module.exports = ""
 /***/ "./src/app/data-child/data-child.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div [formGroup]=\"forms\">\n    <label [attr.for]=\"inputdata.key\" style=\"font-size: 17px;\">\n        <u>\n                {{inputdata.key}}\n        </u>\n    </label>\n\n    <div [ngSwitch]=\"inputdata.controlType\">\n            {{inputdata.name}}\n            <input *ngSwitchCase=\"'textbox'\" \n                                [name]=\"inputdata.name\"\n                                formControlName=\"{{inputdata.name}}\"\n                                [id]=\"inputdata.key\" \n                                [type]=\"inputdata.type\">\n\n            <div *ngSwitchCase=\"'radio'\" >\n                <div *ngFor='let r of inputdata.options' >\n                  <input *ngSwitchCase=\"'radio'\" \n                                [formControlName]=\"inputdata.name\"\n                                [id]=\"inputdata.key\" \n                                [name]=\"inputdata.name\" \n                                [type]=\"inputdata.type\" \n                                [value]='r.value'> \n                    {{r.key}} \n                </div>\n            </div>            \n\n            <div *ngSwitchCase=\" 'checkbox' \">\n                <div *ngFor=\"let d of forms.get(inputdata.key).controls;let i=index;\"> \n                    <input (change)=\"checkBoxClicked($event,inputdata.options[i])\"\n                                [formControl]=\"d\"\n                                [type]=\"inputdata.type\">                   \n                    {{inputdata.options[i].key}}              \n                </div>\n            </div> \n        </div>\n        <hr>\n    </div>\n<div class=\"errorMessage\" *ngIf=\"!isValid\">\n    {{inputdata.label}} is required\n</div>"
+module.exports = "\n<div [formGroup]=\"forms\">\n    <label [attr.for]=\"inputdata.key\" style=\"font-size: 17px;\">\n        <u>\n                {{inputdata.key}}\n        </u>\n    </label>\n\n    <div [ngSwitch]=\"inputdata.controlType\">\n            {{inputdata.name}}\n            <input *ngSwitchCase=\"'textbox'\" \n                                [name]=\"inputdata.name\"\n                                formControlName=\"{{inputdata.name}}\"\n                                [id]=\"inputdata.key\" \n                                [type]=\"inputdata.type\" >\n\n             <div *ngSwitchCase=\"'radio'\" >\n                <div *ngFor='let r of inputdata.options' >\n                  <input *ngSwitchCase=\"'radio'\" \n                                [formControlName]=\"inputdata.name\"\n                                [id]=\"inputdata.key\" \n                                [name]=\"inputdata.name\" \n                                [type]=\"inputdata.type\" \n                                [value]='r.value'> \n                    {{r.key}} \n                </div>\n            </div>           \n\n             <div *ngSwitchCase=\" 'checkbox' \">\n                <div *ngFor=\"let d of forms.get(inputdata.key).controls;let i=index;\"> \n                    <input (change)=\"checkBoxClicked($event,inputdata.options[i])\"\n                                [formControl]=\"d\"\n                                [type]=\"inputdata.type\">                   \n                    {{inputdata.options[i].key}}              \n                </div>\n            </div> \n        </div>\n        <hr>\n    </div>\n<div class=\"errorMessage\" *ngIf=\"!isValid\">\n    {{inputdata.label}} is required\n</div>"
 
 /***/ }),
 
@@ -354,7 +357,9 @@ var DataChildComponent = /** @class */ (function () {
         return this.forms.controls[this.inputdata.key].valid;
     };
     DataChildComponent.prototype.ngOnInit = function () {
-        console.log("forms", this.forms);
+        //console.log("forms",this.forms);
+        //console.log("inputdata",this.inputdata);
+        //this.forms.patchValue(this.inputdata);
     };
     DataChildComponent.prototype.checkBoxClicked = function (evt, data) {
         //this event is triggered when we will click the submit button
@@ -405,33 +410,29 @@ var DataControlService = /** @class */ (function () {
     function DataControlService() {
     }
     DataControlService.prototype.checkFormParameters = function (get_data) {
+        //console.log("111111111111111111");
         var i;
         var group = {};
-        console.log("getdata ::::::::::::::::::::::", get_data);
+        //console.log("getdata ::::::::::::::::::::::",get_data);
         get_data.forEach(function (data) {
-            console.log("data is : ", data);
+            // console.log("data is : ",data);
             if (data.controlType == 'checkbox') {
-                console.log("In if");
-                console.log("data with options is : ");
-                console.log(data.options);
                 var fg = new forms_1.FormArray([]);
-                console.log("1");
                 for (i = 0; i < data.options.length; i++) {
-                    console.log("2");
                     var fc = new forms_1.FormControl(data.options[i].selected);
-                    console.log(data.options[i].key);
+                    //ssconsole.log(data.options[i].key);
                     fg.push(fc);
                 }
                 group[data.key] = fg;
             }
             else {
-                console.log("in else");
+                //console.log("in else");
                 group[data.name] = data.required
                     ?
                         new forms_1.FormControl(data.value || '', forms_1.Validators.required)
                     :
                         new forms_1.FormControl(data.value || '');
-                console.log("data is else is : ", data);
+                //console.log("data is else is : ", data);
             }
         });
         return new forms_1.FormGroup(group);
@@ -457,7 +458,7 @@ module.exports = ""
 /***/ "./src/app/data-parent/data-parent.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"forms\" (ngSubmit)=\"SubmitHere(forms.value)\">\n  <div *ngFor=\"let inputdata of inputdata\">\n      <app-data-child [inputdata]=\"inputdata\" [forms]=\"forms\"></app-data-child>\n  </div>\n  <div>\n      <button type=\"submit\" [disabled]=\"!forms.valid\">Submit Here</button>\n  </div>\n  <br>\n  <div *ngIf=\"message\">\n      <strong>Entered values are : </strong><br>{{message}}\n      <br>\n      <strong>Entered values are :</strong><br>{{msg}}\n<br>\n    </div>\n</form>\n    <table border=\"1px\">\n        <tr>\n            <td>ID</td>\n            <td>NAME</td>\n            <td>AGE</td>\n            <td>COMMENT</td>\n            <td>HOBBIES</td>\n            <td>QUALIFICATION</td>\n            <td colspan=\"2\" align=\"center\">ACTIONS</td>\n        </tr>\n        <tr *ngFor=\"let l of list\"> \n            <td>{{ l._id }}</td>\n            <td>{{ l.name }}</td>\n            <td>{{ l.age }}</td>\n            <td>{{ l.comment }}</td>\n            <td>{{ l.Enter_hobbies_Details }}</td>\n            <td>{{ l.qualification }}</td>\n            <td>\n                <input type=\"button\" name=\"delete\" value=\" DELETE \" (click)=\"delete(l)\">\n            </td>\n            <td>\n                <input type=\"button\" name=\"delete\" value=\" EDIT \" (click)=\"edit(l)\">\n            </td>\n         \n        </tr>\n    </table>"
+module.exports = "<form [formGroup]=\"forms\" (ngSubmit)=\"SubmitHere(forms.value)\">\n  <div *ngFor=\"let inputdata of inputdata\">\n      <app-data-child [inputdata]=\"inputdata\" [forms]=\"forms\"></app-data-child>\n  </div>\n  <div>\n      <button type=\"submit\" [disabled]=\"!forms.valid\">Submit Here</button>\n  </div>\n  <br>\n  <div *ngIf=\"message\">\n      <strong>Entered values are : </strong><br>{{message}}\n      <br>\n      <strong>Entered values are :</strong><br>{{msg}}\n<br>\n    </div>\n</form>\n    <table border=\"1px\">\n        <tr>\n            <td  style=\"width:200px;\"  >ID</td>\n            <td style=\"width:150px;\">NAME</td>\n            <td style=\"width:100px;\" >AGE</td>\n            <td style=\"width:150px;\">COMMENT</td>\n            <td style=\"width:200px;\">HOBBIES</td>\n            <td style=\"width:150px;\">QUALIFICATION</td>\n            <td colspan=\"2\" align=\"center\" style=\"width:150px;\">ACTIONS</td>\n        </tr>\n        <tr *ngFor=\"let l of list\"> \n            <td>{{ l._id }}</td>\n            <td>{{ l.name }}</td>\n            <td>{{ l.age }}</td>\n            <td>{{ l.comment }}</td>\n            <td>{{ l.Enter_hobbies_Details }}</td>\n            <td>{{ l.qualification }}</td>\n            <td align=\"center\">\n                <input type=\"button\" name=\"delete\" value=\" DELETE \" (click)=\"delete(l)\">\n            </td>\n            <td align=\"center\">\n                <input type=\"button\" name=\"delete\" value=\" EDIT \" (click)=\"edit(l)\">\n            </td>\n         \n        </tr>\n    </table>"
 
 /***/ }),
 
@@ -490,9 +491,9 @@ var DataParentComponent = /** @class */ (function () {
         this.msg = "";
         this.SubmitHere = function (value) {
             var _this = this;
-            console.log(value);
+            //console.log(value);
             this.authData.abc();
-            console.log("jjj", this.inputdata);
+            //console.log("jjj",this.inputdata);
             var checkelements;
             var elements = [];
             var ele = [];
@@ -531,47 +532,48 @@ var DataParentComponent = /** @class */ (function () {
                     this.message = JSON.stringify(this.forms.value);
                 }
             }
-            console.log("gg ", this.forms.value);
+            //console.log("gg ",this.forms.value);
             this.authData.displaydata(value).subscribe(function (data) {
-                console.log("Using sql database");
-                console.log("data is ", data);
+                //console.log("Using sql database");
+                //console.log("data is ",data);
                 _this.show();
             });
         };
     }
     DataParentComponent.prototype.ngOnInit = function () {
-        console.log("INPUTDATA : ", this.inputdata);
+        //sconsole.log("INPUTDATA : ",this.inputdata);
         this.forms = this.datacontrol.checkFormParameters(this.inputdata);
-        console.log("FORMS :::: ", this.forms);
+        //console.log("FORMS :::: ",this.forms);
         this.show();
     };
     DataParentComponent.prototype.show = function () {
         var _this = this;
         this.authData.entry().subscribe(function (data) {
-            console.log("display data using mongodb");
-            console.log(data);
+            //console.log("display data using mongodb");
+            //console.log(data);
             _this.list = data;
-            console.log("dataview ", _this.list);
+            //console.log("dataview ",this.list);
         });
     };
-    DataParentComponent.prototype.update = function (value) {
-        this.i = value;
-        console.log("data to be updated is: ", value);
-        this.authData.data = this.i;
-        console.log("in update funtion :", this.authData.data);
-        this.router.navigate(['/update']);
-    };
+    // update(value)
+    // {
+    //   this.i=value;
+    //   //console.log("data to be updated is: ",value);
+    //   this.authData.data=this.i;
+    //   //console.log("in update funtion :",this.authData.data);
+    //   this.router.navigate(['/update']);
+    // }
     DataParentComponent.prototype.edit = function (value) {
         this.i = value;
-        console.log("data to be updated is: ", value);
+        //console.log("data to be updated is: ",value);
         this.authData.data = this.i;
-        console.log("in update funtion :", this.authData.data);
+        //console.log("in update funtion :",this.authData.data);
         this.router.navigate(['/edit']);
     };
     DataParentComponent.prototype.delete = function (value) {
-        console.log("data to be deleted is: ", value);
+        //console.log("data to be deleted is: ",value);
         this.authData.delete(value).subscribe(function (data) {
-            console.log("delete data is :", data);
+            //console.log("delete data is :",data);
         });
         this.show();
     };
@@ -780,7 +782,7 @@ module.exports = ""
 /***/ "./src/app/data-update/data-update.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n    <input type=\"text\" [(ngModel)]=\"id_data\" disabled>\n</div>\n<form [formGroup]=\"forms\" (ngSubmit)=\"SubmitHere(forms.value)\">\n  <div *ngFor=\"let inputdata of inputdata\">\n    <app-data-child [inputdata]=\"inputdata\" [forms]=\"forms\" ></app-data-child>\n  </div>\n  <div>\n    <button type=\"submit\" [disabled]=\"!forms.valid\">Submit Here</button>\n  </div>\n  <div *ngIf=\"msg\">\n    <strong>Entered values are : </strong><br>{{msg}}\n    <br>\n  </div>\n</form>\n\n"
+module.exports = "<div>\n    ID : \n    <input type=\"text\" [(ngModel)]=\"id_data\" disabled style=\"width:180px;\">\n</div>\n<form [formGroup]=\"forms\" (ngSubmit)=\"SubmitHere(forms.value)\">\n  <div *ngFor=\"let inputdata of inputdata\">\n    <app-data-child [inputdata]=\"inputdata\" [forms]=\"forms\" ></app-data-child>\n  </div>\n  <div>\n    <button type=\"submit\" [disabled]=\"!forms.valid\">Submit Here</button>\n  </div>\n  <div *ngIf=\"msg\">\n    <strong>Entered values are : </strong><br>{{msg}}\n    <br>\n  </div>\n</form>"
 
 /***/ }),
 
@@ -820,11 +822,11 @@ var DataUpdateComponent = /** @class */ (function () {
         };
         this.SubmitHere = function (value) {
             var _this = this;
-            console.log("ll", value);
-            console.log("before coping the data is :", this.data._id);
-            console.log("Id generated is : ", this.id_data);
-            console.log("the data is ::: ", this.forms.value);
-            console.log("copied data is :", this.data);
+            //console.log("ll",value);
+            //console.log("before coping the data is :",this.data._id);
+            //console.log("Id generated is : ",this.id_data);
+            //console.log("the data is ::: ", this.forms.value);
+            //console.log("copied data is :",this.data);
             var arr = [];
             var elements = [];
             for (var i = 0; i < this.inputdata[3].options.length; i++) {
@@ -847,27 +849,31 @@ var DataUpdateComponent = /** @class */ (function () {
             this.data.comment = this.forms.value.comment;
             this.data.Enter_hobbies_Details = this.forms.value.Enter_hobbies_Details;
             this.data.qualification = this.forms.value.qualification;
-            console.log("kk: : : :", this.data);
+            //console.log("kk: : : :",this.data);
             this.authData.edit(this.data).subscribe(function (data) {
-                console.log("dddddd", data);
+                //console.log("dddddd",data);
                 _this.router.navigate(['']);
+                //ssalert('Data Updated !!!');
             });
         };
     }
     DataUpdateComponent.prototype.ngOnInit = function () {
         this.data = this.authData.data;
-        console.log("kk", this.data);
+        console.log("DATA : ", this.data);
         this.forms = this.datacontrol.checkFormParameters(this.inputdata);
+        console.log("FORMS  ::", this.forms);
+        console.log("FORMS.VALUE :::", this.forms.value);
+        console.log("INPUTDATA :::", this.inputdata);
+        //this.forms.patchValue(this.data);
         var elements = [];
         for (var a in this.data) {
-            console.log(a);
-            this.forms.value[a] = this.data[a];
-            console.log("the data is ::: ", this.forms.value);
+            // console.log(a);
+            // console.log("the data is ::: ", this.forms.value);
         }
         elements.push(this.data);
         for (var control in elements) {
             this.id_data = elements[control]._id;
-            console.log("Id generated is : ", this.id_data);
+            // console.log("Id generated is : ",this.id_data);
         }
     };
     __decorate([
@@ -1328,11 +1334,11 @@ var EditComponent = /** @class */ (function () {
     function EditComponent(authData, inputdata) {
         this.authData = authData;
         this.inputdata = inputdata.getdata();
-        console.log("input data", this.inputdata);
+        //console.log("input data",this.inputdata);
     }
     EditComponent.prototype.ngOnInit = function () {
         this.a = this.authData.data;
-        console.log("A is :::::", this.authData.data);
+        //console.log("A is :::::", this.authData.data);
     };
     EditComponent = __decorate([
         core_1.Component({
@@ -1436,6 +1442,65 @@ var FormComponent = /** @class */ (function () {
     return FormComponent;
 }());
 exports.FormComponent = FormComponent;
+
+
+/***/ }),
+
+/***/ "./src/app/postservice/postservice.component.css":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/postservice/postservice.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<form>\n  NAME :\n  <input type=\"text\" value={{data.name}}>\n  AGE :\n  <input type=\"text\" value={{data.age}}>\n  <input type=\"button\" value=\"Click Here\" >\n</form>"
+
+/***/ }),
+
+/***/ "./src/app/postservice/postservice.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var authguard_service_1 = __webpack_require__("./src/app/authguard.service.ts");
+var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
+__webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
+var PostserviceComponent = /** @class */ (function () {
+    function PostserviceComponent(http, auth) {
+        this.http = http;
+        this.auth = auth;
+        this.data = {
+            name: 'abc',
+            age: 'def'
+        };
+    }
+    PostserviceComponent.prototype.ngOnInit = function () {
+    };
+    PostserviceComponent = __decorate([
+        core_1.Component({
+            selector: 'app-postservice',
+            template: __webpack_require__("./src/app/postservice/postservice.component.html"),
+            styles: [__webpack_require__("./src/app/postservice/postservice.component.css")]
+        }),
+        __metadata("design:paramtypes", [http_1.Http, authguard_service_1.AuthguardService])
+    ], PostserviceComponent);
+    return PostserviceComponent;
+}());
+exports.PostserviceComponent = PostserviceComponent;
 
 
 /***/ }),

@@ -23,13 +23,13 @@ export class EditComponent implements OnInit {
               inputdata:DataService) 
   { 
     this.inputdata=inputdata.getdata();
-    console.log("input data",this.inputdata);
+    //console.log("input data",this.inputdata);
   }
 
   ngOnInit() 
   {
     this.a=this.authData.data;
-    console.log("A is :::::", this.authData.data);
+    //console.log("A is :::::", this.authData.data);
   }
 
 }

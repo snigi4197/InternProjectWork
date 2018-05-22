@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   { 
     this.questions = service.getQuestions();
     this.inputdata=inputdata.getdata();
-    console.log("input data",this.inputdata); 
+    //console.log("input data",this.inputdata); 
   }
 
   ngOnInit() {

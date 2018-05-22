@@ -19,6 +19,7 @@ import {DataUpdateService} from './data-update.service';
 import { EditComponent } from './edit/edit.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { DataUpdateComponent } from './data-update/data-update.component';
+import { PostserviceComponent } from './postservice/postservice.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,9 +31,11 @@ import { DataUpdateComponent } from './data-update/data-update.component';
     DisplayComponent,
     EditComponent,
     DashboardComponent,
-    DataUpdateComponent
+    DataUpdateComponent,
+    PostserviceComponent
     ],
-  imports: [
+  imports: 
+  [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -42,7 +45,8 @@ import { DataUpdateComponent } from './data-update/data-update.component';
          [
           {path:'',component:DashboardComponent},
           {path:'update',component:DisplayComponent},
-          {path:'edit', component:EditComponent}
+          {path:'edit', component:EditComponent},
+          {path:'post', component:PostserviceComponent}
          ]
         )
   ],

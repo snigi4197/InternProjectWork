@@ -15,13 +15,13 @@
 </form>
     <table border="1px">
         <tr>
-            <td>ID</td>
-            <td>NAME</td>
-            <td>AGE</td>
-            <td>COMMENT</td>
-            <td>HOBBIES</td>
-            <td>QUALIFICATION</td>
-            <td colspan="2" align="center">ACTIONS</td>
+            <td  style="width:200px;"  >ID</td>
+            <td style="width:150px;">NAME</td>
+            <td style="width:100px;" >AGE</td>
+            <td style="width:150px;">COMMENT</td>
+            <td style="width:200px;">HOBBIES</td>
+            <td style="width:150px;">QUALIFICATION</td>
+            <td colspan="2" align="center" style="width:150px;">ACTIONS</td>
         </tr>
         <tr *ngFor="let l of list"> 
             <td>{{ l._id }}</td>
@@ -30,10 +30,10 @@
             <td>{{ l.comment }}</td>
             <td>{{ l.Enter_hobbies_Details }}</td>
             <td>{{ l.qualification }}</td>
-            <td>
+            <td align="center">
                 <input type="button" name="delete" value=" DELETE " (click)="delete(l)">
             </td>
-            <td>
+            <td align="center">
                 <input type="button" name="delete" value=" EDIT " (click)="edit(l)">
             </td>
          

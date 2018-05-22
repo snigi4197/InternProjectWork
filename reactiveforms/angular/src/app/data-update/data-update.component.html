@@ -1,5 +1,6 @@
 <div>
-    <input type="text" [(ngModel)]="id_data" disabled>
+    ID : 
+    <input type="text" [(ngModel)]="id_data" disabled style="width:180px;">
 </div>
 <form [formGroup]="forms" (ngSubmit)="SubmitHere(forms.value)">
   <div *ngFor="let inputdata of inputdata">
@@ -13,4 +14,3 @@
     <br>
   </div>
 </form>
-

@@ -23,26 +23,26 @@ export class DataParentComponent
   constructor(private datacontrol:DataControlService,private authData:AuthguardService,private router: Router) {}
   ngOnInit()
   {    
-    console.log("INPUTDATA : ",this.inputdata);
+    //sconsole.log("INPUTDATA : ",this.inputdata);
     this.forms= this.datacontrol.checkFormParameters(this.inputdata);
-    console.log("FORMS :::: ",this.forms);
+    //console.log("FORMS :::: ",this.forms);
     this.show();    
   }
   show()
 {
   this.authData.entry().subscribe((data)=>
   {
-    console.log("display data using mongodb");
-    console.log(data);
+    //console.log("display data using mongodb");
+    //console.log(data);
     this.list=data;
-    console.log("dataview ",this.list);
+    //console.log("dataview ",this.list);
   });
 }
   SubmitHere=function(value)
   {
-    console.log(value);
+    //console.log(value);
     this.authData.abc();
-    console.log("jjj",this.inputdata);
+    //console.log("jjj",this.inputdata);
     let checkelements:any[];
     let elements=[];
     let ele=[];
@@ -92,36 +92,36 @@ export class DataParentComponent
         this.message = JSON.stringify(this.forms.value);     
       }
     }
-    console.log("gg ",this.forms.value);
+    //console.log("gg ",this.forms.value);
     this.authData.displaydata(value).subscribe((data)=>
     {
-      console.log("Using sql database");
-      console.log("data is ",data);
+      //console.log("Using sql database");
+      //console.log("data is ",data);
       this.show();
     });
 
     }   
-    update(value)
-    {
-      this.i=value;
-      console.log("data to be updated is: ",value);
-      this.authData.data=this.i;
-      console.log("in update funtion :",this.authData.data);
-      this.router.navigate(['/update']);
-    }
+    // update(value)
+    // {
+    //   this.i=value;
+    //   //console.log("data to be updated is: ",value);
+    //   this.authData.data=this.i;
+    //   //console.log("in update funtion :",this.authData.data);
+    //   this.router.navigate(['/update']);
+    // }
     edit(value)
     {
       this.i=value;
-      console.log("data to be updated is: ",value);
+      //console.log("data to be updated is: ",value);
       this.authData.data=this.i;
-      console.log("in update funtion :",this.authData.data);
+      //console.log("in update funtion :",this.authData.data);
       this.router.navigate(['/edit']);
     }
     delete(value)
     {
-      console.log("data to be deleted is: ",value);
+      //console.log("data to be deleted is: ",value);
       this.authData.delete(value).subscribe((data)=>{
-        console.log("delete data is :",data);
+        //console.log("delete data is :",data);
       });
       this.show();
     }

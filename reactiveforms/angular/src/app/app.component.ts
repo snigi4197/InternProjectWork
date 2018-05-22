@@ -20,7 +20,7 @@ export class AppComponent {
   constructor(service: QuestionService , inputdata:DataService) {
     this.questions = service.getQuestions();
     this.inputdata=inputdata.getdata();
-    console.log("input data",this.inputdata);
+    //sssconsole.log("input data",this.inputdata);
   }
 }
 

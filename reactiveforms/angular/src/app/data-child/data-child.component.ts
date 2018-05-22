@@ -16,7 +16,9 @@ export class DataChildComponent implements OnInit {
   constructor() { }
   ngOnInit() 
   {
-    console.log("forms",this.forms);
+    //console.log("forms",this.forms);
+    //console.log("inputdata",this.inputdata);
+    //this.forms.patchValue(this.inputdata);
   }
   checkBoxClicked(evt,data)
   {

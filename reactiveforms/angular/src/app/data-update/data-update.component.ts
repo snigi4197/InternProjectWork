@@ -33,29 +33,33 @@ export class DataUpdateComponent implements OnInit {
   ngOnInit() 
   {   
   this.data=this.authData.data;
-  console.log("kk",this.data);
+  console.log("DATA : ",this.data);
   this.forms= this.datacontrol.checkFormParameters(this.inputdata);
+  console.log("FORMS  ::",this.forms);
+  console.log("FORMS.VALUE :::",this.forms.value);
+  console.log("INPUTDATA :::",this.inputdata);
+  //this.forms.patchValue(this.data);
   let elements=[];
   for(let a in this.data)
   {
-    console.log(a);
-    this.forms.value[a]=this.data[a];
-    console.log("the data is ::: ", this.forms.value);
+   // console.log(a);
+   // console.log("the data is ::: ", this.forms.value);
+
   }
   elements.push(this.data);
   for(let control in elements)
   {
     this.id_data=elements[control]._id;
-    console.log("Id generated is : ",this.id_data);
+   // console.log("Id generated is : ",this.id_data);
   }
 }
 SubmitHere=function(value)
 {  
-  console.log("ll",value);
-  console.log("before coping the data is :",this.data._id);
-  console.log("Id generated is : ",this.id_data);
-  console.log("the data is ::: ", this.forms.value);
-  console.log("copied data is :",this.data);
+  //console.log("ll",value);
+  //console.log("before coping the data is :",this.data._id);
+  //console.log("Id generated is : ",this.id_data);
+  //console.log("the data is ::: ", this.forms.value);
+  //console.log("copied data is :",this.data);
   let arr=[];
   let elements=[];
   for(let i=0;i<this.inputdata[3].options.length;i++)
@@ -83,11 +87,12 @@ this.data.age=this.forms.value.age;
 this.data.comment=this.forms.value.comment;
 this.data.Enter_hobbies_Details=this.forms.value.Enter_hobbies_Details;
 this.data.qualification=this.forms.value.qualification;
-console.log("kk: : : :",this.data);
+//console.log("kk: : : :",this.data);
 this.authData.edit(this.data).subscribe((data)=>
 {
-  console.log("dddddd",data);
+  //console.log("dddddd",data);
   this.router.navigate(['']);
+  //ssalert('Data Updated !!!');
 });
 }
 }

@@ -9,11 +9,12 @@ module.exports.displaydata=function(req,res)
         age:req.body.age,
         comment:req.body.comment,
         Enter_hobbies_Details:req.body.Enter_hobbies_Details,
-        qualification:req.body.qualification
+        qualification:req.body.qualification,
+        nationality:req.body.nationality
     });
     newContact.save((err,contact)=>
     {
-        console.log(contact);
+        console.log(contact.nationality);
         if(err)
         {
             res.json({msg:'failed to connect'});

@@ -20,6 +20,7 @@ export class DataParentComponent
   msg="";
   list;
  i;
+ e=[];
   constructor(private datacontrol:DataControlService,private authData:AuthguardService,private router: Router) {}
   ngOnInit()
   {    
@@ -40,14 +41,15 @@ export class DataParentComponent
 }
   SubmitHere=function(value)
   {
-    //console.log(value);
+    console.log(value);
     this.authData.abc();
     //console.log("jjj",this.inputdata);
     let checkelements:any[];
     let elements=[];
     let ele=[];
    //USING THE RUN TIME CONTROL METHOD
-   
+
+  
     for(let control in this.inputdata)
     {
       if(this.inputdata[control].controlType=="checkbox")
@@ -95,6 +97,8 @@ export class DataParentComponent
     //console.log("gg ",this.forms.value);
     this.authData.displaydata(value).subscribe((data)=>
     {
+      //console.log("value is :",value);
+      console.log(data);
       //console.log("Using sql database");
       //console.log("data is ",data);
       this.show();

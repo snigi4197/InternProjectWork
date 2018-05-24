@@ -23,7 +23,8 @@ export class DataUpdateComponent implements OnInit {
     age:"",
     comment:"",
     Enter_hobbies_Details:"",
-    qualification:""
+    qualification:"",
+    nationality:""
   };
   constructor(private datacontrol:DataControlService,
               private authData:AuthguardService,
@@ -85,6 +86,8 @@ this.data.age=this.forms.value.age;
 this.data.comment=this.forms.value.comment;
 this.data.Enter_hobbies_Details=this.forms.value.Enter_hobbies_Details;
 this.data.qualification=this.forms.value.qualification;
+this.data.nationality=this.forms.value.nationality;
+
 //console.log("kk: : : :",this.data);
 this.authData.edit(this.data).subscribe((data)=>
 {

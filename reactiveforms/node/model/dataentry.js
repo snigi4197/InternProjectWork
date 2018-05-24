@@ -20,7 +20,12 @@ const schema=mongoose.Schema({
     qualification:
     {
         type:String
-    }  
+    },
+    nationality:
+    {
+        type:String
+    }
+
 });
 
 const DataEntry=module.exports=mongoose.model('DataEntry',schema);

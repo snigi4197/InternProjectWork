@@ -3,6 +3,8 @@ import {dataFormat} from './dataformat';
 import {dataTextbox} from './data-textbox';
 import {dataRadio} from './data-radio';
 import {dataCheckbox} from './data-checkbox';
+import {dataDropdown} from './data-dropdown';
+import {dataTextarea} from './data-textarea';
 import {AuthguardService} from '../app/authguard.service';
 @Injectable()
 export class DataService
@@ -48,18 +50,18 @@ export class DataService
         type:'textbox'
        }
      ),
-     new dataTextbox
-     (
-       {   
-        key: 'Comment Here',
-        label: 'Comment',
-        name:'comment',
-        //required: true,
-        value: '',
-        order:3,
-        type:'textbox'
-       }
-     ),
+    //  new dataTextbox
+    //  (
+    //    {   
+    //     key: 'Comment Here',
+    //     label: 'Comment',
+    //     name:'comment',
+    //     //required: true,
+    //     value: '',
+    //     order:3,
+    //     type:'textbox'
+    //    }
+    //  ),
      new dataRadio
      (
        {
@@ -94,7 +96,43 @@ export class DataService
            {key: 'TRAVELLING', value: 'travelling',selected: false}
          ]
        }
-     )     
+     ),
+     new dataDropdown
+     (
+       {
+         key:'nationality',
+         label:'Nationality',
+         name:'nationality',
+         id:'nationality',
+         //required: true,
+         options:
+         [
+          {key: 'INDIA',  value: 'india',selected: false},
+          {key: 'PAKISTAN',  value: 'pakistan',selected: false},
+          {key: 'USA',   value: 'usa',selected: false},
+          {key: 'CHINA', value: 'china',selected: false},
+          {key: 'AFGANISTAN',  value: 'afganistan',selected: false},
+          {key: 'DUBAI',   value: 'dubai',selected: false},
+          {key: 'CANADA', value: 'canada',selected: false}
+        ],
+        order:6,
+        type:'select'
+       }
+     ),
+     new dataTextarea
+     (
+       {   
+        key: 'comment',
+        label: 'comment',
+        name:'comment',
+        //required: true,
+        value: '',
+        order:3,
+        type:'textarea',
+        rows:'9',
+        cols:"90"
+       }
+     )
     ];
     return dataformat.sort((a, b) => a.order - b.order);
 

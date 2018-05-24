@@ -18,7 +18,6 @@
              <div *ngSwitchCase="'radio'" >
                 <div *ngFor='let r of inputdata.options;let i=index;' >
                   <input *ngSwitchCase="'radio'" 
-                        
                                 [formControlName]="inputdata.name"
                                 [id]="inputdata.key" 
                                 [name]="inputdata.name" 
@@ -27,7 +26,6 @@
                                 [checked]='i===msg'
                                 >
                     {{r.key}} 
-                   
                 </div>
             </div>           
              <div *ngSwitchCase=" 'checkbox' ">
@@ -36,12 +34,34 @@
                                 [formControl]="d"
                                 [type]="inputdata.type"
                                 [checked]='inputdata.options[i].selected'
-
                                 >            
                     {{inputdata.options[i].key}}   
-                    {{inputdata.options[i].selected}}   
                 </div>
             </div> 
+            <div  >
+
+                    <select *ngSwitchCase="'dropdown'" 
+                                        [formControlName]="inputdata.key"
+                                        [id]="inputdata.id" 
+                                       
+                                       
+                                        >
+                            <option *ngFor="let a of inputdata.options; let i=index"
+                                   [value]="a.key"
+                                   
+                                   [selected]=''
+                                   >
+                                    {{a.value}}
+                                    {{a.selected}}
+                            </option>
+                        </select>
+            </div>
+            <div>
+                <textarea *ngSwitchCase="'textarea'" 
+                                [formControlName]="inputdata.key" 
+                                [name]="inputdata.name">
+                </textarea>
+            </div>
         </div>
         <hr>
     </div>

@@ -171,7 +171,7 @@ var AuthguardService = /** @class */ (function () {
         this.a = 10;
     }
     AuthguardService.prototype.abc = function () {
-        console.log("hey");
+        //console.log("hey");
     };
     AuthguardService.prototype.register = function (user) {
         var headers = new http_1.Headers();
@@ -328,7 +328,7 @@ module.exports = ""
 /***/ "./src/app/data-child/data-child.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "\n<div [formGroup]=\"forms\">\n    <label [attr.for]=\"inputdata.key\" style=\"font-size: 17px;\">\n        <u>\n                {{inputdata.key}}\n        </u>\n    </label>\n\n    <div [ngSwitch]=\"inputdata.controlType\">\n            {{inputdata.name}}\n            <input *ngSwitchCase=\"'textbox'\" \n                                [name]=\"inputdata.name\"\n                                formControlName=\"{{inputdata.name}}\"\n                                [id]=\"inputdata.key\" \n                                [type]=\"inputdata.type\" \n                                >\n\n             <div *ngSwitchCase=\"'radio'\" >\n                <div *ngFor='let r of inputdata.options;let i=index;' >\n                  <input *ngSwitchCase=\"'radio'\" \n                        \n                                [formControlName]=\"inputdata.name\"\n                                [id]=\"inputdata.key\" \n                                [name]=\"inputdata.name\" \n                                [type]=\"inputdata.type\" \n                                [value]='r.value'\n                                [checked]='i===msg'\n                                >\n                    {{r.key}} \n                   \n                </div>\n            </div>           \n             <div *ngSwitchCase=\" 'checkbox' \">\n                <div *ngFor=\"let d of forms.get(inputdata.key).controls;let i=index;\"> \n                    <input (change)=\"checkBoxClicked($event,inputdata.options[i])\"\n                                [formControl]=\"d\"\n                                [type]=\"inputdata.type\"\n                                [checked]='inputdata.options[i].selected'\n\n                                >            \n                    {{inputdata.options[i].key}}   \n                    {{inputdata.options[i].selected}}   \n                </div>\n            </div> \n        </div>\n        <hr>\n    </div>\n<div class=\"errorMessage\" *ngIf=\"!isValid\">\n    {{inputdata.label}} is required\n</div>"
+module.exports = "\n<div [formGroup]=\"forms\">\n    <label [attr.for]=\"inputdata.key\" style=\"font-size: 17px;\">\n        <u>\n                {{inputdata.key}}\n        </u>\n    </label>\n\n    <div [ngSwitch]=\"inputdata.controlType\">\n            {{inputdata.name}}\n            <input *ngSwitchCase=\"'textbox'\" \n                                [name]=\"inputdata.name\"\n                                formControlName=\"{{inputdata.name}}\"\n                                [id]=\"inputdata.key\" \n                                [type]=\"inputdata.type\" \n                                >\n\n             <div *ngSwitchCase=\"'radio'\" >\n                <div *ngFor='let r of inputdata.options;let i=index;' >\n                  <input *ngSwitchCase=\"'radio'\" \n                                [formControlName]=\"inputdata.name\"\n                                [id]=\"inputdata.key\" \n                                [name]=\"inputdata.name\" \n                                [type]=\"inputdata.type\" \n                                [value]='r.value'\n                                [checked]='i===msg'\n                                >\n                    {{r.key}} \n                </div>\n            </div>           \n             <div *ngSwitchCase=\" 'checkbox' \">\n                <div *ngFor=\"let d of forms.get(inputdata.key).controls;let i=index;\"> \n                    <input (change)=\"checkBoxClicked($event,inputdata.options[i])\"\n                                [formControl]=\"d\"\n                                [type]=\"inputdata.type\"\n                                [checked]='inputdata.options[i].selected'\n                                >            \n                    {{inputdata.options[i].key}}   \n                </div>\n            </div> \n            <div  >\n\n                    <select *ngSwitchCase=\"'dropdown'\" \n                                        [formControlName]=\"inputdata.key\"\n                                        [id]=\"inputdata.id\" \n                                       \n                                       \n                                        >\n                            <option *ngFor=\"let a of inputdata.options; let i=index\"\n                                   [value]=\"a.key\"\n                                   \n                                   [selected]=''\n                                   >\n                                    {{a.value}}\n                                    {{a.selected}}\n                            </option>\n                        </select>\n            </div>\n            <div>\n                <textarea *ngSwitchCase=\"'textarea'\" \n                                [formControlName]=\"inputdata.key\" \n                                [name]=\"inputdata.name\">\n                </textarea>\n            </div>\n        </div>\n        <hr>\n    </div>\n<div class=\"errorMessage\" *ngIf=\"!isValid\">\n    {{inputdata.label}} is required\n</div>"
 
 /***/ }),
 
@@ -370,8 +370,12 @@ var DataChildComponent = /** @class */ (function () {
         return this.forms.controls[this.inputdata.key].valid;
     };
     DataChildComponent.prototype.ngOnInit = function () {
+        this.any = ['INDIA'];
+        //this.inputdata[5].id
+        //console.log("inputdata is ::",this.inputdata.id);
         this.data = this.authData.data;
         if (this.authData.data != undefined) {
+            //Radio button 
             if (this.inputdata.controlType == "radio") {
                 var op = this.inputdata['options'];
                 //console.log("op : " ,op);
@@ -385,7 +389,7 @@ var DataChildComponent = /** @class */ (function () {
             if (this.inputdata.controlType == "checkbox") {
                 var op = this.inputdata['options'];
                 var c = this.authData.data.Enter_hobbies_Details.split(",");
-                console.log("selected elements are : ", c);
+                //console.log("selected elements are : ",c);
                 for (var i = 0; i < op.length; i++) {
                     this.a.push(op[i].value);
                     //console.log(c);
@@ -397,10 +401,10 @@ var DataChildComponent = /** @class */ (function () {
                     //   op[i].selected=true;
                     // }
                 }
-                console.log("the original array was : ", this.a);
+                //console.log("the original array was : ",this.a);
                 for (var d = 0; d < c.length; d++) {
                     this.aa = this.a.indexOf(c[d], 0);
-                    console.log("index values of selected values are :: ", this.aa);
+                    //console.log("index values of selected values are :: ",this.aa);
                     op[this.aa].selected = true;
                 }
             }
@@ -408,9 +412,20 @@ var DataChildComponent = /** @class */ (function () {
     };
     DataChildComponent.prototype.checkBoxClicked = function (evt, data) {
         //this event is triggered when we will click the submit button
-        console.log("evt", evt);
+        //console.log("evt",evt.target);
         data.selected = evt.target.checked;
-        console.log(data.selected);
+        //console.log("data selected is :",data.selected);
+    };
+    DataChildComponent.prototype.selectdropdown = function (data) {
+        data.selected = 'true';
+        //console.log(data);
+    };
+    DataChildComponent.prototype.onChange = function (evt, data) {
+        console.log(evt);
+        // for(let i=0;i<=data.length;i++)
+        // {
+        //   console.log(data[i]);
+        // }
     };
     __decorate([
         core_1.Input(),
@@ -512,6 +527,43 @@ exports.DataControlService = DataControlService;
 
 /***/ }),
 
+/***/ "./src/app/data-dropdown.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var dataformat_1 = __webpack_require__("./src/app/dataformat.ts");
+var dataDropdown = /** @class */ (function (_super) {
+    __extends(dataDropdown, _super);
+    function dataDropdown(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.controlType = 'dropdown';
+        _this.options = [];
+        _this.values = [];
+        _this.type = options['type'] || '';
+        _this.options = options['options'] || [];
+        _this.values = options['options'] || [];
+        return _this;
+    }
+    return dataDropdown;
+}(dataformat_1.dataFormat));
+exports.dataDropdown = dataDropdown;
+
+
+/***/ }),
+
 /***/ "./src/app/data-parent/data-parent.component.css":
 /***/ (function(module, exports) {
 
@@ -522,7 +574,7 @@ module.exports = ""
 /***/ "./src/app/data-parent/data-parent.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"forms\" (ngSubmit)=\"SubmitHere(forms.value)\">\n  <div *ngFor=\"let inputdata of inputdata\">\n      <app-data-child [inputdata]=\"inputdata\" [forms]=\"forms\"></app-data-child>\n  </div>\n  <div>\n      <button type=\"submit\" [disabled]=\"!forms.valid\">Submit Here</button>\n  </div>\n  <br>\n  <div *ngIf=\"message\">\n      <strong>Entered values are : </strong><br>{{message}}\n      <br>\n      <strong>Entered values are :</strong><br>{{msg}}\n<br>\n    </div>\n</form>\n    <table border=\"1px\">\n        <tr>\n            <td colspan=\"2\" align=\"center\" style=\"width:150px;\">ACTIONS</td>\n            <td  style=\"width:200px;\"  >ID</td>\n            <td style=\"width:150px;\">NAME</td>\n            <td style=\"width:100px;\" >AGE</td>\n            <td style=\"width:150px;\">COMMENT</td>\n            <td style=\"width:200px;\">HOBBIES</td>\n            <td style=\"width:150px;\">QUALIFICATION</td>\n            \n        </tr>\n        <tr *ngFor=\"let l of list\"> \n            <td align=\"center\">\n                <input type=\"button\" name=\"delete\" value=\" DELETE \" (click)=\"delete(l)\">\n            </td>\n            <td align=\"center\">\n                <input type=\"button\" name=\"delete\" value=\" EDIT \" (click)=\"edit(l)\">\n            </td>\n            <td>{{ l._id }}</td>\n            <td>{{ l.name }}</td>\n            <td>{{ l.age }}</td>\n            <td>{{ l.comment }}</td>\n            <td>{{ l.Enter_hobbies_Details }}</td>\n            <td>{{ l.qualification }}</td>\n            \n         \n        </tr>\n    </table>"
+module.exports = "<form [formGroup]=\"forms\" (ngSubmit)=\"SubmitHere(forms.value)\">\n  <div *ngFor=\"let inputdata of inputdata\">\n      <app-data-child [inputdata]=\"inputdata\" [forms]=\"forms\"></app-data-child>\n  </div>\n  <div>\n      <button type=\"submit\" [disabled]=\"!forms.valid\">Submit Here</button>\n  </div>\n  <br>\n  <div *ngIf=\"message\">\n      <strong>Entered values are : </strong><br>{{message}}\n      <br>\n      <strong>Entered values are :</strong><br>{{msg}}\n<br>\n    </div>\n</form>\n    <table border=\"1px\">\n        <tr>\n            <td colspan=\"2\" align=\"center\" style=\"width:150px;\">ACTIONS</td>\n            <td  style=\"width:200px;\"  >ID</td>\n            <td style=\"width:150px;\">NAME</td>\n            <td style=\"width:100px;\" >AGE</td>\n            <td style=\"width:150px;\">COMMENT</td>\n            <td style=\"width:200px;\">HOBBIES</td>\n            <td style=\"width:150px;\">QUALIFICATION</td>\n            <td style=\"width:150px;\">NATIONALITY</td>\n            \n        </tr>\n        <tr *ngFor=\"let l of list\"> \n            <td align=\"center\">\n                <input type=\"button\" name=\"delete\" value=\" DELETE \" (click)=\"delete(l)\">\n            </td>\n            <td align=\"center\">\n                <input type=\"button\" name=\"delete\" value=\" EDIT \" (click)=\"edit(l)\">\n            </td>\n            <td>{{ l._id }}</td>\n            <td>{{ l.name }}</td>\n            <td>{{ l.age }}</td>\n            <td>{{ l.comment }}</td>\n            <td>{{ l.Enter_hobbies_Details }}</td>\n            <td>{{ l.qualification }}</td>\n            <td>{{ l.nationality }}</td>\n            \n            \n         \n        </tr>\n    </table>"
 
 /***/ }),
 
@@ -553,9 +605,10 @@ var DataParentComponent = /** @class */ (function () {
         this.inputdata = [];
         this.message = "";
         this.msg = "";
+        this.e = [];
         this.SubmitHere = function (value) {
             var _this = this;
-            //console.log(value);
+            console.log(value);
             this.authData.abc();
             //console.log("jjj",this.inputdata);
             var checkelements;
@@ -598,6 +651,8 @@ var DataParentComponent = /** @class */ (function () {
             }
             //console.log("gg ",this.forms.value);
             this.authData.displaydata(value).subscribe(function (data) {
+                //console.log("value is :",value);
+                console.log(data);
                 //console.log("Using sql database");
                 //console.log("data is ",data);
                 _this.show();
@@ -692,6 +747,40 @@ var dataRadio = /** @class */ (function (_super) {
     return dataRadio;
 }(dataformat_1.dataFormat));
 exports.dataRadio = dataRadio;
+
+
+/***/ }),
+
+/***/ "./src/app/data-textarea.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var dataformat_1 = __webpack_require__("./src/app/dataformat.ts");
+var dataTextarea = /** @class */ (function (_super) {
+    __extends(dataTextarea, _super);
+    function dataTextarea(options) {
+        if (options === void 0) { options = {}; }
+        var _this = _super.call(this, options) || this;
+        _this.controlType = 'textarea';
+        _this.type = 'text';
+        _this.type = options['type'] || '';
+        return _this;
+    }
+    return dataTextarea;
+}(dataformat_1.dataFormat));
+exports.dataTextarea = dataTextarea;
 
 
 /***/ }),
@@ -881,7 +970,8 @@ var DataUpdateComponent = /** @class */ (function () {
             age: "",
             comment: "",
             Enter_hobbies_Details: "",
-            qualification: ""
+            qualification: "",
+            nationality: ""
         };
         this.SubmitHere = function (value) {
             var _this = this;
@@ -912,6 +1002,7 @@ var DataUpdateComponent = /** @class */ (function () {
             this.data.comment = this.forms.value.comment;
             this.data.Enter_hobbies_Details = this.forms.value.Enter_hobbies_Details;
             this.data.qualification = this.forms.value.qualification;
+            this.data.nationality = this.forms.value.nationality;
             //console.log("kk: : : :",this.data);
             this.authData.edit(this.data).subscribe(function (data) {
                 //console.log("dddddd",data);
@@ -982,6 +1073,8 @@ var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var data_textbox_1 = __webpack_require__("./src/app/data-textbox.ts");
 var data_radio_1 = __webpack_require__("./src/app/data-radio.ts");
 var data_checkbox_1 = __webpack_require__("./src/app/data-checkbox.ts");
+var data_dropdown_1 = __webpack_require__("./src/app/data-dropdown.ts");
+var data_textarea_1 = __webpack_require__("./src/app/data-textarea.ts");
 var authguard_service_1 = __webpack_require__("./src/app/authguard.service.ts");
 var DataService = /** @class */ (function () {
     function DataService(auth) {
@@ -1015,15 +1108,18 @@ var DataService = /** @class */ (function () {
                 //required: true,
                 type: 'textbox'
             }),
-            new data_textbox_1.dataTextbox({
-                key: 'Comment Here',
-                label: 'Comment',
-                name: 'comment',
-                //required: true,
-                value: '',
-                order: 3,
-                type: 'textbox'
-            }),
+            //  new dataTextbox
+            //  (
+            //    {   
+            //     key: 'Comment Here',
+            //     label: 'Comment',
+            //     name:'comment',
+            //     //required: true,
+            //     value: '',
+            //     order:3,
+            //     type:'textbox'
+            //    }
+            //  ),
             new data_radio_1.dataRadio({
                 key: 'Choose your Qualification',
                 label: 'Subject',
@@ -1050,6 +1146,35 @@ var DataService = /** @class */ (function () {
                     { key: 'READING', value: 'reading ', selected: false },
                     { key: 'TRAVELLING', value: 'travelling', selected: false }
                 ]
+            }),
+            new data_dropdown_1.dataDropdown({
+                key: 'nationality',
+                label: 'Nationality',
+                name: 'nationality',
+                id: 'nationality',
+                //required: true,
+                options: [
+                    { key: 'INDIA', value: 'india', selected: false },
+                    { key: 'PAKISTAN', value: 'pakistan', selected: false },
+                    { key: 'USA', value: 'usa', selected: false },
+                    { key: 'CHINA', value: 'china', selected: false },
+                    { key: 'AFGANISTAN', value: 'afganistan', selected: false },
+                    { key: 'DUBAI', value: 'dubai', selected: false },
+                    { key: 'CANADA', value: 'canada', selected: false }
+                ],
+                order: 6,
+                type: 'select'
+            }),
+            new data_textarea_1.dataTextarea({
+                key: 'comment',
+                label: 'comment',
+                name: 'comment',
+                //required: true,
+                value: '',
+                order: 3,
+                type: 'textarea',
+                rows: '9',
+                cols: "90"
             })
         ];
         return dataformat.sort(function (a, b) { return a.order - b.order; });
@@ -1114,6 +1239,7 @@ var dataFormat = /** @class */ (function () {
         this.controlType = options.controlType || '';
         this.order = options.order === undefined ? 1 : options.order;
         this.type = options.type || '';
+        this.id = options.id || '';
         //this.options=options.options||'';
     }
     return dataFormat;

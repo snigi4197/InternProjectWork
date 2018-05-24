@@ -9,7 +9,7 @@ export class AuthguardService {
   data;
   abc()
   {
-    console.log("hey");
+    //console.log("hey");
   }
   register(user)
   {

@@ -27,17 +27,29 @@ export class DataChildComponent implements OnInit {
   };
   msg;
   m;
+  any:any;
  ele=[];
  a=[];
   b=[];
   e;
   aa;
   constructor( private authData:AuthguardService) { }
+  
   ngOnInit()
   {
+
+
+
+
+this.any=['INDIA'];
+    //this.inputdata[5].id
+    //console.log("inputdata is ::",this.inputdata.id);
     this.data=this.authData.data;
 if(this.authData.data!=undefined)
 {
+
+
+  //Radio button 
   if(this.inputdata.controlType=="radio")
   {
     let op=this.inputdata['options'];
@@ -50,12 +62,13 @@ if(this.authData.data!=undefined)
       }
     }
   }
-      //for checkboxes 
+
+  //for checkboxes 
   if(this.inputdata.controlType=="checkbox")
   {
       let op=this.inputdata['options'];
       let c=this.authData.data.Enter_hobbies_Details.split(",");
-      console.log("selected elements are : ",c);
+      //console.log("selected elements are : ",c);
       for(let i=0;i<op.length;i++)
       {
         this.a.push(op[i].value);
@@ -68,11 +81,11 @@ if(this.authData.data!=undefined)
         //   op[i].selected=true;
         // }
       }
-      console.log("the original array was : ",this.a);
+      //console.log("the original array was : ",this.a);
       for(let d=0;d<c.length;d++)
       {
         this.aa=this.a.indexOf(c[d],0);
-        console.log("index values of selected values are :: ",this.aa);
+        //console.log("index values of selected values are :: ",this.aa);
         op[this.aa].selected=true;
       }
   }
@@ -81,8 +94,22 @@ if(this.authData.data!=undefined)
   checkBoxClicked(evt,data)
   {
     //this event is triggered when we will click the submit button
-    console.log("evt",evt);
+    //console.log("evt",evt.target);
     data.selected=evt.target.checked;
-    console.log(data.selected);
+    //console.log("data selected is :",data.selected);
   }
+  selectdropdown(data)
+  {
+   data.selected='true';
+      //console.log(data);
+  }
+  onChange(evt,data)
+  {
+console.log(evt);
+// for(let i=0;i<=data.length;i++)
+// {
+//   console.log(data[i]);
+// }
+  }
+  
 }

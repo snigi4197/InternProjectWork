@@ -12,8 +12,9 @@ var viewController=require('./controller/view');
 var editController=require('./controller/edit');
 var app = express();
 var port=9000;
+
 //connect moongoose
-mongoose.connect('mongodb://mongo:27017/rForms');
+mongoose.connect('mongodb://localhost:27017/testing');
 //on connection
 mongoose.connection.on('connected',()=>
 {

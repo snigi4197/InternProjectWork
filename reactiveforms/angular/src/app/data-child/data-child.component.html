@@ -42,17 +42,13 @@
 
                     <select *ngSwitchCase="'dropdown'" 
                                         [formControlName]="inputdata.key"
-                                        [id]="inputdata.id" 
-                                       
-                                       
+                                        [id]="inputdata.id"                                        
                                         >
                             <option *ngFor="let a of inputdata.options; let i=index"
                                    [value]="a.key"
-                                   
                                    [selected]=''
                                    >
                                     {{a.value}}
-                                    {{a.selected}}
                             </option>
                         </select>
             </div>

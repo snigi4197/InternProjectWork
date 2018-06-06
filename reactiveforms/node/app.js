@@ -13,7 +13,7 @@ var editController=require('./controller/edit');
 var app = express();
 var port=9000;
 //connect moongoose
-mongoose.connect('mongodb://localhost:27017/rForms');
+mongoose.connect('mongodb://mongo:27017/rForms');
 //on connection
 mongoose.connection.on('connected',()=>
 {

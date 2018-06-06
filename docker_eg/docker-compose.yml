@@ -1,0 +1,17 @@
+version: "2.2"
+services:
+  angular:
+    build: C:\InternProject\docker_eg\angular-eg
+    ports:
+    - "4200:4200"
+  express:
+    build: C:\InternProject\docker_eg\node_eg
+    ports:
+    - "3200:3000"
+    links:
+    - mongo
+  mongo:
+    image: 
+      mongo:latest 
+    ports:
+    - "27017:27017"

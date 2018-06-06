@@ -41,7 +41,7 @@ export class AppComponent {
   }
 
   editRow(data,formType) {
-    formType == 'interfaceForm' ?  this.interfaceForm.patchValue(data) :this.form.patchValue(data);
+    formType == 'interfaceForm' ? e :this.form.patchValue(data);
   }
 
   submit(form) {

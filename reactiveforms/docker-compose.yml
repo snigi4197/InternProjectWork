@@ -1,0 +1,28 @@
+version: "2.2"
+services:
+  angular:
+    build: C:\InternProject\reactiveforms\angular
+    ports:
+    - "2000:4200"
+  express:
+    build: C:\InternProject\reactiveforms\node
+    ports:
+    - "3000:9000"
+    links:
+    - mongo
+    #depends_on:
+    #- mongo
+  mongo:
+    image: 
+      mongo:latest 
+    # volumes:
+    # - ./data/db:/data/db
+    ports:
+    - "4000:27017"
+
+
+    
+    #  Mounting "volumes" gives us persistent storage so when 
+    #  starting a new container, Docker Compose will use the 
+    #  volume of any previous containers and copy it to the new container, 
+    #  ensuring that no data is lost

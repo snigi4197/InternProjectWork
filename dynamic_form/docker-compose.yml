@@ -1,0 +1,36 @@
+version: "2"
+services:
+  express:
+    image: node:latest 
+    user: "node"
+    working_dir: /home/node/app
+    volumes: 
+      - ./node:/home/node/app
+    command: "npm start"
+    ports:
+    - "3000:9000"
+    depends_on:
+    - mongodb
+    networks:
+      database:
+  mongodb:
+    image: mongo 
+    volumes: 
+      - mongodb_data:/data/db
+    container_name : mongodb
+    ports:
+    - "27017:27017"
+    networks:
+      database:
+        aliases:
+          - mongoserver
+volumes:
+  mongodb_data:
+    driver: local
+networks:
+  database:
+
+   # You can use the VOLUME instruction in a Dockerfile to tell Docker that the stuff you store in 
+   # that specific directory should be stored on the host file system not in the container 
+   # file system. This implies that stuff stored in the volume will 
+   # persist and be available also after you destroy the container.

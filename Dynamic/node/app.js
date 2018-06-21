@@ -14,7 +14,7 @@ var app = express();
 var cors = require('cors');
 var port=9000;
 //connect moongoose
-const abc='mongodb://mongodb/records';
+const abc='mongodb://localhost:27017/records';
 mongoose.connect(abc);
 //on connection
 mongoose.connection.on('connected',( )=>

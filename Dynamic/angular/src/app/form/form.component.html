@@ -1,0 +1,56 @@
+
+
+<hr>
+<h1> <u>Dynamic Example 2 !!</u></h1>
+<form> 
+  <div>
+    <form [formGroup]="dform" (ngSubmit)="submit(dform.value)">
+      <label formGroupName="name">
+      Enter first name 
+      <input type="text" formControlName="firstname" required> 
+      <br><br>     
+      Eenter second name
+      <input type="text" formControlName="lastname" required>
+      </label>
+      <br><br>
+      <input type="submit" value="click here " [disabled]="!dform.valid">
+      <h4>
+          {{dform.value | json }}
+      </h4> 
+      <h5>The values are :<br>{{message}}</h5>
+    </form>
+  </div>
+
+  <hr>
+  <h2> <u>Adding an Item example using array</u> </h2>
+  <div *ngFor="let item of toDos;let index = index;trackBy:trackByIndex;">
+      <input [(ngModel)]="toDos[index]" placeholder="item" name="word{{index}}">
+   </div>
+    <button (click)="addItem()" type="button">
+      Add an Item
+    </button>
+   <div *ngFor="let item of toDos">
+     <label>{{item}}</label>
+   </div>
+<hr>
+<h2><u>
+  Deleting an Item example using array
+</u></h2>
+<div *ngFor="let item of toDos;let index = index;trackBy:trackByIndex;">
+    <input [(ngModel)]="toDos[index]" placeholder="item" name="word{{index}}">
+ </div>
+  <button (click)="delItem()" type="button">
+    Delete an Item
+  </button>
+ <div *ngFor="let item of toDos">
+   <label>{{item}}</label>
+ </div>
+ <hr>
+ <h3> array list using angular 4</h3> 
+  <div>
+   *ngFor is a directive name nd is used to loop over some collections
+    <div *ngFor="let data of datafile"><br>
+        name : {{data.name.firstname}} {{data.name.lastname}}
+  </div>
+  </div>
+<hr>

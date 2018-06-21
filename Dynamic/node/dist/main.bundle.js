@@ -165,11 +165,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
 var http_1 = __webpack_require__("./node_modules/@angular/http/esm5/http.js");
 __webpack_require__("./node_modules/rxjs/_esm5/add/operator/map.js");
-var environment_1 = __webpack_require__("./src/environments/environment.ts");
 var AuthguardService = /** @class */ (function () {
     function AuthguardService(http) {
         this.http = http;
-        this.apiUrl = environment_1.environment.API_URL;
         this.a = 10;
     }
     AuthguardService.prototype.abc = function () {
@@ -179,43 +177,43 @@ var AuthguardService = /** @class */ (function () {
         var headers = new http_1.Headers();
         headers.append('content-type', 'application/json');
         headers.append('charset', 'UTF-8');
-        return this.http.post(this.apiUrl + "/api/register", user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('/api/register', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthguardService.prototype.entry = function () {
         var headers = new http_1.Headers();
         headers.append('content-type', 'application/json');
         headers.append('charset', 'UTF-8');
-        return this.http.get(this.apiUrl + "api/entry", { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.get('/api/entry', { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthguardService.prototype.displaydata = function (user) {
         var headers = new http_1.Headers();
         headers.append('content-type', 'application/json');
         headers.append('charset', 'UTF-8');
-        return this.http.post(this.apiUrl + "api/displaydata", user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('/api/displaydata', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthguardService.prototype.update = function (user) {
         var headers = new http_1.Headers();
         headers.append('content-type', 'application/json');
         headers.append('charset', 'UTF-8');
-        return this.http.post(this.apiUrl + "api/update", user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('/api/update', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthguardService.prototype.delete = function (user) {
         var headers = new http_1.Headers();
         headers.append('content-type', 'application/json');
         headers.append('charset', 'UTF-8');
-        return this.http.post(this.apiUrl + "api/delete", user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('/api/delete', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthguardService.prototype.view = function (user) {
         var headers = new http_1.Headers();
         headers.append('content-type', 'application/json');
         headers.append('charset', 'UTF-8');
-        return this.http.post(this.apiUrl + "view", user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('/api/view', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthguardService.prototype.edit = function (user) {
         var headers = new http_1.Headers();
         headers.append('content-type', 'application/json');
         headers.append('charset', 'UTF-8');
-        return this.http.post(this.apiUrl + "edit", user, { headers: headers }).map(function (res) { return res.json(); });
+        return this.http.post('/api/edit', user, { headers: headers }).map(function (res) { return res.json(); });
     };
     AuthguardService = __decorate([
         core_1.Injectable(),
@@ -1902,7 +1900,6 @@ exports.QuestionService = QuestionService;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.environment = {
     production: false,
-    API_URL: "http://localhost:3000/"
 };
 
 

@@ -1,0 +1,46 @@
+<form [formGroup]="forms" (ngSubmit)="SubmitHere(forms.value)">
+  <div *ngFor="let inputdata of inputdata">
+      <app-data-child [inputdata]="inputdata" [forms]="forms"></app-data-child>
+  </div>
+  <div>
+      <button type="submit" [disabled]="!forms.valid">Submit Here</button>
+  </div>
+  <br>
+  <div *ngIf="message">
+      <strong>Entered values are : </strong><br>{{message}}
+      <br>
+      <strong>Entered values are :</strong><br>{{msg}}
+<br>
+    </div>
+</form>
+    <table border="1px">
+        <tr>
+            <td colspan="2" align="center" style="width:150px;">ACTIONS</td>
+            <td  style="width:200px;"  >ID</td>
+            <td style="width:150px;">NAME</td>
+            <td style="width:100px;" >AGE</td>
+            <td style="width:150px;">COMMENT</td>
+            <td style="width:200px;">HOBBIES</td>
+            <td style="width:150px;">QUALIFICATION</td>
+            <td style="width:150px;">NATIONALITY</td>
+            
+        </tr>
+        <tr *ngFor="let l of list"> 
+            <td align="center">
+                <input type="button" name="delete" value=" DELETE " (click)="delete(l)">
+            </td>
+            <td align="center">
+                <input type="button" name="delete" value=" EDIT " (click)="edit(l)">
+            </td>
+            <td>{{ l._id }}</td>
+            <td>{{ l.name }}</td>
+            <td>{{ l.age }}</td>
+            <td>{{ l.comment }}</td>
+            <td>{{ l.Enter_hobbies_Details }}</td>
+            <td>{{ l.qualification }}</td>
+            <td>{{ l.nationality }}</td>
+            
+            
+         
+        </tr>
+    </table>

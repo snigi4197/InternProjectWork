@@ -1,0 +1,56 @@
+<div class="wrapper">
+ 
+ <div class="row">
+ 	
+		 <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+		<thead>
+		      <tr class="rowHeader">
+		        <th *ngFor="let hLists of hList">{{hLists}}</th>
+				<th>topology</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		     <tr *ngFor="let uLists of uList">
+		     	 
+				<td><a [routerLink]="['/dashboard/schema', bTabData, uLists[0] ]">{{uLists[0]}}</a>
+					<div *ngIf="bTabData=='/ml3:mpls-l3vpn/link'">
+				<a class="glyphicon glyphicon-plus" (click)="showLink(uLists[0],bTabData)"></a>	
+					<div *ngIf="check==uLists[0]">
+						 <table datatable [dtOptions]="dtOptions1" [dtTrigger]="dtTrigger1" class="row-border hover">
+							<thead>
+							      <tr class="rowHeader">
+							        <th *ngFor="let hLists1 of hList1">{{hLists1}}</th>
+									<th>topology</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							     <tr *ngFor="let uLists1 of uList1">
+							     	 
+									<td><a [routerLink]="['/dashboard/schema', bTabData, uLists1[0] ]">{{uLists[0]}}</a>
+									</td>
+									<td>{{uLists1[1]}}</td>
+									<td>{{uLists1[2]}}</td>
+									<td>{{uLists1[3]}}</td>
+									<td>
+					<a (click)="showConfirm(uLists1[0],bTabData)">Device Cloud</a>
+										 </td>
+							     </tr>
+							    </tbody>
+							 </table></div>
+							</div>
+				</td>
+				<td>{{uLists[1]}}</td>
+				<td>{{uLists[2]}}</td>
+				<td>{{uLists[3]}}</td>
+				<td>
+<a (click)="showConfirm(uLists[0],bTabData)">Device Cloud</a>
+					 </td>
+		     </tr>
+		    </tbody>
+		 </table>
+		   
+ </div>
+</div>
+
+
+ 

@@ -1,0 +1,207 @@
+import { Component, OnInit ,Input} from '@angular/core';
+import { NsoService } from '../nso.service';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import { DialogService } from "ng2-bootstrap-modal";
+import { DomSanitizer } from '@angular/platform-browser';
+import {NgxSmartModalService} from 'ngx-smart-modal';
+import { AuthService } from '../auth.service';
+import 'rxjs/add/operator/map';
+import * as $ from 'jquery';
+@Component({
+  selector: 'app-bandwidthcalender',
+  templateUrl: './bandwidthcalender.component.html',
+  styleUrls: ['./bandwidthcalender.component.scss']
+})
+export class BandwidthcalenderComponent implements OnInit {
+ 
+  @Input() bTabData
+	uList;
+	dtOptions: DataTables.Settings = {};
+	serviceData: string;
+  dtTrigger: Subject<any> = new Subject();
+  toggleButton: boolean=true;
+  btnDisabled:boolean = true;
+  values:string;
+  list2;
+  hList1;
+  uList1;
+
+  title;
+  constructor(private router: Router,private nsoService: NsoService, private http: Http,private dialogService:DialogService,
+    public ngxSmartModalService: NgxSmartModalService, private authService: AuthService) { 
+
+    this.nsoService.nsoServices().subscribe(data => {
+      console.log(data);
+
+      if (data.result) {
+        this.uList = Object.keys(data.result.service_points);
+      } else {
+        this.router.navigate(['']);
+      }
+    });
+
+  }
+
+  ngOnInit() {
+  }
+  changeEvent(event) {
+
+    if (event.target.checked) {
+
+      console.log('hello'+event.target.checked)
+      this.toggleButton= !this.toggleButton;
+
+    }
+    else {
+      this.toggleButton= true;
+    }
+  }
+  resetAll(event)
+  {
+    this.btnDisabled = true;
+    this.values = "";
+    $("#checkbox").prop("checked", false);
+    //  $('#Btxt').val("New value");
+
+    this.toggleButton= true;
+
+
+
+    
+  }
+  clr(event)
+  {
+    $('#Btxt').val('');
+
+    //document.getElementsByName('elementid').value = "";
+  }
+
+
+
+
+
+  openBandwidthCalenderPrice(val)
+  {
+    
+    this.btnDisabled = false;
+    this.title="Price Tab";
+    var   num1= ((document.getElementById("Btxt") as HTMLInputElement).value);
+    console.log("txtValue"+num1);
+    
+    val['new_bandwidth']=num1;
+    var  st_ed_date= ((document.getElementById("st_ed_date") as HTMLInputElement).value);
+    console.log("txtValue"+st_ed_date);
+    let data=st_ed_date.split("~");
+    console.log(data[0].split(",")[0]);
+    console.log(data[0].split(",")[1]);
+    console.log(data[1]);
+    console.log(data[1].split(",")[0]);
+    console.log(data[1].split(",")[1]);
+    val['schedule_date']=st_ed_date;
+
+    this.ngxSmartModalService.setModalData(val, 'priceModal');
+    this.ngxSmartModalService.getModal('priceModal').open();
+
+
+  }
+  eventHandler(e){
+
+    this.btnDisabled = false;
+  }
+  refreshFunc() {
+    location.reload();
+  }
+  UpdateBandwidthCalender(val)
+  {
+    
+    console.log(val);
+    let loginUser=localStorage.getItem("loginUser");
+ var bandCal={
+        "servicename":val.serviceName,
+        "serviceid":val.ckt_id,
+        "oldbw":val.old_bandwidth,
+        "newbw":val.new_bandwidth,
+        "start_datetime":val.schedule_date.split("~")[0].replace(",",""),
+        "end_datetime":val.schedule_date.split("~")[1].replace(",",""),
+        "created_by":loginUser
+    }
+  console.log(bandCal);
+   this.authService.bandwidthCalendaring(bandCal).subscribe((data) => {
+      console.log(data);
+      if (data.status) {
+        //this.router.navigate(['/login']);
+      } else {
+     // this.router.navigate(['']);
+      }
+    });
+
+
+  }
+  l3vpnBandwidthCalenderShow(cktId_Val,bndWidth_Val,serviceName) {
+     console.log("cktId_Val"+cktId_Val);
+     console.log("Value_bandwidth"+  bndWidth_Val);
+       
+console.log("Value of btadate"+serviceName);
+        let data={
+  'ckt_id':cktId_Val,
+  'serviceName':serviceName,
+  'old_bandwidth':bndWidth_Val
+}
+console.log(data);
+ this.ngxSmartModalService.setModalData(data, 'classicModal2');
+     
+           this.ngxSmartModalService.getModal('classicModal2').open();
+      }
+  openBandwidthCalenderL3VPNPrice(val)
+  {
+    
+    this.btnDisabled = false;
+    this.title="Price Tab";
+    var   num1= ((document.getElementById("l3VPNBtxt") as HTMLInputElement).value);
+    console.log("txtValue"+num1);
+    
+    val['new_bandwidth']=num1;
+    var  st_ed_date= ((document.getElementById("l3vpn_st_ed_date") as HTMLInputElement).value);
+    console.log("txtValue"+st_ed_date);
+    let data=st_ed_date.split("~");
+    console.log(data[0].split(",")[0]);
+    console.log(data[0].split(",")[1]);
+    console.log(data[1]);
+    console.log(data[1].split(",")[0]);
+    console.log(data[1].split(",")[1]);
+    val['schedule_date']=st_ed_date;
+
+    this.ngxSmartModalService.setModalData(val, 'l3vpnpriceModal');
+    this.ngxSmartModalService.getModal('l3vpnpriceModal').open();
+
+
+  }
+   UpdateBandwidthl3vpnCalender(val)
+  {
+    
+    console.log(val);
+    let loginUser=localStorage.getItem("loginUser");
+ var bandCal={
+        "servicename":val.serviceName,
+        "serviceid":val.ckt_id,
+        "oldbw":val.old_bandwidth,
+        "newbw":val.new_bandwidth,
+        "start_datetime":val.schedule_date.split("~")[0].replace(",",""),
+        "end_datetime":val.schedule_date.split("~")[1].replace(",",""),
+        "created_by":loginUser
+    }
+  console.log(bandCal);
+   this.authService.bandwidthCalendaring(bandCal).subscribe((data) => {
+      console.log(data);
+      if (data.status) {
+        //this.router.navigate(['/login']);
+      } else {
+     // this.router.navigate(['']);
+      }
+    });
+
+
+  }
+}

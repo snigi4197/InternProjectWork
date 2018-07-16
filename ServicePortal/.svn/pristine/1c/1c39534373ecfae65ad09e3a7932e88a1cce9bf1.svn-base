@@ -1,0 +1,625 @@
+webpackJsonp(["inventory.module"],{
+
+/***/ "../../../../../src/app/inventory/inventory-routing.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var inventory_component_1 = __webpack_require__("../../../../../src/app/inventory/inventory.component.ts");
+var routes = [
+    {
+        path: '',
+        component: inventory_component_1.InventoryComponent
+    }
+];
+var InventoryRoutingModule = /** @class */ (function () {
+    function InventoryRoutingModule() {
+    }
+    InventoryRoutingModule = __decorate([
+        core_1.NgModule({
+            imports: [router_1.RouterModule.forChild(routes)],
+            exports: [router_1.RouterModule]
+        })
+    ], InventoryRoutingModule);
+    return InventoryRoutingModule;
+}());
+exports.InventoryRoutingModule = InventoryRoutingModule;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/inventory/inventory.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\n\t<h1>My Inventory</h1>\n\t<div class=\"row\">\n        <div class=\" tabData\">\n           \n            <ul class=\"nav nav-tabs\" role=\"tablist\" id=\"myTabs\">\n                <li  *ngFor=\"let uLists of uList; let index = index\"\n                class=\"{{(index == 0)? 'active' : ''}}\" >\n               \n                    <a href=\"#{{uLists | specialchar}}\" \n                        attr.aria-controls=\"{{uLists | specialchar}}\" \n                        role=\"tab\" data-toggle=\"tab\">{{uLists}}</a>\n                </li>\n               \n                \n              </ul>\n\n          <!-- Tab panes -->\n          <div class=\"tab-content\" >\n             <div *ngFor=\"let uLists1 of uList; let index1 = index\" \n                class=\"tab-pane {{(index1 == 0)? 'active' : ''}}\" \n                id=\"{{uLists1 | specialchar}}\" \n                role=\"tabpanel\" attr.aria-labelledby=\"{{uLists1 | specialchar}}\">\n                   <div class=\"wrapper\">\n                    <app-tab-data [bTabData]=\"uLists1\"></app-tab-data></div> \n                </div>\n \n           \n          </div>\n        </div>\n\t\t\n    </div>\n</div>\n <ngx-smart-modal [customClass]=\"'CssAmit'\"   #longTextModal  [identifier]=\"'longTextModal'\">\n<div id=\"topology\"></div>\n</ngx-smart-modal>\n\n<ngx-smart-modal [customClass]=\"'CssAmit'\"   #classicModal  [identifier]=\"'classicModal'\" [customClass]=\"'large-modal'\">\n  <p><br><br></p>\n  <div *ngIf=\"classicModal.hasData()\">\n <table datatable class=\"row-border hover\" id=\"vpnLink\">\n <thead>\n       <tr class=\"rowHeader\">\n         <th *ngFor=\"let hLists2 of classicModal.getData().hList1\">{{hLists2}}</th>\n    \n       </tr>\n     </thead>\n     <tbody *ngIf=\"classicModal.getData().uList1\">\n      <tr *ngFor=\"let uLists2 of classicModal.getData().uList1\">\n        \n     <td><a [routerLink]=\"['/dashboard/schemalink', classicModal.getData().bTabData, classicModal.getData().vpnId, uLists2[0], 'link']\">{{uLists2[0]}}</a>\n     </td>\n     <td>{{uLists2[1]}}</td>\n     <td>{{uLists2[2]}}</td>\n     <td>{{uLists2[3]}}</td>\n \n      </tr>\n     </tbody>\n  </table>\n             </div>\n</ngx-smart-modal>\n<!-- // -->"
+
+/***/ }),
+
+/***/ "../../../../../src/app/inventory/inventory.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".tabData {\n  background: #ececec;\n  padding: 0px;\n  max-width: 1106px;\n  -webkit-border-top-left-radius: 4px;\n  -webkit-border-top-right-radius: 4px;\n  -moz-border-radius-topleft: 4px;\n  -moz-border-radius-topright: 4px;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border: 1px solid #dedddd; }\n\n.nav-tabs {\n  border-bottom: 0px; }\n\n.nav > li > a {\n  color: #6b6969;\n  border: none;\n  padding: 9px 30px;\n  font-weight: bold;\n  font-size: 13px; }\n\n.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {\n  background-color: #757779;\n  border: none;\n  -webkit-box-shadow: 3px 1px 2px #ccc;\n          box-shadow: 3px 1px 2px #ccc;\n  color: #fff;\n  border-bottom: 5px solid #188ed4 !important; }\n\n.nav > li > a:focus, .nav > li > a:hover {\n  background-color: #fcfdfd;\n  border-bottom: 5px solid #188ed4; }\n\n.large-modal {\n  max-width: none !important; }\n\n.CssAmit {\n  max-width: 900px !important; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/inventory/inventory.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var nso_service_1 = __webpack_require__("../../../../../src/app/nso.service.ts");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+var Subject_1 = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+__webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+var ng2_bootstrap_modal_1 = __webpack_require__("../../../../ng2-bootstrap-modal/index.js");
+var ngx_smart_modal_1 = __webpack_require__("../../../../ngx-smart-modal/esm5/ngx-smart-modal.js");
+var InventoryComponent = /** @class */ (function () {
+    function InventoryComponent(router, nsoService, http, dialogService, ngxSmartModalService) {
+        var _this = this;
+        this.router = router;
+        this.nsoService = nsoService;
+        this.http = http;
+        this.dialogService = dialogService;
+        this.ngxSmartModalService = ngxSmartModalService;
+        this.dtOptions = {};
+        // We use this trigger because fetching the list of persons can be quite long,
+        // thus we ensure the data is fetched before rendering
+        this.dtTrigger = new Subject_1.Subject();
+        this.nsoService.nsoServices().subscribe(function (data) {
+            console.log(data);
+            if (data.result) {
+                _this.uList = Object.keys(data.result.service_points);
+            }
+            else {
+                _this.router.navigate(['']);
+            }
+        });
+    }
+    InventoryComponent.prototype.ngOnInit = function () {
+    };
+    InventoryComponent = __decorate([
+        core_1.Component({
+            selector: 'app-inventory',
+            template: __webpack_require__("../../../../../src/app/inventory/inventory.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/inventory/inventory.component.scss")]
+        }),
+        __metadata("design:paramtypes", [router_1.Router, nso_service_1.NsoService,
+            http_1.Http, ng2_bootstrap_modal_1.DialogService,
+            ngx_smart_modal_1.NgxSmartModalService])
+    ], InventoryComponent);
+    return InventoryComponent;
+}());
+exports.InventoryComponent = InventoryComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/inventory/inventory.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var common_1 = __webpack_require__("../../../common/esm5/common.js");
+var forms_1 = __webpack_require__("../../../forms/esm5/forms.js");
+//import{ServiceSchemaComponent} from '../service-schema/service-schema.component'
+var inventory_routing_module_1 = __webpack_require__("../../../../../src/app/inventory/inventory-routing.module.ts");
+var inventory_component_1 = __webpack_require__("../../../../../src/app/inventory/inventory.component.ts");
+var tab_data_component_1 = __webpack_require__("../../../../../src/app/tab-data/tab-data.component.ts");
+var specialchar_pipe_1 = __webpack_require__("../../../../../src/app/specialchar.pipe.ts");
+var ngx_smart_modal_1 = __webpack_require__("../../../../ngx-smart-modal/esm5/ngx-smart-modal.js");
+var angular_datatables_1 = __webpack_require__("../../../../angular-datatables/index.js");
+var ng2_bootstrap_modal_1 = __webpack_require__("../../../../ng2-bootstrap-modal/index.js");
+var ng2_accordion_1 = __webpack_require__("../../../../ng2-accordion/index.js");
+var divfields_component_1 = __webpack_require__("../../../../../src/app/divfields/divfields.component.ts");
+var parentchild_component_1 = __webpack_require__("../../../../../src/app/parentchild/parentchild.component.ts");
+var InventoryModule = /** @class */ (function () {
+    function InventoryModule() {
+    }
+    InventoryModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                common_1.CommonModule,
+                forms_1.FormsModule,
+                angular_datatables_1.DataTablesModule,
+                ng2_accordion_1.AccordionModule,
+                ng2_bootstrap_modal_1.BootstrapModalModule,
+                ngx_smart_modal_1.NgxSmartModalModule.forRoot(),
+                inventory_routing_module_1.InventoryRoutingModule
+            ],
+            declarations: [inventory_component_1.InventoryComponent, divfields_component_1.DivfieldsComponent_Inventory, parentchild_component_1.ParentchildComponent_Inventory, tab_data_component_1.TabDataComponent,
+                specialchar_pipe_1.SpecialcharPipe_Inventory],
+            providers: [ngx_smart_modal_1.NgxSmartModalService]
+        })
+    ], InventoryModule);
+    return InventoryModule;
+}());
+exports.InventoryModule = InventoryModule;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/jsonclass/topologycall.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Topologycall = /** @class */ (function () {
+    function Topologycall(nsoService) {
+        this.nsoService = nsoService;
+        this.arr = [];
+    }
+    Topologycall.prototype.getData = function (name, path) {
+        var _this = this;
+        var URL = {
+            'URL': path
+        };
+        //this.arr=[];
+        var element = {};
+        this.nsoService.nsoServicesSchemaGetValue(URL).subscribe(function (data) {
+            console.log(data);
+            console.log("_________________________fg_" + path + "  " + name);
+            if (data.result != null) {
+                element[name] = data.result.value;
+            }
+            else {
+                element[name] = "data not found";
+            }
+            _this.arr.push(element);
+        });
+        return this.arr;
+    };
+    Topologycall.prototype.getDataquery = function (name, path, xpath, selection) {
+        var _this = this;
+        var URL = {
+            'context': path,
+            'xpath': xpath,
+            'selection': selection
+        };
+        //this.arr=[];
+        var element = {};
+        this.nsoService.nsoDataquery(URL).subscribe(function (data) {
+            console.log(data);
+            console.log("_________________________fg_" + path + "  xpath===============" + xpath);
+            if (data.result != null) {
+                element[name] = data.result.results;
+            }
+            else {
+                element[name] = "data not found";
+            }
+            _this.arr.push(element);
+        });
+        return this.arr;
+    };
+    return Topologycall;
+}());
+exports.Topologycall = Topologycall;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/tab-data/tab-data.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper\">\n \n <div class=\"row\">\n \t\n\t\t <table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"row-border hover\">\n\t\t<thead>\n\t\t      <tr class=\"rowHeader\">\n\t\t        <th *ngFor=\"let hLists of hList\">{{hLists}}</th>\n\t\t\t\t<th>topology</th>\n\t\t      </tr>\n\t\t    </thead>\n\t\t    <tbody>\n\t\t     <tr *ngFor=\"let uLists of uList\">\n\t\t     \t \n\t\t\t\t<td><a [routerLink]=\"['/dashboard/schema', bTabData, uLists[0]]\">{{uLists[0]}}</a>\n\t\t\t\t\t<div *ngIf=\"bTabData=='/ml3:mpls-l3vpn/link'\">\n\t\t\t\t<a (click)=\"showLink(uLists[0],bTabData)\" class=\"glyphicon glyphicon-chevron-right\"></a><!-- \t\n\t\t\t\t\t<div *ngIf=\"check==uLists[0]\">\n\t\t\t\t\t\t <table datatable [dtOptions]=\"dtOptions1\" [dtTrigger]=\"dtTrigger1\" class=\"row-border hover\">\n\t\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t      <tr class=\"rowHeader\">\n\t\t\t\t\t\t\t        <th *ngFor=\"let hLists1 of hList1\">{{hLists1}}</th>\n\t\t\t\t\t\t\t\t\t<th>topology</th>\n\t\t\t\t\t\t\t      </tr>\n\t\t\t\t\t\t\t    </thead>\n\t\t\t\t\t\t\t    <tbody>\n\t\t\t\t\t\t\t     <tr *ngFor=\"let uLists1 of uList1\">\n\t\t\t\t\t\t\t     \t \n\t\t\t\t\t\t\t\t\t<td><a [routerLink]=\"['/dashboard/schemalink', bTabData, uLists[0], uLists1[0], 'link']\">{{uLists1[0]}}</a>\n\t\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t\t<td>{{uLists1[1]}}</td>\n\t\t\t\t\t\t\t\t\t<td>{{uLists1[2]}}</td>\n\t\t\t\t\t\t\t\t\t<td>{{uLists1[3]}}</td>\n\t\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t<a (click)=\"showConfirm(uLists1[0],bTabData)\">Device Cloud</a>\n\t\t\t\t\t\t\t\t\t\t </td>\n\t\t\t\t\t\t\t     </tr>\n\t\t\t\t\t\t\t    </tbody>\n\t\t\t\t\t\t\t </table></div> -->\n\t\t\t\t\t\t\t</div>\n\t\t\t\t</td>\n\t\t\t\t<td>{{uLists[1]}}</td>\n\t\t\t\t<td>{{uLists[2]}}</td>\n\t\t\t\t<td>{{uLists[3]}}</td>\n\t\t\t\t<td>\n<a (click)=\"showConfirm(uLists[0],bTabData)\">Device Cloud</a>\n\t\t\t\t\t </td>\n\t\t     </tr>\n\t\t    </tbody>\n\t\t </table>\n\t\t   \n </div>\n</div>\n\n\n "
+
+/***/ }),
+
+/***/ "../../../../../src/app/tab-data/tab-data.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "table.dataTable.no-footer {\n  border-bottom: 1px solid #c5c3c3; }\n\n.dataTables_wrapper .dataTables_filter {\n  width: 266px; }\n\n.dataTables_wrapper .dataTables_filter input {\n  width: 196px;\n  padding: 3px 5px; }\n\n.wrapper {\n  margin: 0 auto;\n  background: #fcfcfd;\n  padding: 20px 34px; }\n\ntable {\n  border: 1px solid #c5c3c3;\n  border-radius: 4px; }\n\ntable.dataTable thead th, table.dataTable thead td {\n  border-bottom: 0px;\n  padding: 7px 18px; }\n\n.glyphicon.glyphicon-chevron-right {\n  top: 3px;\n  font-size: 11px; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/tab-data/tab-data.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var nso_service_1 = __webpack_require__("../../../../../src/app/nso.service.ts");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+var Subject_1 = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+__webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+var platform_browser_1 = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
+var inventory_component_1 = __webpack_require__("../../../../../src/app/inventory/inventory.component.ts");
+var ng2_bootstrap_modal_1 = __webpack_require__("../../../../ng2-bootstrap-modal/index.js");
+var ngx_smart_modal_1 = __webpack_require__("../../../../ngx-smart-modal/esm5/ngx-smart-modal.js");
+var topologycall_1 = __webpack_require__("../../../../../src/app/jsonclass/topologycall.ts");
+var TabDataComponent = /** @class */ (function () {
+    function TabDataComponent(sanitized, router, nsoService, http, dialogService, ngxSmartModalService) {
+        this.sanitized = sanitized;
+        this.router = router;
+        this.nsoService = nsoService;
+        this.http = http;
+        this.dialogService = dialogService;
+        this.ngxSmartModalService = ngxSmartModalService;
+        this.dtOptions = {};
+        this.dtTrigger = new Subject_1.Subject();
+        this.dtOptions1 = {};
+        this.dtTrigger1 = new Subject_1.Subject();
+        this.list2 = [];
+        this.type = "link";
+        this.htmlContent = "<h1>Lorem ipsum dolor sit amet.</h1>";
+    }
+    TabDataComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var list = ['ckt-id', 'reconcile', 'customer-name', 'bandwidth'];
+        if (this.bTabData.indexOf("link") != -1) {
+            console.log("this.bTabData.indexOf('link')" + this.bTabData);
+            list = ['vpn-id', 'topology', 'customer-name', 'mesh-rd-value'];
+        }
+        this.hList = list;
+        console.log('+++++++++++++++');
+        console.log(this.hList);
+        var User = {
+            'serviceName': this.bTabData.replace("link", "ml3:vpn"),
+            "selection": list
+        };
+        this.nsoService.nsoData(User).subscribe(function (data) {
+            console.log(data);
+            if (data.result) {
+                _this.uList = data.result.results;
+            }
+            else {
+                _this.router.navigate(['']);
+            }
+        });
+        //////////////////
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        console.log(this.uList);
+        this.dtOptions = {
+            pagingType: 'full_numbers',
+            pageLength: 10
+        };
+        this.http.post('api/data', User, { headers: headers })
+            .map(this.extractData)
+            .subscribe(function (data) {
+            //this.uList = data;
+            console.log("dataaaaaaaa" + data);
+            // Calling the DT trigger to manually render the table
+            _this.dtTrigger.next();
+        });
+    };
+    TabDataComponent.prototype.extractData = function (res) {
+        var body = res.json();
+        console.log(body);
+        return body || {};
+    };
+    TabDataComponent.prototype.extractData1 = function (res) {
+        var body = res.json();
+        console.log(body);
+        return body || {};
+    };
+    TabDataComponent.prototype.slideTable = function (_path, _Val) {
+        console.log(_Val);
+        console.log(_path);
+    };
+    TabDataComponent.prototype.showConfirm = function (val, serviceName) {
+        var _this = this;
+        this.title = "title";
+        var objs = new inventory_component_1.InventoryComponent(this.router, this.nsoService, this.http, this.dialogService, this.ngxSmartModalService);
+        var HTML = new topologycall_1.Topologycall(this.nsoService);
+        var srcpath = HTML.getData("src", "/ml2:mpls-l2vpn{" + val + "}/src/access/ml2:device");
+        HTML = new topologycall_1.Topologycall(this.nsoService);
+        var destnpath = HTML.getData("destn", "/ml2:mpls-l2vpn{" + val + "}/destn/access/ml2:device");
+        HTML = new topologycall_1.Topologycall(this.nsoService);
+        var srcinpath = HTML.getData("srcIn", "/ml2:mpls-l2vpn{" + val + "}/src/access/interface/ml2:intf-id");
+        HTML = new topologycall_1.Topologycall(this.nsoService);
+        var destninpath = HTML.getData("destnIn", "/ml2:mpls-l2vpn{" + val + "}/destn/access/interface/ml2:intf-id");
+        // }
+        HTML = new topologycall_1.Topologycall(this.nsoService);
+        var srclagg = HTML.getDataquery('srcLagg', '/ml2:mpls-l2vpn{' + val + '}/src/lagg', 'devices', ['device']);
+        HTML = new topologycall_1.Topologycall(this.nsoService);
+        var destnlagg = HTML.getDataquery('destnLagg', '/ml2:mpls-l2vpn{' + val + '}/destn/lagg', 'devices', ['device']);
+        setTimeout(function () {
+            var topologyData = {};
+            /*		console.log(srcpath[0].src);
+                     console.log(srclagg[0].srcLagg);
+                     console.log("destnlaggdestnlaggdestnlaggdestnlaggdestnlagg");
+                     console.log(destnpath[0].destn);
+                     console.log(destnlagg);*/
+            topologyData['nodes'] = [];
+            topologyData['links'] = [];
+            var elements = {}, elements1 = {};
+            elements['id'] = 0;
+            elements['name'] = srcpath[0].src;
+            topologyData['nodes'].push(elements);
+            // topologyData['nodes'].push(elements);
+            var t = 0;
+            if (srclagg[0].srcLagg != "data not found") {
+                for (t = 0; t < srclagg[0].srcLagg.length; t++) {
+                    var srcData = srclagg[0].srcLagg[t][0];
+                    elements = {};
+                    elements['id'] = (t + 1);
+                    elements['name'] = srcData;
+                    elements1 = {};
+                    elements1['id'] = t;
+                    elements1['source'] = 0;
+                    elements1['target'] = (t + 1);
+                    topologyData['nodes'].push(elements);
+                    topologyData['links'].push(elements1);
+                }
+            }
+            if (destnlagg[0].destnLagg != "data not found") {
+                for (var i = 0; i < destnlagg[0].destnLagg.length; i++) {
+                    var destnData = destnlagg[0].destnLagg[i][0];
+                    elements = {};
+                    t = (t + 1);
+                    console.log("trrrrrrrrrrrrrrrrr" + t);
+                    elements['id'] = (t);
+                    elements['name'] = destnData;
+                    elements1 = {};
+                    elements1['id'] = (t - 1);
+                    elements1['source'] = (t - 2);
+                    elements1['target'] = (t);
+                    topologyData['nodes'].push(elements);
+                    topologyData['links'].push(elements1);
+                    console.log(elements);
+                    console.log(elements1);
+                }
+            }
+            if (destnpath[0].destn != "data not found") {
+                elements = {};
+                t = (t + 1);
+                console.log("trrrrrrrrrrrrrrrrr" + t);
+                elements['id'] = (t);
+                elements['name'] = destnpath[0].destn;
+                elements1 = {};
+                elements1['id'] = (t - 1);
+                elements1['source'] = (t - 2);
+                elements1['target'] = (t);
+                topologyData['links'].push(elements1);
+                t = (t);
+                elements1 = {};
+                elements1['id'] = (t);
+                elements1['source'] = (t - 1);
+                elements1['target'] = (t);
+                topologyData['nodes'].push(elements);
+                topologyData['links'].push(elements1);
+            }
+            console.log(topologyData['nodes']);
+            console.log(topologyData['links']);
+            //Topology Code Begin
+            var Shell = nx.define(nx.ui.Application, {
+                methods: {
+                    getContainer: function () {
+                        return new nx.dom.Element(document.getElementById('topology'));
+                    },
+                    start: function () {
+                        var topo = new nx.graphic.Topology({
+                            'adaptive': false,
+                            'showIcon': true,
+                            'nodeConfig': {
+                                //'label': 'model.name',
+                                label: function (vertex) {
+                                    if (vertex.get("name") == srcpath[0].src) {
+                                        return vertex.get("name") + " > Start";
+                                    }
+                                    else if (vertex.get("name") == destnpath[0].destn) {
+                                        return vertex.get("name") + " > End";
+                                    }
+                                    else {
+                                        return vertex.get("name");
+                                    }
+                                    /* console.log(vertex.get("name"));
+                                  return vertex.get("name") + "abu";*/
+                                },
+                                'iconType': 'router',
+                                //iconType: '{#icon}',
+                                //'color': '#0how00'
+                                'color': function (vertex) {
+                                    if (vertex.get("name") == srcpath[0].src) {
+                                        return '#108301';
+                                    }
+                                    else if (vertex.get("name") == destnpath[0].destn) {
+                                        return '#ff0000';
+                                    }
+                                    else {
+                                        return '#0how00';
+                                    }
+                                }
+                            },
+                            'linkConfig': {
+                                'linkType': 'curve'
+                            },
+                            'identityKey': 'id',
+                            'width': 875,
+                            'height': 500,
+                            'dataProcessor': 'force',
+                            'enableSmartLabel': true,
+                            'enableGradualScaling': true,
+                            'supportMultipleLink': true,
+                            "scalable": true
+                        });
+                        //console.log(topologyData);
+                        topo.data(topologyData);
+                        topo.attach(this);
+                    }
+                }
+            });
+            var shell = new Shell();
+            shell.start();
+            //Topology Code End
+            _this.messageData = "<p><input type='text'/>text</p>";
+            var title = "<p><input type='text' />text</p>";
+            //objs.ngxSmartModalService.setModalData(this.sanitized.bypassSecurityTrustHtml(title), 'classicModal');
+            objs.ngxSmartModalService.getModal('longTextModal').open();
+            objs.ngxSmartModalService.getModal('longTextModal').onClose.subscribe(function (event) {
+                console.log('Rickroll modal closed', event);
+                if (document.getElementById('topology') !== null) {
+                    if (document.getElementById('topology').innerHTML !== null) {
+                        document.getElementById('topology').innerHTML = "";
+                    }
+                }
+                console.log(shell);
+            });
+        }, 1700);
+    };
+    TabDataComponent.prototype.showLink = function (vpnId, path) {
+        var _this = this;
+        var dataAll = {};
+        var objs = new inventory_component_1.InventoryComponent(this.router, this.nsoService, this.http, this.dialogService, this.ngxSmartModalService);
+        objs.list2 = ['ckt-id', 'admin-state', 'customer-address', 'qos/bandwidth'];
+        this.hList1 = this.list2;
+        var json = {
+            context: path.replace("/link", ""),
+            xpath: "link[starts-with(vpn-id,'" + vpnId + "')]",
+            selection: objs.list2
+        };
+        this.check = vpnId;
+        this.nsoService.nsoDataquery(json).subscribe(function (data) {
+            console.log(data);
+            if (data.result) {
+                objs.uList1 = data.result.results;
+                dataAll = {
+                    'hList1': objs.list2,
+                    'uList1': objs.uList1,
+                    'bTabData': path,
+                    'vpnId': vpnId
+                };
+                objs.ngxSmartModalService.getModal('classicModal').onOpen.subscribe(function (event) {
+                    console.log(event['data']);
+                    //event['data']=dataAll;
+                    if (event['data'] != null) {
+                        event['data'] = dataAll;
+                    }
+                    else {
+                        objs.ngxSmartModalService.setModalData(dataAll, 'classicModal');
+                    }
+                    console.log(event['data']);
+                });
+                objs.ngxSmartModalService.getModal('classicModal').open();
+            }
+            else {
+                dataAll = {
+                    'hList1': objs.list2,
+                    'uList1': {},
+                    'bTabData': path,
+                    'vpnId': vpnId
+                };
+                objs.ngxSmartModalService.getModal('classicModal').onOpen.subscribe(function (event) {
+                    console.log(event['data']);
+                    if (event['data'] != null) {
+                        event['data'] = dataAll;
+                    }
+                    else {
+                        objs.ngxSmartModalService.setModalData(dataAll, 'classicModal');
+                    }
+                });
+                //objs.ngxSmartModalService.setModalData(dataAll, 'classicModal');
+                objs.ngxSmartModalService.getModal('classicModal').open();
+            }
+        });
+        objs.ngxSmartModalService.getModal('classicModal').onClose.subscribe(function (event) {
+            console.log(event['data']);
+            event['data'].uList1 = [];
+            console.log(event['data']);
+            console.log(dataAll);
+            dataAll = {};
+            console.log(dataAll);
+        });
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        console.log(objs.uList1);
+        this.dtOptions1 = {
+            pagingType: 'full_numbers',
+            pageLength: 10
+        };
+        this.http.post('api/data/query', json, { headers: headers })
+            .map(this.extractData1)
+            .subscribe(function (data) {
+            //this.uList = data;
+            console.log("dataaaaaaaa" + data);
+            // Calling the DT trigger to manually render the table
+            _this.dtTrigger1.next();
+        });
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], TabDataComponent.prototype, "bTabData", void 0);
+    TabDataComponent = __decorate([
+        core_1.Component({
+            selector: 'app-tab-data',
+            template: __webpack_require__("../../../../../src/app/tab-data/tab-data.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/tab-data/tab-data.component.scss")],
+        }),
+        __metadata("design:paramtypes", [platform_browser_1.DomSanitizer, router_1.Router,
+            nso_service_1.NsoService, http_1.Http,
+            ng2_bootstrap_modal_1.DialogService,
+            ngx_smart_modal_1.NgxSmartModalService])
+    ], TabDataComponent);
+    return TabDataComponent;
+}());
+exports.TabDataComponent = TabDataComponent;
+
+
+/***/ })
+
+});
+//# sourceMappingURL=inventory.module.chunk.js.map

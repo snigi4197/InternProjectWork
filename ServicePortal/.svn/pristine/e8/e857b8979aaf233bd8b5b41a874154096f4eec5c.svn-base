@@ -1,0 +1,30 @@
+  import { NsoService } from '../nso.service';
+
+  export class Topologycall {
+ private arr=[];
+	constructor(private nsoService:NsoService){
+
+	}
+	getData(name,path){
+  	const URL = {
+		  'URL': path
+
+	  }
+	  //this.arr=[];
+	  let element={};
+		 this.nsoService.nsoServicesSchemaGetValue(URL).subscribe(data => {
+		 	console.log(data);
+		 	console.log("_________________________fg_"+path+"  "+name);
+		  	if(data.result!=null){
+
+		  		element[name]=data.result.value;
+		  	}else{
+		  		element[name]="data not found";
+		  	}
+		  	this.arr.push(element);
+			});  
+	
+
+       return this.arr;
+  }
+}

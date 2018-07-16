@@ -1,0 +1,10 @@
+h3{
+    font: normal 21px "Calibri", sans-serif;
+    color: #dc9613;
+    margin: 16px 0 25px 16px;
+    width: 96%;
+    text-transform: capitalize;
+    border-bottom: 1px solid #ece9e9;
+}
+
+.dropup .ng-star-inserted h1{text-transform: capitalize;}

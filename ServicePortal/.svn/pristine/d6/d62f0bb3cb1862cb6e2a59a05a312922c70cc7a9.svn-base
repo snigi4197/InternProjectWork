@@ -1,0 +1,413 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var testing_1 = require("@angular/core/testing");
+var platform_browser_1 = require("@angular/platform-browser");
+var breadcrumb_popup_component_1 = require("./breadcrumb-popup.component");
+var searchbox_component_1 = require("./searchbox.component");
+var router_stub_1 = require("./router-stub");
+var Observable_1 = require("rxjs/Observable");
+var router_1 = require("@angular/router");
+describe("Breadcrumb Popup Component", function () {
+    describe('the UI part', function () {
+        var fixture;
+        var linkParam;
+        var inputBreadcrumb;
+        var testCmp;
+        var page;
+        var router;
+        beforeEach(testing_1.async(function () {
+            testing_1.TestBed.configureTestingModule({
+                imports: [],
+                providers: [
+                    { provide: router_1.Router, useClass: router_stub_1.RouterStub },
+                ],
+                declarations: [
+                    TestComponent,
+                    searchbox_component_1.SearchBoxComponent,
+                    router_stub_1.RouterLinkStubDirective,
+                    breadcrumb_popup_component_1.BreadcrumbPopupComponent
+                ]
+            });
+        }));
+        beforeEach(testing_1.async(function () {
+            testing_1.TestBed.compileComponents().then(function () {
+                createComponent();
+                linkParam = { id: 8 };
+                inputBreadcrumb = buildBreadcrumbs("url1", undefined);
+            });
+            router = testing_1.TestBed.get(router_1.Router);
+        }));
+        describe('when there is NO breadcrumbDropDown valid data', function () {
+            it('should not fail if there is no breadcrumbDropDown', function () {
+                testCmp.testBreadCrumb = "";
+                fixture.detectChanges();
+                expect(page.links.length).toBe(0);
+            });
+            it('should not be visible if there are no items', function () {
+                testCmp.testBreadCrumb = inputBreadcrumb;
+                fixture.autoDetectChanges();
+                fixture.whenStable(fixture).then(function () {
+                    expect(page.links.length).toBe(0);
+                    expect(page.breadcrumbPopupComponent.isShowBreadcrumbDropDown).toBe(undefined);
+                });
+            });
+        });
+        describe('when there is a valid breadcrumbDropDown data as array', function () {
+            beforeEach(testing_1.async(function () {
+                inputBreadcrumb.items = [
+                    {
+                        label: "first label",
+                        url: "first url",
+                        icon: "first icon",
+                        params: []
+                    },
+                    {
+                        label: "second label",
+                        url: "second url",
+                        icon: "second icon",
+                        params: [{ id: 2 }]
+                    }
+                ];
+                testCmp.testBreadCrumb = inputBreadcrumb;
+                fixture.detectChanges();
+            }));
+            it('should NOT have a popup', function () {
+                expect(page.popup).toBeUndefined();
+            });
+            describe('when the user click on the button', function () {
+                beforeEach(testing_1.async(function () {
+                    click(page.dropDownButton);
+                    detectChanges(fixture).then(function () {
+                    });
+                }));
+                it('should have a title', function () {
+                    expect(page.title.indexOf(inputBreadcrumb.popupTitle)).toBeGreaterThan(-1);
+                });
+                it('should show the dropdown items with link items', testing_1.async(function () {
+                    expect(page.links.length).toBe(inputBreadcrumb.items.length);
+                }));
+                it('should bind to routerLink', function () {
+                    var pos = 0;
+                    var data = inputBreadcrumb.items;
+                    page.links.map(function (link) {
+                        expect(link.linkParams[0]).toBe(data[pos].url, 'should bind to url');
+                        expect(link.linkParams[1]).toBe(data[pos].params, 'should bind to link param');
+                        pos++;
+                    });
+                });
+                it('should have text and icon for dynamic links', function () {
+                    var pos = 0;
+                    var data = inputBreadcrumb.items;
+                    page.anchorElements.map(function (anchor) {
+                        expect(anchor.nativeElement.innerHTML.indexOf(data[pos].label)).toBeGreaterThan(-1);
+                        expect(anchor.nativeElement.innerHTML.indexOf(data[pos].icon)).toBeGreaterThan(-1);
+                        pos++;
+                    });
+                });
+                describe('when using search box to filter elements', function () {
+                    it('should have a search box to enable filtering', function () {
+                        expect(page.searchBox).toBeDefined();
+                    });
+                    it('should be bounded to min length', function () {
+                        expect(page.searchBox.componentInstance.minLength).toBe(0);
+                    });
+                    it('should listen to events from search box', function () {
+                        var onFilterSpy = spyOn(page.breadcrumbPopupComponent, "onFiltered").and.callThrough();
+                        var items = inputBreadcrumb.items;
+                        var event = items.filter(function (f) { return f.label.indexOf("first") > -1; });
+                        page.searchBox.triggerEventHandler("results", event);
+                        detectChanges(fixture).then(function () {
+                            expect(page.links.length).toBe(1);
+                            expect(page.links[0].linkParams[0]).toBe(event[0].url);
+                            expect(onFilterSpy).toHaveBeenCalled();
+                        });
+                    });
+                    it('should supply search data to the search box', testing_1.fakeAsync(function () {
+                        var searchSpy = spyOn(page.breadcrumbPopupComponent, "search").and.callThrough();
+                        var onFilterSpy = spyOn(page.breadcrumbPopupComponent, "onFiltered").and.callThrough();
+                        var input = page.searchBoxInput;
+                        input.value = "second";
+                        input.dispatchEvent(new Event('keyup'));
+                        fixture.detectChanges();
+                        simulateKeyUpevent(input, "s");
+                        testing_1.tick(500);
+                        detectChanges(fixture).then(function () {
+                            expect(searchSpy).toHaveBeenCalledWith("second", Number.MAX_SAFE_INTEGER);
+                            expect(onFilterSpy).toHaveBeenCalledWith([inputBreadcrumb.items[1]]);
+                        });
+                    }));
+                    it('should change the component selection on key down', testing_1.async(function () {
+                        page.breadcrumbPopupComponent.selectedItemIndex = 0;
+                        page.searchBox.triggerEventHandler("keydown.arrowDown", { preventDefault: function () { } });
+                        detectChanges(fixture).then(function (f) {
+                            expect(page.breadcrumbPopupComponent.selectedItemIndex).toBe(1);
+                        });
+                    }));
+                    it('should change the component selection on key up', testing_1.async(function () {
+                        page.breadcrumbPopupComponent.selectedItemIndex = 3;
+                        page.searchBox.triggerEventHandler("keydown.arrowUp", { preventDefault: function () { } });
+                        detectChanges(fixture).then(function (f) {
+                            expect(page.breadcrumbPopupComponent.selectedItemIndex).toBe(2);
+                        });
+                    }));
+                    it('should route to the link when clicking enter', testing_1.async(function () {
+                        page.breadcrumbPopupComponent.selectedItemIndex = 1;
+                        router.navigateByUrl = jasmine.createSpy("navigateByUrl");
+                        page.searchBox.triggerEventHandler("keydown.enter", null);
+                        detectChanges(fixture).then(function (f) {
+                            expect(router.navigateByUrl).toHaveBeenCalledWith(page.breadcrumbPopupComponent.filteredItems[page.breadcrumbPopupComponent.selectedItemIndex].url);
+                        });
+                    }));
+                });
+            });
+        });
+        describe('when there is a valid breadcrumbDropDown data as observable', function () {
+            var breadcrumbDropDownItem = [
+                {
+                    label: "first label",
+                    url: "first url",
+                    icon: "first icon",
+                    params: []
+                },
+                {
+                    label: "second label",
+                    url: "second url",
+                    icon: "second icon",
+                    params: [{ id: 2 }]
+                }
+            ];
+            function getBreadCrumbItem() {
+                return Observable_1.Observable.of(breadcrumbDropDownItem);
+            }
+            ;
+            beforeEach(testing_1.async(function () {
+                inputBreadcrumb.getItems = getBreadCrumbItem;
+                testCmp.testBreadCrumb = inputBreadcrumb;
+                fixture.detectChanges();
+            }));
+            describe('when the user click on the button', function () {
+                beforeEach(testing_1.async(function () {
+                    click(page.dropDownButton);
+                    detectChanges(fixture).then(function () {
+                    });
+                }));
+                it('should have text and icon for dynamic links', testing_1.async(function () {
+                    var items = inputBreadcrumb.getItems();
+                    expect(items instanceof Observable_1.Observable).toBe(true);
+                    if (items instanceof Observable_1.Observable) {
+                        items.subscribe(function (data) {
+                            var pos = 0;
+                            page.anchorElements.map(function (anchor) {
+                                expect(anchor.nativeElement.innerHTML.indexOf(data[pos].label)).toBeGreaterThan(-1);
+                                expect(anchor.nativeElement.innerHTML.indexOf(data[pos].icon)).toBeGreaterThan(-1);
+                                pos++;
+                            });
+                        });
+                    }
+                }));
+            });
+        });
+        function detectChanges(fixture) {
+            fixture.autoDetectChanges();
+            return fixture.whenStable();
+        }
+        function createComponent() {
+            fixture = testing_1.TestBed.createComponent(TestComponent);
+            testCmp = fixture.debugElement.componentInstance;
+            page = new Page(fixture, testCmp);
+        }
+        function simulateKeyUpevent(element, keyCode) {
+            var eventObj = document.createEvent("Events");
+            if (eventObj.initEvent) {
+                eventObj.initEvent("keyup", true, true);
+            }
+            eventObj.keyCode = keyCode;
+            eventObj.which = keyCode;
+            element.dispatchEvent ? element.dispatchEvent(eventObj) : element.fireEvent("keydown", eventObj);
+        }
+    });
+    describe('tests not covered from UI', function () {
+        var breadcrumbDropDownData;
+        var LABEL = "form function";
+        beforeEach(function () {
+            var inputBreadcrumb = buildBreadcrumbs("dont car", true);
+            inputBreadcrumb.getItems = function () {
+                return [
+                    {
+                        label: LABEL,
+                        url: "function url",
+                        icon: "function icon",
+                        params: []
+                    }
+                ];
+            };
+            inputBreadcrumb.items = [
+                {
+                    label: "first label",
+                    url: "first url",
+                    icon: "first icon",
+                    params: []
+                },
+                {
+                    label: "second label",
+                    url: "second url",
+                    icon: "second icon",
+                    params: [{ id: 2 }]
+                }
+            ];
+            var breadcrumbPopupComponent = new breadcrumb_popup_component_1.BreadcrumbPopupComponent(null, null);
+            breadcrumbPopupComponent.breadcrumbDropDown = inputBreadcrumb;
+            breadcrumbDropDownData = breadcrumbPopupComponent.items;
+        });
+        it('should call the supplied function instead of using the list items', function () {
+            expect(breadcrumbDropDownData.length).toBe(1);
+            expect(breadcrumbDropDownData[0].label).toBe(LABEL);
+        });
+    });
+    describe('class indicators', function () {
+        var breadcrumbPopupComponent;
+        beforeEach(function () {
+            breadcrumbPopupComponent = new breadcrumb_popup_component_1.BreadcrumbPopupComponent(null, null);
+        });
+        it('should have next arrow in case there is a dropdown', function () {
+            var breadcrumbDropDown = { items: [] };
+            breadcrumbDropDown.items.length = 10;
+            breadcrumbPopupComponent.breadcrumbDropDown = breadcrumbDropDown;
+            expect(breadcrumbPopupComponent.isShowNextArrow).toBe(true);
+        });
+        it('should have an arrow if it is NOT the last element', function () {
+            breadcrumbPopupComponent.isLast = false;
+            expect(breadcrumbPopupComponent.isShowNextArrow).toBe(true);
+        });
+        it('should NOT have an arrow if it is the last element and it has NO dropdown', function () {
+            breadcrumbPopupComponent.isLast = true;
+            expect(breadcrumbPopupComponent.isShowNextArrow).toBe(false);
+        });
+        it('should have an arrow if it is the last element and it has dropdown', function () {
+            breadcrumbPopupComponent.isLast = true;
+            var breadcrumbDropDown = { items: [] };
+            breadcrumbDropDown.items.length = 10;
+            breadcrumbPopupComponent.breadcrumbDropDown = breadcrumbDropDown;
+            expect(breadcrumbPopupComponent.isShowNextArrow).toBe(true);
+        });
+    });
+    function buildBreadcrumbs(url, visible, params) {
+        if (params === void 0) { params = undefined; }
+        return {
+            popupTitle: "I am a drop down title"
+        };
+    }
+});
+var Page = (function () {
+    function Page(fixture, testCmp) {
+        this.fixture = fixture;
+        this.testComponent = testCmp;
+    }
+    Object.defineProperty(Page.prototype, "breadcrumbPopupComponent", {
+        get: function () {
+            return this.fixture.debugElement.query(platform_browser_1.By.directive(breadcrumb_popup_component_1.BreadcrumbPopupComponent)).componentInstance;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Page.prototype, "dropDownButton", {
+        get: function () {
+            return this.fixture.debugElement.query(platform_browser_1.By.css('button'));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Page.prototype, "links", {
+        get: function () {
+            var linkDes = this.fixture.debugElement.queryAll(platform_browser_1.By.directive(router_stub_1.RouterLinkStubDirective));
+            //get the attached link directive instances using the DebugElement injectors
+            return linkDes
+                .map(function (de) { return de.injector.get(router_stub_1.RouterLinkStubDirective); });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Page.prototype, "popup", {
+        get: function () {
+            var debugElement = this.fixture.debugElement.query(platform_browser_1.By.css(".breadcrumbPopup"));
+            return debugElement ? debugElement.componentInstance : undefined;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Page.prototype, "searchBox", {
+        get: function () {
+            return this.fixture.debugElement.query(platform_browser_1.By.directive(searchbox_component_1.SearchBoxComponent));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Page.prototype, "anchorElements", {
+        get: function () {
+            return this.fixture.debugElement.queryAll(platform_browser_1.By.css(".breadcrumb-popup-link"));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Page.prototype, "title", {
+        get: function () {
+            return this.fixture.debugElement.query(platform_browser_1.By.css("h4")).nativeElement.innerHTML;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Page.prototype, "searchBoxInput", {
+        get: function () {
+            return this.searchBox.query(platform_browser_1.By.css("input")).nativeElement;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return Page;
+}());
+/** Button events to pass to `DebugElement.triggerEventHandler` for RouterLink event handler */
+exports.ButtonClickEvents = {
+    left: { button: 0 },
+    right: { button: 2 }
+};
+/** Simulate element click. Defaults to mouse left-button click event. */
+function click(el, eventObj) {
+    if (eventObj === void 0) { eventObj = exports.ButtonClickEvents.left; }
+    if (el instanceof HTMLElement) {
+        el.click();
+    }
+    else {
+        el.triggerEventHandler("click", {
+            stopPropagation: function () {
+            }
+        });
+        // el.triggerEventHandler('click', eventObj);
+    }
+}
+exports.click = click;
+//region test components
+var TestComponent = (function () {
+    function TestComponent() {
+    }
+    return TestComponent;
+}());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object)
+], TestComponent.prototype, "breadcrumbDropDown", void 0);
+TestComponent = __decorate([
+    core_1.Component({
+        template: "\n      <dcn-breadcrumb-popup [breadcrumbDropDown]=\"testBreadCrumb\"></dcn-breadcrumb-popup>\n  "
+    })
+], TestComponent);
+//endregion

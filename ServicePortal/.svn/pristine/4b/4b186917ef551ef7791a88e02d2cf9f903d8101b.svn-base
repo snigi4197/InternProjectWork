@@ -1,0 +1,19 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {FormsModule} from '@angular/forms';
+//import {SpecialcharPipe} from '../specialchar.pipe'
+import {AccordionModule} from "ng2-accordion";
+import { ServiceSchemaRoutingModule } from './service-schema-routing.module';
+import {ServiceSchemaComponent} from './service-schema.component';
+ import { DivfieldsComponent_serviceSchema } from '../divfields/divfields.component'; 
+ import { ParentchildComponent_serviceSchema } from '../parentchild/parentchild.component';
+@NgModule({
+  imports: [
+    CommonModule,
+    AccordionModule,
+    FormsModule,
+    ServiceSchemaRoutingModule
+  ],
+  declarations: [ServiceSchemaComponent,DivfieldsComponent_serviceSchema,ParentchildComponent_serviceSchema]
+})
+export class ServiceSchemaModule { }

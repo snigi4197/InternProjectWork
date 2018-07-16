@@ -1,0 +1,19 @@
+.loginWrapper{width:400px; float: left;
+    margin-left: 36px;}
+
+.registerBtn{ background:#dc9510;
+  -webkit-border-radius: 30px;
+-moz-border-radius: 30px;
+border-radius: 30px;
+text-transform: uppercase;
+padding:0px 22px 3px 22px;
+line-height: 28px;
+border:none;
+color:#fff;
+}
+.form-control,.form-group{margin-bottom:6px;}
+
+.form-group span{font-size:11px;}
+
+
+.registerBtn:hover,.registerBtn:active,.registerBtn:focus{background:#f3a411;}

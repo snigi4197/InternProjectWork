@@ -1,0 +1,69 @@
+import { Component, OnInit } from '@angular/core';
+import { NsoService } from '../nso.service';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import { DialogService } from "ng2-bootstrap-modal";
+    import {NgxSmartModalService} from 'ngx-smart-modal';
+import 'rxjs/add/operator/map';
+import * as $ from 'jquery';
+
+@Component({
+  selector: 'app-bandwidth-on-demand',
+  templateUrl: './bandwidth-on-demand.component.html',
+  styleUrls: ['./bandwidth-on-demand.component.scss']
+})
+export class BandwidthOnDemandComponent implements OnInit {
+	uList;
+	dtOptions: DataTables.Settings = {};
+	serviceData: string;
+dtTrigger: Subject<any> = new Subject();
+toggleButton: boolean=true;
+title;
+  constructor(private router: Router,private nsoService: NsoService, private http: Http,private dialogService:DialogService,
+	 public ngxSmartModalService: NgxSmartModalService) { 
+ 
+this.nsoService.nsoServices().subscribe(data => {
+			console.log(data);
+				
+			if (data.result) {
+				this.uList = Object.keys(data.result.service_points);
+			} else {
+				this.router.navigate(['']);
+			}
+		});
+
+  }
+
+  ngOnInit() {
+  }
+changeEvent(event) {
+
+        if (event.target.checked) {
+
+          console.log('hello'+event.target.checked)
+            this.toggleButton= !this.toggleButton;
+
+        }
+        else {
+            this.toggleButton= true;
+        }
+    }
+    resetAll(event)
+    {
+      $("#checkbox").prop("checked", false);
+    //  $('#Btxt').val("New value");
+
+        this.toggleButton= true;
+
+      
+      
+    
+            }
+    openPrice(val)
+        {
+          
+          this.title="Price Tab";
+          this.ngxSmartModalService.getModal('priceModal').open();
+        }
+}

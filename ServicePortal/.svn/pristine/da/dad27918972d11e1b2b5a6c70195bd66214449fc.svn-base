@@ -1,0 +1,21 @@
+
+<div class="container">
+ <h1>{{parentName}}</h1>
+    <!-- regular accordion -->
+     <accordion [showArrows]="true">
+ 		<accordion-group heading="{{parentName}}">
+           <app-divfields [divChild]="parentChild"></app-divfields>
+           <!-- <div class="jsonButton clearfix">
+           					<span *ngFor="let obj of json">
+           						<button *ngIf="obj.type=='button'" type="button" class="btn btn-primary">{{obj.name}}</button>
+           					</span>
+           				</div> -->
+        </accordion-group>
+        <accordion-group *ngFor="let obj1 of container" heading="{{obj1.name}}" >
+ 			<app-parentchild [ParentChild]="obj1"></app-parentchild>
+        </accordion-group>
+     </accordion>
+ 
+  
+ 
+</div>

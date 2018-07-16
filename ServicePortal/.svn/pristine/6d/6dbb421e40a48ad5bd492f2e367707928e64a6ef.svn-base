@@ -1,0 +1,60 @@
+
+.login_logo  {
+	    padding: 67px 0 0 0;
+    text-align: center;
+
+	img {max-width:100%;}
+
+}
+
+.BlueBar{
+    background: #2196F3;
+    width: 223px;
+    float: left;
+    min-height: 347px;}
+
+.BlueBar p{color: #fff;
+    font-size: 18px;
+    padding: 4px 0;
+    text-align: center;
+    line-height: 34px;}
+
+.secondCol{background: url("../../assets/images/bodyBg.jpg") no-repeat left top;
+    position: fixed;
+    right: 0px;
+    height: 100%;
+    width: 60%;
+}
+.loginBlock {
+    width: 700px;     
+    margin: 0 auto;
+    background: #fff;
+    overflow: hidden;
+    margin-top: 76px;
+    
+    -webkit-border-radius: 8px;
+-moz-border-radius: 8px;
+border-radius: 8px;
+}
+
+.loginAnchor{	
+    margin-bottom: 20px;  
+    float: right;
+    width: 399px;
+    margin-top: 20px;
+}
+
+.loginAnchor a {
+	width: 114px;
+    padding: 6px 10px;
+    display: inline-block;
+    text-align: center;
+    font: 16px "OpenSans-Semibold",sans-serif;
+    text-transform: uppercase;
+    color: #797a86;    
+    border-radius: 3px;
+    border-bottom: 3px solid #b0b3b5;   
+	
+}
+
+ .loginAnchor a.active{border-bottom:3px solid #5375d2;color:#277cbf;}

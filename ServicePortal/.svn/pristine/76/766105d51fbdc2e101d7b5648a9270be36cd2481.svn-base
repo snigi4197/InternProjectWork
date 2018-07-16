@@ -1,0 +1,76 @@
+
+
+<!-- Form Name -->
+ 
+<div class="loginWrapper">
+<!-- Text input-->
+<form [formGroup]="rform" (ngSubmit)="onSubmit(rform.value)">
+                
+ <div class="form-group">                      
+               <input type="text" class="form-control" name="username" formControlName="username" id="username" placeholder="User Name">
+               <!--  -->
+                <span style="color: red" *ngIf="rform.controls['username'].errors 
+                && (rform.controls['username'].dirty || rform.controls['username'].touched)">
+                        <span [hidden]="!rform.controls['username'].errors.required">
+                           First Name is Required
+                        </span>
+                         <span [hidden]="!rform.controls['username'].errors.pattern">
+                           Please enter Valid username between character min 3 to max 15.
+                        </span>
+
+                     </span>
+               <!--  -->
+            </div>
+
+                <div class="form-group">
+                   
+                   <input type="text" class="form-control" name="email" formControlName="email" id="email" placeholder="Email">
+                   <span style="color: red" *ngIf="rform.controls['email'].errors 
+                && (rform.controls['email'].dirty || rform.controls['email'].touched)">
+                        <span [hidden]="!rform.controls['email'].errors.required">
+                           Last Name is Required
+                        </span>
+                         <span [hidden]="!rform.controls['email'].errors.pattern">
+                           Please enter Valid name between character min 3 to max 15.
+                        </span>
+
+                     </span>
+                </div>
+                
+                <div class="form-group">
+                   
+                    <input type="text" class="form-control" name="password" formControlName="password" id="password" placeholder="Password">
+                    <span style="color: red" *ngIf="rform.controls['password'].errors 
+                && (rform.controls['password'].dirty || rform.controls['password'].touched)">
+                    <span [hidden]="!rform.controls['password'].errors.required">
+                           Phon Number is Required
+                        </span>
+                      <span style="color: red" *ngIf="!MyForm.controls['password'].valid">Enter Valid Number</span>
+                    </span>
+                </div>
+    
+                <div class="form-group">
+                   
+                    <input type="text" class="form-control" name="customer_name" formControlName="customer_name" id="customer_name" placeholder="Customer Name">
+                    <span style="color: red" *ngIf="rform.controls['customer_name'].errors 
+                && (rform.controls['customer_name'].dirty || rform.controls['customer_name'].touched)">
+                    <span [hidden]="!rform.controls['customer_name'].errors.required">
+                           Phon Number is Required
+                        </span>
+                      <span style="color: red" *ngIf="!MyForm.controls['customer_name'].valid">Enter Valid Number</span>
+                    </span>
+                </div>
+                <div class="form-group">
+                   
+                    <input type="text" class="form-control" name="phone_number" formControlName="phone_number" id="phone_number" placeholder="Phone Number">
+                    <span style="color: red" *ngIf="rform.controls['phone_number'].errors 
+                && (rform.controls['phone_number'].dirty || rform.controls['phone_number'].touched)">
+                    <span [hidden]="!rform.controls['phone_number'].errors.required">
+                           Phon Number is Required
+                        </span>
+                      <span style="color: red" *ngIf="!MyForm.controls['phone_number'].valid">Enter Valid Number</span>
+                    </span>
+                </div>
+                <button type="submit" class="registerBtn">Register</button>
+                </form>
+</div>

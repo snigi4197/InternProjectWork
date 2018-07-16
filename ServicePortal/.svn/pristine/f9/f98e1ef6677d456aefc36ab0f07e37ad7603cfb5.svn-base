@@ -1,0 +1,485 @@
+webpackJsonp(["service-termination.module"],{
+
+/***/ "../../../../../src/app/service-termination-tab/service-termination-tab.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"wrapper\">\n\n\t<div class=\"row\">\n\n\t\t<table datatable [dtOptions]=\"dtOptions\" [dtTrigger]=\"dtTrigger\" class=\"row-border hover\">\n\t\t\t<thead>\n\t\t\t\t<tr class=\"rowHeader\">\n\t\t\t\t\t<th *ngFor=\"let hLists of hList\">{{hLists}}</th>\n\n\n\t\t\t\t</tr>\n\t\t\t</thead>\n\t\t\t<ng-container *ngIf=\"bTabData=='/ml2:mpls-l2vpn'; else l3vpn\">\n\n\t\t\t\t<tbody>\n\n\t\t\t\t\t<tr *ngFor=\"let uLists of uList\">\n\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<a [routerLink]=\"['/dashboard/schema', bTabData, uLists[0] ]\">{{uLists[0]}}</a>\n\t\t\t\t\t\t\t\n\n\n\t\t\t\t\t\t\t\n\n\n\t\t\t\t\t\t</td>\n\n\t\t\t\t\t\t<td>{{uLists[1]}}</td>\n\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<button *ngIf=\"uLists[3] && uLists[3]['result']\" type=\"button\" class=\"btn btn-success\" (click)=\"showConfirm(uLists[0],bTabData,'re-deploy')\" \n\t\t\t\t\t\t\t[disabled] = \"(uLists[3] && uLists[3]['result']=='true') ? true : false\"> Activate\n\t\t\t\t\t\t</button>\n\n\t\t\t\t\t\t<button *ngIf=\"uLists[3] && uLists[3]['result']\" type=\"button\" class=\"btn btn-danger\" (click)=\"showConfirm(uLists[0],bTabData,'un-deploy')\" [disabled] = \"(uLists[3] && uLists[3]['result']=='false') ? true : false\"> Deactivate\n\t\t\t\t\t\t</button>\n\t\t\t\t\t\t\n\n\t\t\t\t\t\t<button *ngIf=\"uLists[3] && uLists[3]['error']\" type=\"button\" class=\"btn btn-danger\" (click)=\"showError(uLists[3]['error'])\">Service Error\n\t\t\t\t\t\t</button>\n\n\t\t\t\t\t</td>\n\n\n\n\n\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\n\n\n\t\t\t</ng-container>\n\t\t\t<ng-template #l3vpn>\n\t\t\t\t<tbody>\n\n\t\t\t\t\t<tr *ngFor=\"let uLists of uList\">\n\n\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t<a [routerLink]=\"['/dashboard/schema', bTabData, uLists[0] ]\">{{uLists[0]}}</a>\n\t\t\t\t\t\t\t<a class=\"glyphicon glyphicon-chevron-right\" (click)=\"showLink(uLists[0],bTabData)\"></a>\t\n\t\t\t\t\t\t\t\n\n\n\n\n\t\t\t\t\t\t</td>\n\n\t\t\t\t\t\t<td>{{uLists[1]}}</td>\n\n\n\n\n\n\n\n\t\t\t\t\t</tr>\n\t\t\t\t</tbody>\n\t\t\t</ng-template>\n\n\n\n\n\n\n\n\n\t\t</table>\t\n\n\t</div>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-termination-tab/service-termination-tab.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "table.dataTable.no-footer {\n  border-bottom: 1px solid #c5c3c3; }\n\n.dataTables_wrapper .dataTables_filter {\n  width: 266px; }\n\n.dataTables_wrapper .dataTables_filter input {\n  width: 196px;\n  padding: 3px 5px; }\n\n.wrapper {\n  margin: 0 auto;\n  background: #fcfcfd;\n  padding: 20px 34px; }\n\ntable {\n  border: 1px solid #c5c3c3;\n  border-radius: 4px; }\n\ntable.dataTable thead th, table.dataTable thead td {\n  border-bottom: 0px;\n  padding: 7px 18px; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-termination-tab/service-termination-tab.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var nso_service_1 = __webpack_require__("../../../../../src/app/nso.service.ts");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+var Subject_1 = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+var platform_browser_1 = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
+var ng2_bootstrap_modal_1 = __webpack_require__("../../../../ng2-bootstrap-modal/index.js");
+var ngx_smart_modal_1 = __webpack_require__("../../../../ngx-smart-modal/esm5/ngx-smart-modal.js");
+var auth_service_1 = __webpack_require__("../../../../../src/app/auth.service.ts");
+var service_termination_component_1 = __webpack_require__("../../../../../src/app/service-termination/service-termination.component.ts");
+var ServiceTerminationTabComponent = /** @class */ (function () {
+    function ServiceTerminationTabComponent(sanitized, router, nsoService, http, dialogService, elementRef, ngxSmartModalService, authService) {
+        this.sanitized = sanitized;
+        this.router = router;
+        this.nsoService = nsoService;
+        this.http = http;
+        this.dialogService = dialogService;
+        this.elementRef = elementRef;
+        this.ngxSmartModalService = ngxSmartModalService;
+        this.authService = authService;
+        this.dtOptions = {};
+        this.dtTrigger = new Subject_1.Subject();
+        this.dtOptions1 = {};
+        this.dtTrigger1 = new Subject_1.Subject();
+        this.list2 = [];
+        this.type = "link";
+    }
+    ServiceTerminationTabComponent.prototype.ngAfterViewInit = function () {
+    };
+    ServiceTerminationTabComponent.prototype.getValus = function (val, val2) {
+        var path = val;
+        /* this.nsoService.nsoServicesCheckSync(path).subscribe(data => {
+              if (data.result) {
+                  this.uList = data.result.results;
+              } else {
+                 
+              }
+          });*/
+        return "a";
+    };
+    ServiceTerminationTabComponent.prototype.showError = function (errorV) {
+        alert(errorV);
+    };
+    ServiceTerminationTabComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        var list = ['ckt-id', 'bandwidth', 'Update_bandwidth'];
+        if (this.bTabData.indexOf("link") != -1) {
+            list = ['vpn-id', 'mesh-rd-value'];
+        }
+        this.hList = list;
+        var User = {
+            'serviceName': this.bTabData,
+            "selection": list
+        };
+        var _that = this.bTabData;
+        this.nsoService.nsoData(User).subscribe(function (data) {
+            var _amit = data.result.results.map(function (x, y, z) {
+                console.log('___________________');
+                console.log(x);
+                var _index = x[0];
+                var path = _that + "{" + _index + "}";
+                var User1 = {
+                    'URL': path,
+                    'action': 'check-sync'
+                };
+                var disable = _this.nsoService.nsoServicesCheckSync(User1).subscribe(function (datas) {
+                    console.log("------------------" + path);
+                    console.log(datas);
+                    console.log("------------------");
+                    if (datas.error) {
+                        //if(datas.error){
+                        console.log(typeof datas.error.data.reason);
+                        //return datas.error.data.reason;
+                        x.push({ 'error': datas.error.data.reason });
+                    }
+                    if (datas.result) {
+                        x.push({ 'result': datas.result[0].value });
+                        //x.push(datas.result[0].value);
+                    }
+                });
+                //x.push(disable)
+                console.log('___________________');
+            });
+            console.log(data.result.results);
+            if (data.result) {
+                _this.uList = data.result.results;
+            }
+            else {
+                _this.router.navigate(['']);
+            }
+        });
+        //////////////////
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        this.dtOptions = {
+            pagingType: 'full_numbers',
+            pageLength: 10
+        };
+        this.http.post('api/data', User, { headers: headers })
+            .map(this.extractData)
+            .subscribe(function (data) {
+            //this.uList = data;
+            // Calling the DT trigger to manually render the table
+            _this.dtTrigger.next();
+        });
+    };
+    ServiceTerminationTabComponent.prototype.extractData = function (res) {
+        var body = res.json();
+        return body || {};
+    };
+    ServiceTerminationTabComponent.prototype.extractData1 = function (res) {
+        var body = res.json();
+        return body || {};
+    };
+    ServiceTerminationTabComponent.prototype.slideTable = function (_path, _Val) {
+    };
+    ServiceTerminationTabComponent.prototype.showConfirm = function (vpnName, serviceName, action) {
+        alert(vpnName);
+        alert(serviceName);
+        alert(action);
+        var path = serviceName + "{" + vpnName + "}";
+        var User1 = {
+            'URL': path,
+            'action': action
+        };
+        this.nsoService.nsoServicesCheckSync(User1).subscribe(function (datad) {
+            console.log("------------------" + path + " ---]===" + action);
+            console.log(datad);
+            console.log("------------------");
+            /*if(datas.error){
+                //if(datas.error){
+                    console.log(typeof datas.error.data.reason);
+                //return datas.error.data.reason;
+                x.push({'error':datas.error.data.reason});
+            }
+            if(datas.result){
+                x.push({'result':datas.result[0].value});
+                //x.push(datas.result[0].value);
+            }*/
+        });
+    };
+    ServiceTerminationTabComponent.prototype.showLink = function (vpnId, path) {
+        var _this = this;
+        var dataAll = {};
+        var objs = new service_termination_component_1.ServiceTerminationComponent(this.router, this.nsoService, this.http, this.dialogService, this.ngxSmartModalService, this.authService);
+        objs.list2 = ['ckt-id', 'admin-state', 'customer-address', 'qos/bandwidth', 'Update_Bandwidth'];
+        this.hList1 = this.list2;
+        var json = {
+            context: path.replace("/link", ""),
+            xpath: "link[starts-with(vpn-id,'" + vpnId + "')]",
+            selection: objs.list2
+        };
+        this.check = vpnId;
+        this.nsoService.nsoDataquery(json).subscribe(function (data) {
+            if (data.result) {
+                objs.uList1 = data.result.results;
+                dataAll = {
+                    'hList1': objs.list2,
+                    'uList1': objs.uList1,
+                    'bTabData': path,
+                    'vpnId': vpnId
+                };
+                objs.ngxSmartModalService.getModal('l3VPNSTModal').onOpen.subscribe(function (event) {
+                    //event['data']=dataAll;
+                    if (event['data'] != null) {
+                        event['data'] = dataAll;
+                    }
+                    else {
+                        objs.ngxSmartModalService.setModalData(dataAll, 'l3VPNSTModal');
+                    }
+                });
+                objs.ngxSmartModalService.getModal('l3VPNSTModal').open();
+            }
+            else {
+                dataAll = {
+                    'hList1': objs.list2,
+                    'uList1': {},
+                    'bTabData': path,
+                    'vpnId': vpnId
+                };
+                objs.ngxSmartModalService.getModal('l3VPNSTModal').onOpen.subscribe(function (event) {
+                    if (event['data'] != null) {
+                        event['data'] = dataAll;
+                    }
+                    else {
+                        objs.ngxSmartModalService.setModalData(dataAll, 'l3VPNSTModal');
+                    }
+                });
+                //objs.ngxSmartModalService.setModalData(dataAll, 'l3VPNModal');
+                objs.ngxSmartModalService.getModal('l3VPNSTModal').open();
+            }
+        });
+        objs.ngxSmartModalService.getModal('l3VPNSTModal').onClose.subscribe(function (event) {
+            event['data'].uList1 = [];
+            dataAll = {};
+        });
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        this.dtOptions1 = {
+            pagingType: 'full_numbers',
+            pageLength: 10
+        };
+        this.http.post('api/data/query', json, { headers: headers })
+            .map(this.extractData1)
+            .subscribe(function (data) {
+            //this.uList = data;
+            // Calling the DT trigger to manually render the table
+            _this.dtTrigger1.next();
+        });
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], ServiceTerminationTabComponent.prototype, "bTabData", void 0);
+    __decorate([
+        core_1.ViewChild('dataContainer'),
+        __metadata("design:type", core_1.ElementRef)
+    ], ServiceTerminationTabComponent.prototype, "d1", void 0);
+    ServiceTerminationTabComponent = __decorate([
+        core_1.Component({
+            selector: 'app-service-termination-tab',
+            template: __webpack_require__("../../../../../src/app/service-termination-tab/service-termination-tab.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/service-termination-tab/service-termination-tab.component.scss")]
+        }),
+        __metadata("design:paramtypes", [platform_browser_1.DomSanitizer, router_1.Router, nso_service_1.NsoService, http_1.Http, ng2_bootstrap_modal_1.DialogService,
+            core_1.ElementRef, ngx_smart_modal_1.NgxSmartModalService, auth_service_1.AuthService])
+    ], ServiceTerminationTabComponent);
+    return ServiceTerminationTabComponent;
+}());
+exports.ServiceTerminationTabComponent = ServiceTerminationTabComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-termination/service-termination-routing.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var service_termination_component_1 = __webpack_require__("../../../../../src/app/service-termination/service-termination.component.ts");
+var routes = [
+    {
+        path: '',
+        component: service_termination_component_1.ServiceTerminationComponent
+    }
+];
+var ServiceTerminationRoutingModule = /** @class */ (function () {
+    function ServiceTerminationRoutingModule() {
+    }
+    ServiceTerminationRoutingModule = __decorate([
+        core_1.NgModule({
+            imports: [router_1.RouterModule.forChild(routes)],
+            exports: [router_1.RouterModule]
+        })
+    ], ServiceTerminationRoutingModule);
+    return ServiceTerminationRoutingModule;
+}());
+exports.ServiceTerminationRoutingModule = ServiceTerminationRoutingModule;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-termination/service-termination.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">\n\t<h1>Service Termination</h1>\n\t<div class=\"row\">\n\n    <div class=\" tabData\">\n\n\n\n      <ul class=\"nav nav-tabs\" role=\"tablist\" id=\"myTabs\">\n        <li  *ngFor=\"let uLists of uList; let index = index\"\n        class=\"{{(index == 0)? 'active' : ''}}\" >\n        <a  \n        href=\"#{{uLists | specialchar}}\" \n        attr.aria-controls=\"{{uLists | specialchar}}\" \n        role=\"tab\"  \n        data-toggle=\"tab\">{{uLists}}</a>\n      </li>\n\n\n    </ul>\n\n    <!-- Tab panes -->\n    <div class=\"tab-content\" >\n     <div *ngFor=\"let uLists1 of uList; let index1 = index\" \n     class=\"tab-pane {{(index1 == 0)? 'active' : ''}}\" \n     id=\"{{uLists1 | specialchar}}\" \n     role=\"tabpanel\" attr.aria-labelledby=\"{{uLists1 | specialchar}}\">\n     <div class=\"wrapper\"> \n      <app-service-termination-tab [bTabData]=\"uLists1\">\n\n      </app-service-termination-tab></div>  \n    </div>\n\n\n  </div>\n</div>\n\n</div>\n</div>\n\n<ngx-smart-modal [customClass]=\"'CssAmit'\"   #l3VPNSTModal  [identifier]=\"'l3VPNSTModal'\" [customClass]=\"'large-modal'\">\n  <p><br><br></p>\n  <div *ngIf=\"l3VPNSTModal.hasData()\">\n <table datatable class=\"row-border hover\" id=\"vpnLink\">\n <thead>\n       <tr class=\"rowHeader\">\n         <th *ngFor=\"let hLists2 of l3VPNSTModal.getData().hList1\">{{hLists2}}</th>\n    \n       </tr>\n     </thead>\n     <tbody *ngIf=\"l3VPNSTModal.getData().uList1\">\n      <tr *ngFor=\"let uLists2 of l3VPNSTModal.getData().uList1\">\n        \n     <td><a [routerLink]=\"['/dashboard/schemalink', l3VPNSTModal.getData().bTabData, l3VPNSTModal.getData().vpnId, uLists2[0], 'link']\">{{uLists2[0]}}</a>\n     </td>\n     <td>{{uLists2[1]}}</td>\n     <td>{{uLists2[2]}}</td>\n     <td>{{uLists2[3]}}</td>\n          <td>\n            <a class=\"btn btn-primary\" (click)=\"l3vpnSTshow(uLists2[0],uLists2[3],l3VPNSTModal.getData().bTabData);l3VPNSTModal.close()\">Activate</a>\n            <a class=\"btn btn-danger\" (click)=\"l3vpnSTshow(uLists2[0],uLists2[3],l3VPNSTModal.getData().bTabData);l3VPNSTModal.close()\">Deactivate</a>\n                     </td>\n      </tr>\n     </tbody>\n  </table>\n             </div>\n</ngx-smart-modal>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-termination/service-termination.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".tabData {\n  background: #ececec;\n  padding: 0px;\n  max-width: 1106px;\n  -webkit-border-top-left-radius: 4px;\n  -webkit-border-top-right-radius: 4px;\n  -moz-border-radius-topleft: 4px;\n  -moz-border-radius-topright: 4px;\n  border-top-left-radius: 4px;\n  border-top-right-radius: 4px;\n  border: 1px solid #dedddd; }\n\n.nav-tabs {\n  border-bottom: 0px; }\n\n.nav > li > a {\n  color: #6b6969;\n  font-size: 15px;\n  border: none;\n  padding: 9px 30px;\n  font-weight: bold; }\n\n.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {\n  background-color: #757779;\n  border: none;\n  -webkit-box-shadow: 3px 1px 2px #ccc;\n          box-shadow: 3px 1px 2px #ccc;\n  color: #fff;\n  border-bottom: 5px solid #188ed4 !important; }\n\n.nav > li > a:focus, .nav > li > a:hover {\n  background-color: #fcfdfd;\n  border-bottom: 5px solid #188ed4; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-termination/service-termination.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var nso_service_1 = __webpack_require__("../../../../../src/app/nso.service.ts");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+var Subject_1 = __webpack_require__("../../../../rxjs/_esm5/Subject.js");
+var ng2_bootstrap_modal_1 = __webpack_require__("../../../../ng2-bootstrap-modal/index.js");
+var ngx_smart_modal_1 = __webpack_require__("../../../../ngx-smart-modal/esm5/ngx-smart-modal.js");
+var auth_service_1 = __webpack_require__("../../../../../src/app/auth.service.ts");
+__webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+var $ = __webpack_require__("../../../../jquery/dist/jquery.js");
+var ServiceTerminationComponent = /** @class */ (function () {
+    function ServiceTerminationComponent(router, nsoService, http, dialogService, ngxSmartModalService, authService) {
+        var _this = this;
+        this.router = router;
+        this.nsoService = nsoService;
+        this.http = http;
+        this.dialogService = dialogService;
+        this.ngxSmartModalService = ngxSmartModalService;
+        this.authService = authService;
+        this.dtOptions = {};
+        this.dtTrigger = new Subject_1.Subject();
+        this.toggleButton = true;
+        this.btnDisabled = true;
+        this.nsoService.nsoServices().subscribe(function (data) {
+            console.log(data);
+            if (data.result) {
+                _this.uList = Object.keys(data.result.service_points);
+            }
+            else {
+                _this.router.navigate(['']);
+            }
+        });
+    }
+    ServiceTerminationComponent.prototype.ngOnInit = function () {
+    };
+    ServiceTerminationComponent.prototype.changeEvent = function (event) {
+        if (event.target.checked) {
+            console.log('hello' + event.target.checked);
+            this.toggleButton = !this.toggleButton;
+        }
+        else {
+            this.toggleButton = true;
+        }
+    };
+    ServiceTerminationComponent.prototype.resetAll = function (event) {
+        this.btnDisabled = true;
+        this.values = "";
+        $("#checkbox").prop("checked", false);
+        //  $('#Btxt').val("New value");
+        this.toggleButton = true;
+    };
+    ServiceTerminationComponent.prototype.clr = function (event) {
+        $('#Btxt').val('');
+        //document.getElementsByName('elementid').value = "";
+    };
+    ServiceTerminationComponent.prototype.eventHandler = function (e) {
+        this.btnDisabled = false;
+    };
+    ServiceTerminationComponent.prototype.l3vpnSTshow = function (cktId_Val, bndWidth_Val, serviceName) {
+        console.log("cktId_Val" + cktId_Val);
+        console.log("Value_bandwidth" + bndWidth_Val);
+        console.log("Value of btadate" + serviceName);
+        var data = {
+            'ckt_id': cktId_Val,
+            'serviceName': serviceName,
+            'bandwidth': bndWidth_Val
+        };
+    };
+    __decorate([
+        core_1.Input(),
+        __metadata("design:type", Object)
+    ], ServiceTerminationComponent.prototype, "bTabData", void 0);
+    ServiceTerminationComponent = __decorate([
+        core_1.Component({
+            selector: 'app-service-termination',
+            template: __webpack_require__("../../../../../src/app/service-termination/service-termination.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/service-termination/service-termination.component.scss")]
+        }),
+        __metadata("design:paramtypes", [router_1.Router, nso_service_1.NsoService, http_1.Http, ng2_bootstrap_modal_1.DialogService,
+            ngx_smart_modal_1.NgxSmartModalService, auth_service_1.AuthService])
+    ], ServiceTerminationComponent);
+    return ServiceTerminationComponent;
+}());
+exports.ServiceTerminationComponent = ServiceTerminationComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-termination/service-termination.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var common_1 = __webpack_require__("../../../common/esm5/common.js");
+var specialchar_pipe_1 = __webpack_require__("../../../../../src/app/specialchar.pipe.ts");
+var service_termination_routing_module_1 = __webpack_require__("../../../../../src/app/service-termination/service-termination-routing.module.ts");
+var service_termination_component_1 = __webpack_require__("../../../../../src/app/service-termination/service-termination.component.ts");
+var service_termination_tab_component_1 = __webpack_require__("../../../../../src/app/service-termination-tab/service-termination-tab.component.ts");
+var ngx_smart_modal_1 = __webpack_require__("../../../../ngx-smart-modal/esm5/ngx-smart-modal.js");
+var angular_datatables_1 = __webpack_require__("../../../../angular-datatables/index.js");
+var ServiceTerminationModule = /** @class */ (function () {
+    function ServiceTerminationModule() {
+    }
+    ServiceTerminationModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                common_1.CommonModule,
+                angular_datatables_1.DataTablesModule,
+                ngx_smart_modal_1.NgxSmartModalModule,
+                service_termination_routing_module_1.ServiceTerminationRoutingModule
+            ],
+            declarations: [service_termination_component_1.ServiceTerminationComponent, specialchar_pipe_1.SpecialcharPipe_serviceTermination, service_termination_tab_component_1.ServiceTerminationTabComponent],
+            providers: [ngx_smart_modal_1.NgxSmartModalService]
+        })
+    ], ServiceTerminationModule);
+    return ServiceTerminationModule;
+}());
+exports.ServiceTerminationModule = ServiceTerminationModule;
+
+
+/***/ })
+
+});
+//# sourceMappingURL=service-termination.module.chunk.js.map

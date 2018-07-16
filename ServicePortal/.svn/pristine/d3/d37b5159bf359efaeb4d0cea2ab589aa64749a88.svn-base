@@ -1,0 +1,33 @@
+table.dataTable.no-footer {
+    border-bottom: 1px solid #c5c3c3;
+}
+.dataTables_wrapper .dataTables_filter {
+  
+    width: 266px;
+}
+.dataTables_wrapper .dataTables_filter input{    width: 196px;
+    padding: 3px 5px;}
+
+.wrapper {    
+    margin: 0 auto;
+    background: #fcfcfd;
+    padding: 20px 34px;
+    
+} 
+
+ table{border: 1px solid #c5c3c3;border-radius: 4px;}
+
+table.dataTable thead th, table.dataTable thead td{
+  border-bottom:0px;   
+   padding: 7px 18px;
+  }
+
+table.dataTable tbody td{}
+
+.rowHeader{-webkit-border-radius: 4px; 
+  -moz-border-radius: 4px; 
+  border-radius:4px; 
+   background:#535779;
+   border:1px solid gray;
+  }
+

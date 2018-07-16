@@ -1,0 +1,52 @@
+{
+  "_from": "ng2-navigator",
+  "_id": "ng2-navigator@0.0.19",
+  "_inBundle": false,
+  "_integrity": "sha1-KIJOUpAdMz5TGWfGjhr3HsvK8Z8=",
+  "_location": "/ng2-navigator",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "ng2-navigator",
+    "name": "ng2-navigator",
+    "escapedName": "ng2-navigator",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ng2-navigator/-/ng2-navigator-0.0.19.tgz",
+  "_shasum": "28824e52901d333e531967c68e1af71ecbcaf19f",
+  "_spec": "ng2-navigator",
+  "_where": "E:\\SelfServiceProject\\ServicePortal\\client",
+  "author": {
+    "name": "Uriel Twito"
+  },
+  "bugs": {
+    "url": "https://github.com/sapienstech/ng2-breadcrumb/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "use as breadcrumb and as an optional navigator for angular 2",
+  "homepage": "https://github.com/sapienstech/ng2-breadcrumb#readme",
+  "keywords": [
+    "breadcrumb",
+    "navigator",
+    "angular 2"
+  ],
+  "license": "ISC",
+  "main": "index.js",
+  "name": "ng2-navigator",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sapienstech/ng2-breadcrumb.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.19"
+}

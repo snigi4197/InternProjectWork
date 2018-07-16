@@ -1,0 +1,15 @@
+import { Component, OnInit,Input } from '@angular/core';
+
+@Component({
+  selector: 'app-sub-parent-child',
+  templateUrl: './sub-parent-child.component.html',
+  styleUrls: ['./sub-parent-child.component.scss']
+})
+export class SubParentChildComponent implements OnInit {
+@Input() subParentChild;
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

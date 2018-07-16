@@ -1,0 +1,23 @@
+import { OnInit, EventEmitter, ElementRef } from "@angular/core";
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/observable/fromEvent";
+import "rxjs/add/observable/merge";
+import "rxjs/add/observable/of";
+import "rxjs/add/operator/do";
+import "rxjs/add/operator/map";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/switch";
+import "rxjs/add/operator/filter";
+export declare class SearchBoxComponent implements OnInit {
+    private el;
+    maxResults: number;
+    minLength: number;
+    /**the minimum input length to trigger the search**/
+    searchData: (string, int) => Observable<any>;
+    loading: EventEmitter<boolean>;
+    results: EventEmitter<any[]>;
+    private filterText;
+    input: ElementRef;
+    constructor(el: ElementRef);
+    ngOnInit(): void;
+}

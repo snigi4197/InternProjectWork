@@ -1,0 +1,736 @@
+webpackJsonp(["service-schema.module"],{
+
+/***/ "../../../../../src/app/jsonclass/Jsonview.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Jsonview = /** @class */ (function () {
+    function Jsonview(nsoService, _data, _meta, _keyPath) {
+        this.nsoService = nsoService;
+        this._data = _data;
+        this._meta = _meta;
+        this._keyPath = _keyPath;
+        this._htmlView = "";
+        this._FirsthtmlView = "";
+        this.jsonElements = [];
+    }
+    Jsonview.prototype.firstAcordian = function () {
+        var path = "";
+        var parentData = this._data;
+        var elements = {};
+        path = this._keyPath;
+        elements['name'] = parentData.name;
+        if (parentData.kind == "list-entry" || parentData.kind == "container") {
+            elements['type'] = "div";
+        }
+        //this.jsonElements.push(elements);
+        elements['children'] = [];
+        //console.log(parentData.children);
+        if (parentData.children != null) {
+            for (var i = 0; i < parentData.children.length; i++) {
+                var innData = parentData.children[i];
+                ////console.log(innData.name);
+                if (innData.name != "modified" && innData.name != "directly-modified" && innData.name != "commit-queue" && innData.name != "log") {
+                    var childelements = {};
+                    childelements['name'] = innData.name;
+                    if (innData.kind == "key") {
+                        childelements['type'] = "text";
+                        childelements['readonly'] = "readonly";
+                        this.getValue(path, innData.qname, childelements);
+                    }
+                    if (innData.kind == "leaf") {
+                        this.callJsonLeaf(path, innData, this._meta, childelements);
+                        //childelements['type']="text";
+                    }
+                    if (innData.kind == "container") {
+                        this.callJsonContainer(path, innData, this._meta, childelements);
+                        //childelements['type']="text";
+                    }
+                    if (innData.kind == "choice") {
+                        this.callJsonChoice((path), innData, this._meta, childelements);
+                    }
+                    childelements['tooltip'] = innData.info;
+                    if (innData.mandatory) {
+                        childelements['mandatory'] = "required";
+                    }
+                    else {
+                        childelements['mandatory'] = "";
+                    }
+                    if (innData.type) {
+                        if (innData.type.name != null && innData.type.namespace != null) {
+                            this.callMetaData(innData.type.namespace, innData.type.name, childelements);
+                        }
+                    }
+                    if (innData.kind == "action") {
+                        childelements['type'] = "button";
+                        //childelements['type']="text";
+                    }
+                    elements['children'].push(childelements);
+                }
+            }
+        }
+        this.jsonElements.push(elements);
+        return this.jsonElements;
+    };
+    Jsonview.prototype.callMetaData = function (namespace, name, elements) {
+        var metaTypes = namespace + ":" + name;
+        //console.log(this._meta.types[metaTypes]);
+        var metaTypesList = this._meta.types[metaTypes];
+        if (metaTypesList.length > 1) {
+            for (var i = 0; i < metaTypesList.length; i++) {
+                if (metaTypesList[i].pattern != null) {
+                    elements['pattern'] = metaTypesList[i].pattern.value;
+                }
+            }
+        }
+    };
+    Jsonview.prototype.callJsonLeaf = function (path, json, meta, childelements) {
+        ////console.log("leaf");
+        ////console.log(meta.keypath);
+        var metadt = json.type.namespace + ":" + json.type.name;
+        var mtdt = meta.types[metadt];
+        ////console.log(metadt);
+        //console.log(mtdt);
+        var option = [];
+        childelements['name'] = json.name;
+        childelements['qname'] = json.qname;
+        childelements['tooltip'] = json.info;
+        childelements['path'] = path;
+        this.getValue(path, json.qname, childelements);
+        if (json.default != null) {
+            childelements['defaultValue'] = json.default;
+        }
+        if (json.mandatory != null) {
+            childelements['mandatory'] = "required";
+        }
+        if (typeof mtdt != "undefined" && mtdt != null) {
+            //console.log("asdsdsdadsasdas");
+            var flags = 1;
+            for (var m = 0; m < mtdt.length; m++) {
+                if (mtdt[m].enumeration != null) {
+                    flags = 0;
+                    var enumList = mtdt[m].enumeration;
+                    option = [];
+                    for (var mj = 0; mj < enumList.length; mj++) {
+                        option.push(enumList[mj].label);
+                    }
+                    if (json.evaluated_when_entry == null || json.evaluated_when_entry == true) {
+                        childelements['type'] = "select";
+                        childelements['option'] = option;
+                    }
+                }
+            }
+            if (flags == 0) { }
+            else {
+                if (json.is_leafref != null) {
+                    if (json.is_leafref) {
+                        if (json.evaluated_when_entry == null || json.evaluated_when_entry == true) {
+                            childelements['type'] = "select";
+                        }
+                    }
+                    else {
+                        if (json.type.primitive != null) {
+                            if (json.type.primitive) {
+                                if (json.type.name == "empty") {
+                                    childelements['type'] = "checkbox";
+                                    this.checkExists(path, json.qname, childelements);
+                                    if (json.default != null) {
+                                        childelements['default'] = json.default;
+                                    }
+                                }
+                                else {
+                                    //console.log(json.type.name);
+                                    //console.log(json.type.primitive);
+                                    childelements['type'] = "text";
+                                }
+                            }
+                            else {
+                                childelements['type'] = "text";
+                            }
+                        }
+                    }
+                }
+                else {
+                    childelements['type'] = "text";
+                }
+            }
+        }
+        else {
+            if (json.is_leafref != null) {
+                if (json.is_leafref) {
+                    if (json.evaluated_when_entry == null || json.evaluated_when_entry == true) {
+                        childelements['type'] = "select";
+                    }
+                }
+                else {
+                    if (json.type.primitive != null) {
+                        if (json.type.primitive) {
+                            //console.log(json.type.name);
+                            //console.log(json.type.primitive);
+                            if (json.type.name == "empty") {
+                                childelements['type'] = "checkbox";
+                                this.checkExists(path, json.qname, childelements);
+                                if (json.default != null) {
+                                    childelements['default'] = json.default;
+                                }
+                            }
+                            else if (json.type.name == "boolean") {
+                                childelements['type'] = "select";
+                                var option_1 = [];
+                                option_1.push("true");
+                                option_1.push("false");
+                                childelements['option'] = option_1;
+                                if (json.default != null) {
+                                    childelements['default'] = json.default;
+                                }
+                            }
+                            else {
+                                childelements['type'] = "text";
+                            }
+                        }
+                    }
+                    else {
+                        childelements['type'] = "text";
+                    }
+                }
+            }
+            else {
+                if (json.type.name == "empty") {
+                    childelements['type'] = "checkbox";
+                    this.checkExists(path, json.qname, childelements);
+                    if (json.default != null) {
+                        childelements['default'] = json.default;
+                    }
+                }
+                else if (json.type.name == "boolean") {
+                    childelements['type'] = "select";
+                    var option_2 = [];
+                    option_2.push("true");
+                    option_2.push("false");
+                    childelements['option'] = option_2;
+                    if (json.default != null) {
+                        childelements['default'] = json.default;
+                    }
+                }
+                else {
+                    childelements['type'] = "text";
+                }
+            }
+        }
+    };
+    Jsonview.prototype.callJsonChoice = function (path, json, meta, childelements) {
+        var option = [];
+        //if(json.evaluated_when_entry!=null || json.evaluated_when_entry==true){
+        childelements['name'] = json.name;
+        childelements['qname'] = json.qname;
+        childelements['tooltip'] = json.info;
+        childelements['type'] = "choice";
+        childelements['path'] = path;
+        console.log("choice++++++++++" + path);
+        this.getCase(path, json.name, childelements);
+        if (json.default != null) {
+            childelements['defaultValue'] = json.default;
+        }
+        if (json.mandatory != null) {
+            childelements['mandatory'] = "required";
+        }
+        if (json.config != null && json.config == false) {
+            childelements['readonly'] = "readonly";
+        }
+        var choiceCases = json.cases;
+        var choiceChildren = [];
+        for (var m = 0; m < choiceCases.length; m++) {
+            var indchild = choiceCases[m].children;
+            var caseInVal = "";
+            var subchild = {};
+            var subchild1 = [];
+            subchild['name'] = choiceCases[m].name;
+            for (var h = 0; h < indchild.length; h++) {
+                var subcasechild = {};
+                if (indchild[h].mandatory != null) {
+                    subcasechild['mandatory'] = "required";
+                }
+                if (indchild[h].kind == "key") {
+                    subcasechild['type'] = "text";
+                    subcasechild['readonly'] = "readonly";
+                }
+                if (indchild[h].kind == "container") {
+                    this.callJsonContainer((path), indchild[h], meta, subcasechild);
+                }
+                if (indchild[h].kind == "list") {
+                    this.callJsonList((path), indchild[h], meta, subcasechild);
+                }
+                if (indchild[h].kind == "leaf-list") {
+                    this.callJsonLeafList((path), indchild[h], meta, subcasechild);
+                }
+                if (indchild[h].kind == "leaf") {
+                    this.callJsonLeaf((path), indchild[h], meta, subcasechild);
+                }
+                if (indchild[h].kind == "choice") {
+                    this.callJsonChoice((path), indchild[h], meta, subcasechild);
+                }
+                if (indchild[h].type) {
+                    if (indchild[h].type.name != null && indchild[h].type.namespace != null) {
+                        this.callMetaData(indchild[h].type.namespace, indchild[h].type.name, subcasechild);
+                    }
+                }
+                //console.log(subcasechild);
+                subchild1.push(subcasechild);
+            }
+            subchild['caseChildren'] = subchild1;
+            //option.push(subchild);
+            option.push(subchild);
+        }
+        childelements['option'] = option;
+        //console.log("childelements-------------choice");
+        //console.log(childelements);
+        //console.log("childelements------------choice End");
+        //}
+    };
+    Jsonview.prototype.callJsonContainer = function (path, json, _meta, childelements) {
+        childelements['name'] = json.name;
+        childelements['qname'] = json.qname;
+        childelements['path'] = path;
+        childelements['type'] = "div";
+        if (json.presence != null) {
+            childelements['presence'] = true;
+            childelements['tooltip'] = json.info;
+        }
+        var subchildelements = [];
+        if (json.children != null) {
+            for (var t = 0; t < json.children.length; t++) {
+                var subchild = {};
+                var child = json.children[t];
+                if (child.kind == "key") {
+                    subchild['type'] = "text";
+                    subchild['readonly'] = "readonly";
+                }
+                if (child.kind == "leaf") {
+                    this.callJsonLeaf((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.kind == "choice") {
+                    this.callJsonChoice((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.kind == "list") {
+                    this.callJsonList((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.kind == "leaf-list") {
+                    this.callJsonLeafList((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.kind == "container") {
+                    this.callJsonContainer((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.type) {
+                    if (child.type.name != null && child.type.namespace != null) {
+                        this.callMetaData(child.type.namespace, child.type.name, subchild);
+                    }
+                }
+                subchildelements.push(subchild);
+            }
+            childelements['children'] = subchildelements;
+        }
+    };
+    Jsonview.prototype.callJsonList = function (path, json, _meta, childelements) {
+        childelements['name'] = json.name;
+        childelements['qname'] = json.qname;
+        childelements['path'] = path;
+        childelements['type'] = "table";
+        if (json.presence != null) {
+            childelements['presence'] = true;
+            childelements['tooltip'] = json.info;
+        }
+        var subchildelements = [];
+        var list = [];
+        if (json.children != null) {
+            for (var t = 0; t < json.children.length; t++) {
+                var subchild = {};
+                var child = json.children[t];
+                list.push(child.name);
+                if (child.kind == "key") {
+                    subchild['name'] = json.name;
+                    subchild['qname'] = json.qname;
+                    subchild['tooltip'] = json.info;
+                    subchild['path'] = path + "/" + json.name;
+                    subchild['type'] = "text";
+                    subchild['readonly'] = "readonly";
+                }
+                if (child.kind == "leaf") {
+                    this.callJsonLeaf((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.kind == "choice") {
+                    this.callJsonChoice((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.kind == "container") {
+                    this.callJsonContainer((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.type) {
+                    if (child.type.name != null && child.type.namespace != null) {
+                        this.callMetaData(child.type.namespace, child.type.name, subchild);
+                    }
+                }
+                subchildelements.push(subchild);
+            }
+            childelements['children'] = subchildelements;
+        }
+        this.getListData(path, json.name, list, childelements);
+    };
+    Jsonview.prototype.callJsonLeafList = function (path, json, _meta, childelements) {
+        childelements['name'] = json.name;
+        childelements['qname'] = json.qname;
+        childelements['path'] = path;
+        childelements['type'] = "multiselect";
+        if (json.mandatory) {
+            childelements['mandatory'] = true;
+        }
+        this.getValue(path, json.qname, childelements);
+        var subchildelements = [];
+        var list = [];
+        if (json.children != null) {
+            for (var t = 0; t < json.children.length; t++) {
+                var subchild = {};
+                var child = json.children[t];
+                list.push(child.name);
+                if (child.kind == "key") {
+                    subchild['name'] = json.name;
+                    subchild['qname'] = json.qname;
+                    subchild['tooltip'] = json.info;
+                    subchild['path'] = path + "/" + json.name;
+                    subchild['type'] = "text";
+                    subchild['readonly'] = "readonly";
+                }
+                if (child.kind == "leaf") {
+                    this.callJsonLeaf((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.kind == "choice") {
+                    this.callJsonChoice((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.kind == "container") {
+                    this.callJsonContainer((path + "/" + json.name), child, _meta, subchild);
+                }
+                if (child.type) {
+                    if (child.type.name != null && child.type.namespace != null) {
+                        this.callMetaData(child.type.namespace, child.type.name, subchild);
+                    }
+                }
+                subchildelements.push(subchild);
+            }
+            childelements['children'] = subchildelements;
+        }
+        //this.getListData(path,json.name,list,childelements);
+    };
+    Jsonview.prototype.getValue = function (path, qname, childelements) {
+        var URL = {
+            'URL': (path + "/" + qname)
+        };
+        this.nsoService.nsoServicesSchemaGetValue(URL).subscribe(function (data) {
+            /* console.log("value=============="+path+"/"+qname);
+             console.log(data);*/
+            if (data.result != null) {
+                childelements['value'] = data.result.value;
+            }
+        });
+    };
+    Jsonview.prototype.getCase = function (path, name, childelements) {
+        var URL = {
+            'URL': (path),
+            'choice': name
+        };
+        this.nsoService.nsoServicesSchemaGetCase(URL).subscribe(function (data) {
+            console.log("case==============" + path + "/" + name);
+            console.log(data);
+            if (data.result != null) {
+                childelements['value'] = data.result.case;
+            }
+        });
+    };
+    Jsonview.prototype.checkExists = function (path, qname, childelements) {
+        var URL = {
+            'URL': (path + "/" + qname)
+        };
+        this.nsoService.nsoServicesSchemaExists(URL).subscribe(function (data) {
+            console.log("checkExists==============" + path + "/" + qname);
+            console.log(data);
+            if (data.result != null) {
+                childelements['checked'] = data.result.exists;
+            }
+        });
+    };
+    Jsonview.prototype.getListData = function (path, name, list, childelements) {
+        var URL = {
+            'context': path,
+            'xpath': name,
+            'selection': list
+        };
+        this.nsoService.nsoDataquery(URL).subscribe(function (data) {
+            console.log("list data==============" + path + "/" + name);
+            console.log(data);
+            if (data.result != null) {
+                childelements['value'] = data.result.results;
+            }
+        });
+    };
+    return Jsonview;
+}());
+exports.Jsonview = Jsonview;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-schema/service-schema-routing.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var service_schema_component_1 = __webpack_require__("../../../../../src/app/service-schema/service-schema.component.ts");
+var routes = [
+    {
+        path: '',
+        component: service_schema_component_1.ServiceSchemaComponent
+    }
+];
+var ServiceSchemaRoutingModule = /** @class */ (function () {
+    function ServiceSchemaRoutingModule() {
+    }
+    ServiceSchemaRoutingModule = __decorate([
+        core_1.NgModule({
+            imports: [router_1.RouterModule.forChild(routes)],
+            exports: [router_1.RouterModule]
+        })
+    ], ServiceSchemaRoutingModule);
+    return ServiceSchemaRoutingModule;
+}());
+exports.ServiceSchemaRoutingModule = ServiceSchemaRoutingModule;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-schema/service-schema.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\r\n<div class=\"container\">\r\n <h1>{{parentName}}</h1>\r\n    <!-- regular accordion -->\r\n     <accordion [showArrows]=\"true\">\r\n \t\t<accordion-group heading=\"{{parentName}}\">\r\n           <app-divfields [divChild]=\"parentChild\"></app-divfields>\r\n           <!-- <div class=\"jsonButton clearfix\">\r\n           \t\t\t\t\t<span *ngFor=\"let obj of json\">\r\n           \t\t\t\t\t\t<button *ngIf=\"obj.type=='button'\" type=\"button\" class=\"btn btn-primary\">{{obj.name}}</button>\r\n           \t\t\t\t\t</span>\r\n           \t\t\t\t</div> -->\r\n        </accordion-group>\r\n        <accordion-group *ngFor=\"let obj1 of container\" heading=\"{{obj1.name}}\" >\r\n \t\t\t<app-parentchild [ParentChild]=\"obj1\"></app-parentchild>\r\n        </accordion-group>\r\n     </accordion>\r\n \r\n  \r\n \r\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-schema/service-schema.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/*******************************\r\n* Does not work properly if \"in\" is added after \"collapse\".\r\n* Get free snippets on bootpen.com\r\n*******************************/\n.panel-group .panel {\n  border-radius: 0;\n  -webkit-box-shadow: none;\n          box-shadow: none;\n  border-color: #EEEEEE; }\n.panel-default > .panel-heading {\n  padding: 0;\n  border-radius: 0;\n  color: #212121;\n  background-color: #FAFAFA;\n  border-color: #EEEEEE; }\n.panel-title {\n  font-size: 14px; }\n.panel-title > a {\n  display: block;\n  padding: 15px;\n  text-decoration: none; }\n.more-less {\n  float: right;\n  color: #212121; }\n.panel-default > .panel-heading + .panel-collapse > .panel-body {\n  border-top-color: #EEEEEE; }\n/* ----- v CAN BE DELETED v ----- */\nbody {\n  background-color: #26a69a; }\n.demo {\n  padding-top: 60px;\n  padding-bottom: 60px; }\n.tab {\n  overflow: hidden;\n  border: 1px solid #ccc;\n  background-color: #f1f1f1; }\n.tab button {\n  background-color: inherit;\n  float: left;\n  border: none;\n  outline: none;\n  cursor: pointer;\n  padding: 10px 60px;\n  -webkit-transition: 0.3s;\n  transition: 0.3s;\n  font-size: 17px; }\n.accordion {\n  background-color: #eee;\n  color: #444;\n  cursor: pointer;\n  padding: 18px;\n  width: 100%;\n  border: none;\n  text-align: left;\n  outline: none;\n  font-size: 15px;\n  -webkit-transition: 0.4s;\n  transition: 0.4s; }\n.active, .accordion:hover {\n  background-color: #ccc; }\n.panel {\n  padding: 0 18px;\n  display: none;\n  background-color: white;\n  overflow: hidden; }\n.bttn_actn {\n  display: inline-block;\n  width: 130px; }\n.dropup .ng-star-inserted h1 {\n  text-transform: capitalize; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-schema/service-schema.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var nso_service_1 = __webpack_require__("../../../../../src/app/nso.service.ts");
+var router_2 = __webpack_require__("../../../router/esm5/router.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+var Jsonview_1 = __webpack_require__("../../../../../src/app/jsonclass/Jsonview.ts");
+__webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+var ServiceSchemaComponent = /** @class */ (function () {
+    function ServiceSchemaComponent(router, nsoService, http, route) {
+        var _this = this;
+        this.router = router;
+        this.nsoService = nsoService;
+        this.http = http;
+        this.route = route;
+        this.route.params.subscribe(function (params) { return _this.getParam = params; });
+    }
+    ServiceSchemaComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // this.getParam = this.route.params.subscribe(params => params);
+        //console.log(this.getParam.id);
+        if (typeof this.getParam.id4 != 'undefined') {
+            this.serviceName = this.getParam.id;
+            this.selection = this.getParam.id3;
+        }
+        else {
+            this.serviceName = this.getParam.id.replace("link", "ml3:vpn");
+            this.selection = this.getParam.id2;
+        }
+        var User = {
+            'serviceName': this.serviceName,
+            "selection": this.selection
+        };
+        this.nsoService.nsoServicesSchema(User).subscribe(function (data) {
+            console.log("data==============================");
+            console.log(data);
+            _this.metaData = data['result']['data'];
+            var _data = data['result']['data'];
+            var _meta = data['result']['meta'];
+            var _keyPath = _meta['keypath'];
+            if (data.result) {
+                var HTML = new Jsonview_1.Jsonview(_this.nsoService, _data, _meta, _keyPath);
+                //console.log("call class method");
+                console.log(HTML.firstAcordian());
+                var jsonData = HTML.firstAcordian();
+                //console.log(jsonData[0].name);
+                _this.parentName = jsonData[0].name;
+                _this.childrenList = jsonData[0].children;
+                //console.log(jsonData[0].type);
+                //console.log(jsonData[0].children)
+                var g = jsonData[0].children.length;
+                _this.json = jsonData[0].children;
+                _this.pJSON = jsonData[0].name;
+                var parChi = [];
+                var contai = [];
+                for (var i = 0; i < g; i++) {
+                    //console.log('////////////////////////////');
+                    if (_this.json[i].type == "div") {
+                        //console.log(this.json[i].name);
+                        contai.push(_this.json[i]);
+                    }
+                    else {
+                        parChi.push(_this.json[i]);
+                    }
+                }
+                _this.parentChild = _this.json;
+                _this.container = contai;
+                //console.log("++++++++++++++++++++++++++++++");
+                //console.log(this.parentChild);
+                //console.log(this.container);
+            }
+            else {
+                _this.router.navigate(['']);
+            }
+        });
+        ////////////
+        function toggleIcon(e) {
+            $(e.target)
+                .prev('.panel-heading')
+                .find(".more-less")
+                .toggleClass('glyphicon-plus glyphicon-minus');
+        }
+        $('.panel-group').on('hidden.bs.collapse', toggleIcon);
+        $('.panel-group').on('shown.bs.collapse', toggleIcon);
+        ////////////
+    };
+    ServiceSchemaComponent.prototype.getSchema = function (path, qname, name) {
+        var _this = this;
+        alert(path + "/" + qname);
+        var contai = [];
+        var URL = {
+            'URL': (path + "/" + qname)
+        };
+        this.nsoService.nsoServicesSchemaByLink(URL).subscribe(function (data) {
+            console.log(data);
+            _this.metaData = data['result']['data'];
+            var _data = data['result']['data'];
+            var _meta = data['result']['meta'];
+            var _keyPath = _meta['keypath'];
+            if (data.result) {
+                var HTML = new Jsonview_1.Jsonview(_this.nsoService, _data, _meta, _keyPath);
+                console.log("call class method");
+                console.log(HTML.firstAcordian());
+                var jsonData = HTML.firstAcordian();
+                var children = jsonData[0].children;
+                console.log(children);
+                for (var i = 0; i < children.length; i++) {
+                    contai.push(children[i]);
+                    if (children[i].children != null) {
+                        //this.getSchema(children[i].path,children[i].qname,children[i].name);
+                    }
+                }
+                _this.subParentChild = contai;
+            }
+        });
+        console.log("----------------------------------");
+        console.log(this.subParentChild);
+        console.log("++++++++++++++++++++++++++++++++++");
+    };
+    ServiceSchemaComponent = __decorate([
+        core_1.Component({
+            selector: 'app-service-schema',
+            template: __webpack_require__("../../../../../src/app/service-schema/service-schema.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/service-schema/service-schema.component.scss")]
+        }),
+        __metadata("design:paramtypes", [router_2.Router,
+            nso_service_1.NsoService, http_1.Http,
+            router_1.ActivatedRoute])
+    ], ServiceSchemaComponent);
+    return ServiceSchemaComponent;
+}());
+exports.ServiceSchemaComponent = ServiceSchemaComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/service-schema/service-schema.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var common_1 = __webpack_require__("../../../common/esm5/common.js");
+var forms_1 = __webpack_require__("../../../forms/esm5/forms.js");
+//import {SpecialcharPipe} from '../specialchar.pipe'
+var ng2_accordion_1 = __webpack_require__("../../../../ng2-accordion/index.js");
+var service_schema_routing_module_1 = __webpack_require__("../../../../../src/app/service-schema/service-schema-routing.module.ts");
+var service_schema_component_1 = __webpack_require__("../../../../../src/app/service-schema/service-schema.component.ts");
+var divfields_component_1 = __webpack_require__("../../../../../src/app/divfields/divfields.component.ts");
+var parentchild_component_1 = __webpack_require__("../../../../../src/app/parentchild/parentchild.component.ts");
+var ServiceSchemaModule = /** @class */ (function () {
+    function ServiceSchemaModule() {
+    }
+    ServiceSchemaModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                common_1.CommonModule,
+                ng2_accordion_1.AccordionModule,
+                forms_1.FormsModule,
+                service_schema_routing_module_1.ServiceSchemaRoutingModule
+            ],
+            declarations: [service_schema_component_1.ServiceSchemaComponent, divfields_component_1.DivfieldsComponent_serviceSchema, parentchild_component_1.ParentchildComponent_serviceSchema]
+        })
+    ], ServiceSchemaModule);
+    return ServiceSchemaModule;
+}());
+exports.ServiceSchemaModule = ServiceSchemaModule;
+
+
+/***/ })
+
+});
+//# sourceMappingURL=service-schema.module.chunk.js.map

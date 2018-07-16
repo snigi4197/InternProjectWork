@@ -1,0 +1,60 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { HttpModule } from '@angular/http';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { LoginpComponent } from './loginp/loginp.component';
+import { RegisterComponent } from './register/register.component';
+import { ValidateService } from './validate.service';
+import { AuthService } from './auth.service';
+import { AgmCoreModule } from '@agm/core';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { NsoService } from './nso.service';
+import { ModalpopupComponent } from './modalpopup/modalpopup.component';
+import { SafePipeModule } from 'safe-pipe';
+ 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    LoginpComponent,
+    RegisterComponent,
+    HeaderComponent,
+    FooterComponent,
+    DashboardComponent,
+    ModalpopupComponent
+  ],
+  imports: [
+   SafePipeModule, 
+    OwlDateTimeModule, 
+    OwlNativeDateTimeModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
+    BootstrapModalModule,
+    ReactiveFormsModule,
+    HttpModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBNh5nWHiGuP44dgvJZBFfW9nZYiTLw1HI',
+      libraries : ["places"]
+
+    }) ,
+  BootstrapModalModule.forRoot({container:document.body})
+  ],
+  providers: [ValidateService, AuthService, NsoService],
+
+  entryComponents: [
+        ModalpopupComponent
+      ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

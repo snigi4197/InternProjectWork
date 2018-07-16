@@ -1,0 +1,34 @@
+<h1 align="center">Contact Us </h1>
+<div align="center">
+<form  [formGroup]="form" (ngSubmit)=onSubmit(form.value)>
+  <tr>
+    <td>
+      Name :
+    </td>
+    <td>
+      <input type="text" name="name" formControlName="name" placeholder="Enter your name">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Email Address :
+    </td>
+    <td>
+      <input type="text" name="email" formControlName="email" placeholder="Enter valid E-mail">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      Enter Queries :
+    </td>
+    <td>
+      <textarea rows="2" cols="22" formControlName="queries" placeholder="Ask your Queries"></textarea>
+    </td>
+  </tr>
+  <tr colspan="2">
+    <td>
+      <button type="submit" name="submit" >Sumbmit Here !! </button>
+    </td>
+  </tr>
+</form>
+</div>

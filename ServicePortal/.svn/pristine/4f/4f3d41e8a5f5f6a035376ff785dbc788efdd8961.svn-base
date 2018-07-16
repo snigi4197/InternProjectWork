@@ -1,0 +1,210 @@
+import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { NsoService } from '../nso.service';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/map';
+import { DomSanitizer } from '@angular/platform-browser';
+import { InventoryComponent } from '../inventory/inventory.component';
+ import { ModalpopupComponent } from '../modalpopup/modalpopup.component';
+    import { DialogService } from "ng2-bootstrap-modal";
+    import {NgxSmartModalService} from 'ngx-smart-modal';
+    declare var nx:any;
+    import { Topologycall } from '../jsonclass/topologycall';
+@Component({
+  selector: 'app-tab-data',
+  templateUrl: './tab-data.component.html',
+  styleUrls: ['./tab-data.component.scss'],
+
+})
+export class TabDataComponent implements OnInit {
+	@Input() bTabData;
+	uList;
+	uList1;
+	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject();
+	dtOptions1: DataTables.Settings = {};
+	dtTrigger1: Subject<any> = new Subject();
+	hList;
+	hList1;
+	title;
+	messageData;
+	list2=[];
+	check;
+	public htmlContent: string = `<h1>Lorem ipsum dolor sit amet.</h1>`;
+	constructor(private sanitized: DomSanitizer,private router: Router, 
+		private nsoService: NsoService, private http: Http,
+		private dialogService:DialogService,
+		public ngxSmartModalService: NgxSmartModalService) {
+		
+   }
+
+  ngOnInit() {
+  				
+	  let list = ['ckt-id', 'reconcile', 'customer-name', 'bandwidth'];
+	  
+	  if (this.bTabData.indexOf("link")!=-1){
+		  console.log("this.bTabData.indexOf('link')" + this.bTabData);
+		  list = ['vpn-id', 'topology', 'customer-name', 'mesh-rd-value'];
+		  
+	  } 
+
+	  this.hList = list;
+	  console.log('+++++++++++++++');
+	  console.log(this.hList);
+	  const User = {
+		  'serviceName': this.bTabData,
+		  "selection": list
+	  }
+	  this.nsoService.nsoData(User).subscribe(data => {
+		  console.log(data);
+		  if (data.result) {
+			  this.uList = data.result.results
+		  } else {
+			  this.router.navigate(['']);
+		  }
+	  });
+  	//////////////////
+	  let headers = new Headers();
+	  headers.append('content-type', 'application/json');
+	  console.log(this.uList);
+	  this.dtOptions = {
+		  pagingType: 'full_numbers',
+		  pageLength: 10
+	  };
+	  this.http.post('api/data', User, { headers: headers })
+		  .map(<any>this.extractData)
+		  .subscribe(data => {
+			  //this.uList = data;
+			  console.log("dataaaaaaaa" + data);
+			  // Calling the DT trigger to manually render the table
+			  this.dtTrigger.next();
+		  }); 
+  }
+	private extractData(res: Response) {
+		const body = res.json();
+		console.log(body);
+		return body || {};
+	}
+		private extractData1(res: Response) {
+		const body = res.json();
+		console.log(body);
+		return body || {};
+	}
+	slideTable(_path,_Val){
+		console.log(_Val);
+		console.log(_path);
+	} 
+	       showConfirm(val,serviceName) {
+	       	this.title="title";
+	  
+    let objs=new InventoryComponent(this.router,this.nsoService,this.http,this.dialogService,this.ngxSmartModalService);
+   
+let HTML= new Topologycall(this.nsoService);
+         let srcpath=HTML.getData("src","/ml2:mpls-l2vpn{"+val+"}/src/access/ml2:device");
+        HTML= new Topologycall(this.nsoService);
+        let destnpath=HTML.getData("destn","/ml2:mpls-l2vpn{"+val+"}/destn/access/ml2:device");
+         HTML= new Topologycall(this.nsoService);
+         let srcinpath=HTML.getData("srcIn","/ml2:mpls-l2vpn{"+val+"}/src/access/interface/ml2:intf-id");
+        HTML= new Topologycall(this.nsoService);
+        let destninpath=HTML.getData("destnIn","/ml2:mpls-l2vpn{"+val+"}/destn/access/interface/ml2:intf-id");
+        // }
+        
+   
+         setTimeout(()=>{ 
+        let topologyData = {
+          "nodes": [{"id": 0,"name": srcpath[0].src,"interface": srcinpath[0].srcIn},
+          {"id": 1,"name": destnpath[0].destn,"interface": destninpath[0].destnIn}],
+          "links" : [{"id": 0,"source": 0,"target": 1},{"id": 1,"source": 1,"target": 0}]
+         };
+         console.log(srcpath[0].src);
+//Topology Code Begin
+ var Shell = nx.define(nx.ui.Application, {
+        methods: {
+         getContainer: function() {
+              return new nx.dom.Element(document.getElementById('topology'));
+         },
+            start: function () {
+                var topo = new nx.graphic.Topology({
+                   'adaptive': false,
+     'showIcon': true,
+     'nodeConfig': {
+      'label': 'model.name',
+      'iconType': 'router',
+      'color': '#0how00'
+     },
+     'linkConfig': {
+      'linkType': 'curve'
+     },
+     'identityKey': 'id', // helps to link source and target
+     'width': 500,
+     'height': 300,
+     'dataProcessor': 'force',
+     'enableSmartLabel': true,
+     'enableGradualScaling': true,
+     'supportMultipleLink': true,
+     "scalable": true
+                });
+
+                console.log(topologyData);
+                topo.data(topologyData);
+                
+                topo.attach(this);
+            }
+        }
+    });
+
+
+    var shell = new Shell();
+
+
+    shell.start();
+//Topology Code End
+
+
+    		this.messageData=`<p><input type='text'/>text</p>`;
+    		var title = `<p><input type='text' />text</p>`;
+			
+    		objs.ngxSmartModalService.setModalData(this.sanitized.bypassSecurityTrustHtml(title), 'classicModal');
+	       	objs.ngxSmartModalService.getModal('longTextModal').open();
+},1700);
+            
+        }
+
+        showLink(vpnId,path){
+        	alert(vpnId);
+        	
+        	this.list2 = ['ckt-id', 'admin-state', 'customer-address', 'order/ra'];
+        	this.hList1=this.list2;
+        	const json={
+        		context:path.replace("/link",""),
+        		xpath:"link[starts-with(vpn-id,'"+vpnId+"')]",
+        		selection:this.list2
+        	}
+        	this.check=vpnId;
+        	this.nsoService.nsoDataquery(json).subscribe(data => {
+		  console.log(data);
+		  if (data.result) {
+			  this.uList1 = data.result.results
+			  
+			   let headers = new Headers();
+				  headers.append('content-type', 'application/json');
+				  console.log(this.uList);
+				  this.dtOptions1 = {
+					  pagingType: 'full_numbers',
+					  pageLength: 10
+				  };
+				  this.http.post('api/data/query', json, { headers: headers })
+					  .map(<any>this.extractData1)
+					  .subscribe(data => {
+						  //this.uList = data;
+						  console.log("dataaaaaaaa" + data);
+						  // Calling the DT trigger to manually render the table
+						  this.dtTrigger1.next();
+					  }); 
+		  } else {
+			  
+		  }
+	  	});
+        }
+}

@@ -1,0 +1,200 @@
+webpackJsonp(["manage-profile.module"],{
+
+/***/ "../../../../../src/app/manage-profile/manage-profile-routing.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var manage_profile_component_1 = __webpack_require__("../../../../../src/app/manage-profile/manage-profile.component.ts");
+var routes = [
+    {
+        path: '',
+        component: manage_profile_component_1.ManageProfileComponent
+    }
+];
+var ManageProfileRoutingModule = /** @class */ (function () {
+    function ManageProfileRoutingModule() {
+    }
+    ManageProfileRoutingModule = __decorate([
+        core_1.NgModule({
+            imports: [router_1.RouterModule.forChild(routes)],
+            exports: [router_1.RouterModule]
+        })
+    ], ManageProfileRoutingModule);
+    return ManageProfileRoutingModule;
+}());
+exports.ManageProfileRoutingModule = ManageProfileRoutingModule;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/manage-profile/manage-profile.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!-- Form Name -->\n \n<div class=\"container\">\n  <div class=\"col-md-6\">\n    <h1>Edit Profile</h1>\n  <div class=\"profileWrapper\">\n  <!-- Text input-->\n\n      <form [formGroup]=\"pformUpdate\" (ngSubmit)=\"onUpdate(pformUpdate.value)\">\n                  \n        <div class=\"form-group\" >                      \n                 <input type=\"text\" class=\"form-control\" name=\"username\" formControlName=\"username\" id=\"username\" [(ngModel)]=\"profileObj.username\"  placeholder=\"User Name\">\n                 <!--  -->\n                  <span style=\"color: red\" *ngIf=\"pformUpdate.controls['username'].errors \n                  && (pformUpdate.controls['username'].dirty)\">\n                          <span [hidden]=\"!pformUpdate.controls['username'].errors.required\">\n                             First Name is Required\n                          </span>\n                           <span [hidden]=\"!pformUpdate.controls['username'].errors.pattern\">\n                             Please enter Valid username between character min 3 to max 15.\n                          </span>\n\n                       </span>\n                 <!--  -->\n              </div>\n\n                  <div class=\"form-group\">\n                     \n                     <input type=\"text\" class=\"form-control\" name=\"email\" id=\"email\" \n                     [value]=\"profileObj.email\" placeholder=\"Email\" disabled>\n                    \n                  </div>\n                  \n      \n                  <div class=\"form-group\">\n                     \n                      <input type=\"text\" class=\"form-control\" name=\"customer_name\" formControlName=\"customer_name\" [(ngModel)]=\"profileObj.customer_name\" id=\"customer_name\" placeholder=\"Customer Name\">\n                      <span style=\"color: red\" *ngIf=\"pformUpdate.controls['customer_name'].errors \n                  && (pformUpdate.controls['customer_name'].dirty)\">\n                      <span [hidden]=\"!pformUpdate.controls['customer_name'].errors.required\">\n                             Phon Number is Required\n                          </span>\n                        <span style=\"color: red\" *ngIf=\"!pformUpdate.controls['customer_name'].valid\">Enter Valid Number</span>\n                      </span>\n                  </div>\n                  <div class=\"form-group\">\n                     \n                      <input type=\"text\" class=\"form-control\" name=\"phone_number\" formControlName=\"phone_number\" id=\"phone_number\" [(ngModel)]=\"profileObj.phone_number\" placeholder=\"Phone Number\">\n                      <span style=\"color: red\" *ngIf=\"pformUpdate.controls['phone_number'].errors \n                  && (pformUpdate.controls['phone_number'].dirty)\">\n                      <span [hidden]=\"!pformUpdate.controls['phone_number'].errors.required\">\n                             Phon Number is Required\n                          </span>\n                        <span style=\"color: red\" *ngIf=\"!pformUpdate.controls['phone_number'].valid\">Enter Valid Number</span>\n                      </span>\n                  </div>\n                  <button type=\"submit\" class=\"btn btn-success\">Update</button>\n          </form>\n    </div>\n</div>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/manage-profile/manage-profile.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".profileWrapper {\n  width: 100%;\n  margin-top: 20px; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/manage-profile/manage-profile.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var forms_1 = __webpack_require__("../../../forms/esm5/forms.js");
+var validate_service_1 = __webpack_require__("../../../../../src/app/validate.service.ts");
+var auth_service_1 = __webpack_require__("../../../../../src/app/auth.service.ts");
+var ManageProfileComponent = /** @class */ (function () {
+    function ManageProfileComponent(validateService, authService, router) {
+        this.validateService = validateService;
+        this.authService = authService;
+        this.router = router;
+        this.profileObj = {
+            customer_name: "",
+            email: "",
+            id: "",
+            password: "",
+            phone_number: "",
+            registered_date: "",
+            updated_date: "",
+            username: ""
+        };
+    }
+    ManageProfileComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.loginEmail = localStorage.getItem("loginEmail");
+        this.pformUpdate = new forms_1.FormGroup({
+            username: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.pattern('[a-zA-Z]+')
+            ])),
+            // email: new FormControl(""),
+            customer_name: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.pattern('[a-zA-Z]+')
+            ])),
+            phone_number: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required
+                //Validators.pattern('[0-9]+{12}')
+            ])),
+        });
+        var User = {
+            "email": this.loginEmail
+        };
+        this.authService.profileDataUser(User).subscribe(function (data) {
+            console.log(data);
+            if (data.status) {
+                _this.profileObj = data.userList[0];
+            }
+            else {
+            }
+        });
+    };
+    ManageProfileComponent.prototype.onUpdate = function (form) {
+        console.log(form);
+        form['email'] = this.loginEmail;
+        console.log(form);
+        this.authService.profileUpdateUser(form).subscribe(function (data) {
+            console.log(data);
+            if (data.status) {
+                // this.router.navigate(['/login']);
+                alert(data.message);
+            }
+            else {
+                //this.router.navigate(['']);
+            }
+        });
+    };
+    ManageProfileComponent = __decorate([
+        core_1.Component({
+            selector: 'app-manage-profile',
+            template: __webpack_require__("../../../../../src/app/manage-profile/manage-profile.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/manage-profile/manage-profile.component.scss")]
+        }),
+        __metadata("design:paramtypes", [validate_service_1.ValidateService, auth_service_1.AuthService, router_1.Router])
+    ], ManageProfileComponent);
+    return ManageProfileComponent;
+}());
+exports.ManageProfileComponent = ManageProfileComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/manage-profile/manage-profile.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var common_1 = __webpack_require__("../../../common/esm5/common.js");
+var forms_1 = __webpack_require__("../../../forms/esm5/forms.js");
+var manage_profile_routing_module_1 = __webpack_require__("../../../../../src/app/manage-profile/manage-profile-routing.module.ts");
+var manage_profile_component_1 = __webpack_require__("../../../../../src/app/manage-profile/manage-profile.component.ts");
+var ManageProfileModule = /** @class */ (function () {
+    function ManageProfileModule() {
+    }
+    ManageProfileModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                common_1.CommonModule,
+                forms_1.FormsModule,
+                forms_1.ReactiveFormsModule,
+                manage_profile_routing_module_1.ManageProfileRoutingModule
+            ],
+            declarations: [manage_profile_component_1.ManageProfileComponent]
+        })
+    ], ManageProfileModule);
+    return ManageProfileModule;
+}());
+exports.ManageProfileModule = ManageProfileModule;
+
+
+/***/ })
+
+});
+//# sourceMappingURL=manage-profile.module.chunk.js.map

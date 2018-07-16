@@ -1,0 +1,73 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {FormGroup,FormControl,Validators } from '@angular/forms';
+import { ValidateService } from '../validate.service';
+import { AuthService } from '../auth.service';
+import { NsoService } from '../nso.service';
+@Component({
+  selector: 'app-loginp',
+  templateUrl: './loginp.component.html',
+  styleUrls: ['./loginp.component.scss']
+})
+export class LoginpComponent implements OnInit {
+form;
+  flag: boolean = false;
+  constructor(private validateService: ValidateService,
+              private authService: AuthService,
+              private router: Router,
+              private nsoService: NsoService) { }
+
+  ngOnInit() {
+  	this.form = new FormGroup({
+  		email : new FormControl("" , Validators.compose([
+  			Validators.required
+  			//Validators.pattern('[a-zA-Z]+')
+  			])),
+  		password : new FormControl("" , Validators.compose([
+  			Validators.required
+  			//Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[_+/+-+.+@])(?=.*?[0-9]).{6,12}$')
+  			]))
+  	});
+  }
+
+  onSubmit(formo){
+    console.log(formo);
+
+    this.authService.authenticateUser(formo).subscribe(data => {
+      console.log(data);
+      if (data.status) {
+        console.log(data.userName);
+        localStorage.setItem("loginUser",data.userName);
+        localStorage.setItem("loginEmail",data.userEmail);
+       let dataaa= localStorage.getItem("loginUser");
+       console.log(dataaa);
+        this.nsoService.nsoLogin().subscribe(data => {
+          console.log(data);
+          if (data) {
+
+             this.nsoService.nsoTrans().subscribe(data => {
+                      console.log(data);
+                      if (data) {
+                        this.router.navigate(['/dashboard']);
+                      } else {
+
+                      }
+                    });
+          } else {
+
+          }
+        });
+       
+
+      } else {
+        this.router.navigate(['']);
+      }
+    });
+  }
+  onLoginSubmit() {
+
+  }
+}
+
+
+ 

@@ -1,0 +1,10 @@
+var mySqlConnectionString={
+	connectionString:{
+		host:'192.168.0.122',
+		user:'root',
+		password:'root123',
+		database:'SELFSERVICEPORTAL'
+	}
+}
+
+exports.mySqlConnectionString=mySqlConnectionString;

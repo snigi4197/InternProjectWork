@@ -1,0 +1,25 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {FormsModule} from '@angular/forms'
+import {SpecialcharPipe_bandwidthCal} from '../specialchar.pipe';
+import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { BandwidthcalenderRoutingModule } from './bandwidthcalender-routing.module';
+import {BandwidthcalenderComponent} from './bandwidthcalender.component';
+import { BcTabDataComponent } from '../bandwidthcalendering/bc-tab-data.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DataTablesModule } from 'angular-datatables';
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    DataTablesModule,
+    OwlDateTimeModule, 
+         OwlNativeDateTimeModule,
+    NgxSmartModalModule.forRoot(),
+    BandwidthcalenderRoutingModule
+  ],
+  declarations: [BandwidthcalenderComponent,SpecialcharPipe_bandwidthCal,BcTabDataComponent],
+   providers:[NgxSmartModalService]
+})
+export class BandwidthcalenderModule { }

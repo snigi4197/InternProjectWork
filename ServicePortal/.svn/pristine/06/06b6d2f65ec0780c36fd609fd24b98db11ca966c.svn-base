@@ -1,0 +1,11 @@
+<div class="login_logo">
+	<img src="assets/images/cisco-logo.png" alt="">
+</div>
+<div class="loginBlock">
+	<div class="loginAnchor">
+<a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
+
+<a routerLink="/login/register" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Register</a>
+</div>
+<router-outlet></router-outlet>
+</div>

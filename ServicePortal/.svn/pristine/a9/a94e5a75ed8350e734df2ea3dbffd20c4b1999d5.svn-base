@@ -1,0 +1,76 @@
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {FormGroup,FormControl,Validators } from '@angular/forms';
+import { ValidateService } from '../validate.service';
+import { AuthService } from '../auth.service';
+@Component({
+  selector: 'app-manage-profile',
+  templateUrl: './manage-profile.component.html',
+  styleUrls: ['./manage-profile.component.scss']
+})
+export class ManageProfileComponent implements OnInit {
+pformUpdate ;
+loginEmail;
+profileObj={
+	customer_name:"",
+	email:"",
+	id:"",
+	password:"",
+	phone_number:"",
+	registered_date:"",
+	updated_date:"",
+	username:""
+};
+  constructor(private validateService: ValidateService, private authService: AuthService, private router: Router) {
+
+   }
+
+  ngOnInit() {
+  	this.loginEmail=localStorage.getItem("loginEmail");
+  	this.pformUpdate = new FormGroup({
+      username: new FormControl("", Validators.compose([
+  			Validators.required,
+  			Validators.pattern('[a-zA-Z]+')
+  			])),
+    // email: new FormControl(""),
+    
+      customer_name: new FormControl("", Validators.compose([
+        Validators.required,
+      Validators.pattern('[a-zA-Z]+')
+      ])),
+      phone_number: new FormControl("", Validators.compose([
+        Validators.required
+        //Validators.pattern('[0-9]+{12}')
+      ])),
+  	});
+  	const User={
+  		"email":this.loginEmail
+  	}
+  	this.authService.profileDataUser(User).subscribe((data) => {
+      console.log(data);
+      if (data.status) {
+        this.profileObj=data.userList[0];
+
+      } else {
+      
+      }
+    });
+  	
+  }
+  onUpdate(form) {
+    console.log(form);
+    form['email']=this.loginEmail;
+
+    console.log(form);
+
+    this.authService.profileUpdateUser(form).subscribe((data) => {
+      console.log(data);
+      if (data.status) {
+       // this.router.navigate(['/login']);
+       alert(data.message);
+      } else {
+      //this.router.navigate(['']);
+      }
+    });
+  }
+}

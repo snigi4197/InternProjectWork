@@ -1,0 +1,82 @@
+<div class="wrapper">
+
+	<div class="row">
+
+		<table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+			<thead>
+				<tr class="rowHeader">
+					<th *ngFor="let hLists of hList">{{hLists}}</th>
+
+
+				</tr>
+			</thead>
+			<ng-container *ngIf="bTabData=='/ml2:mpls-l2vpn'; else l3vpn">
+
+				<tbody>
+
+					<tr *ngFor="let uLists of uList">
+
+						<td>
+							<a [routerLink]="['/dashboard/schema', bTabData, uLists[0] ]">{{uLists[0]}}</a>
+							
+
+
+							
+
+
+						</td>
+
+						<td>{{uLists[1]}}</td>
+
+						<td><button type="button" class="btn btn-success" (click)="showConfirm(uLists[0],uLists[1],bTabData)">
+							<span class="glyphicon glyphicon-edit"></span> Update
+						</button></td>
+
+
+
+
+
+					</tr>
+				</tbody>
+
+
+
+			</ng-container>
+			<ng-template #l3vpn>
+				<tbody>
+
+					<tr *ngFor="let uLists of uList">
+
+						<td>
+							<a [routerLink]="['/dashboard/schema', bTabData, uLists[0] ]">{{uLists[0]}}</a>
+							<a class="glyphicon glyphicon-chevron-right" (click)="showLink(uLists[0],bTabData)"></a>	
+							
+
+
+
+
+						</td>
+
+						<td>{{uLists[1]}}</td>
+
+
+
+
+
+
+
+					</tr>
+				</tbody>
+			</ng-template>
+
+
+
+
+
+
+
+
+		</table>	
+
+	</div>
+</div>

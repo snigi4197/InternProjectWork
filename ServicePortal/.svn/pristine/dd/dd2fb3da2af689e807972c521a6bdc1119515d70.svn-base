@@ -1,0 +1,44 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+import { LoginComponent } from './login/login.component';
+import { LoginpComponent } from './loginp/loginp.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { InventoryComponent } from './inventory/inventory.component';
+import { BandwidthOnDemandComponent } from './bandwidth-on-demand/bandwidth-on-demand.component';
+import { ServiceSchemaComponent } from './service-schema/service-schema.component';
+import { CircuitOrderingComponent } from './circuit-ordering/circuit-ordering.component';
+
+
+const routes: Routes = [
+	{ path: 'login', component: LoginComponent ,
+  		children : [
+    		{ path: '', component: LoginpComponent },
+    		{ path: 'register', component: RegisterComponent }
+  	]},
+  { path: 'dashboard', component: DashboardComponent,
+      children : [
+        { path: '', component: HomeComponent },
+        { path: 'inventory', component: InventoryComponent },
+        { path: 'bandwidth-on-demand', component: BandwidthOnDemandComponent },
+        { path: 'circuit-ordering', component: CircuitOrderingComponent },
+        { path: 'schema/:id/:id2', component: ServiceSchemaComponent }
+      ]
+   },
+  	{ path: '',
+    	redirectTo: '/login',
+   		pathMatch: 'full'
+  	},
+  { path: '**', redirectTo: '/login', pathMatch: 'full' }
+
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }

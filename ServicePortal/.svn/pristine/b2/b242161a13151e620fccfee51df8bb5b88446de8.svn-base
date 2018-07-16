@@ -1,0 +1,21 @@
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'specialchar'
+})
+ class SpecialcharPipe implements PipeTransform {
+
+  transform(value: any, args?: any): any {
+	  let _specialChar = value.replace(/[^a-zA-Z0-9]/g, '_');
+	  return _specialChar;
+  }
+
+}
+
+export class SpecialcharPipe_Inventory extends SpecialcharPipe{}
+
+export class SpecialcharPipe_BOD extends SpecialcharPipe{}
+
+export class SpecialcharPipe_bandwidthCal extends SpecialcharPipe{}
+
+export class SpecialcharPipe_serviceTermination extends SpecialcharPipe{}

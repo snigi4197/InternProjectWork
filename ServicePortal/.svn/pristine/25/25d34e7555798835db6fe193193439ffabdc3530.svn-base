@@ -1,0 +1,49 @@
+{
+  "_from": "angular-accordion",
+  "_id": "angular-accordion@1.0.2",
+  "_inBundle": false,
+  "_integrity": "sha1-hmkG8w5BKhpqk0Wt6kbDm73VSc0=",
+  "_location": "/angular-accordion",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "angular-accordion",
+    "name": "angular-accordion",
+    "escapedName": "angular-accordion",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-accordion/-/angular-accordion-1.0.2.tgz",
+  "_shasum": "866906f30e412a1a6a9345adea46c39bbdd549cd",
+  "_spec": "angular-accordion",
+  "_where": "D:\\ServicePortal\\client",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/uxman-sherwani/angular-accordion/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "A simple angular directive for adding accordion UI element",
+  "homepage": "https://github.com/uxman-sherwani/angular-accordion#readme",
+  "keywords": [
+    "angular",
+    "accordion"
+  ],
+  "license": "ISC",
+  "main": "js/ang-accordion.js",
+  "name": "angular-accordion",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uxman-sherwani/angular-accordion.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.2"
+}

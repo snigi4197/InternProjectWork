@@ -1,0 +1,106 @@
+import { Component, OnInit, Input ,ViewChild,ElementRef} from '@angular/core';
+import { NsoService } from '../nso.service';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import { ModalpopupComponent } from '../modalpopup/modalpopup.component';
+import { DomSanitizer } from '@angular/platform-browser';
+ import { DialogService } from "ng2-bootstrap-modal";
+ import {NgxSmartModalService} from 'ngx-smart-modal';
+ import { BandwidthOnDemandComponent } from '../bandwidth-on-demand/bandwidth-on-demand.component';
+import 'rxjs/add/operator/map';
+
+@Component({
+  selector: 'app-bod-tab-data',
+  templateUrl: './bod-tab-data.component.html',
+  styleUrls: ['./bod-tab-data.component.scss']
+})
+export class BodTabDataComponent implements OnInit {
+	@Input() bTabData;
+	uList;
+	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject();
+	hList;
+	message:String;
+	title;
+	messagehtml;
+	
+	@ViewChild('dataContainer') d1:ElementRef;
+
+	
+	constructor(private sanitized: DomSanitizer,private router: Router, private nsoService: NsoService, private http: Http,private dialogService:DialogService,
+		private elementRef:ElementRef,private ngxSmartModalService:NgxSmartModalService)  {
+		
+   }
+   ngAfterViewInit() {
+  
+}
+
+  ngOnInit() {
+
+  		
+	  let list = ['ckt-id', 'bandwidth'];
+	  if (this.bTabData.indexOf("link")!=-1){
+		  console.log("this.bTabData.indexOf('link')" + this.bTabData);
+		  list = ['vpn-id', 'mesh-rd-value'];
+	  } 
+
+	  this.hList = list;
+	  console.log('+++++++++++++++');
+	  console.log(this.hList);
+	  const User = {
+		  'serviceName': this.bTabData,
+		  "selection": list
+	  }
+	  this.nsoService.nsoData(User).subscribe(data => {
+	  	 console.log("======================================================");
+		  console.log(data);
+		  if (data.result) {
+			  this.uList = data.result.results
+		  } else {
+			  this.router.navigate(['']);
+		  }
+	  });
+  	//////////////////
+	  let headers = new Headers();
+	  headers.append('content-type', 'application/json');
+	  console.log(this.uList);
+	  this.dtOptions = {
+		  pagingType: 'full_numbers',
+		  pageLength: 10
+	  };
+	  this.http.post('api/data', User, { headers: headers })
+		  .map(<any>this.extractData)
+		  .subscribe(data => {
+			  //this.uList = data;
+			  console.log("dataaaaaaaa" + data);
+			  // Calling the DT trigger to manually render the table
+			  this.dtTrigger.next();
+		  }); 
+		
+  }
+
+	private extractData(res: Response) {
+		const body = res.json();
+		console.log(body);
+		return body || {};
+	}
+	slideTable(_path,_Val){
+		console.log(_Val);
+		console.log(_path);
+	} 
+	 showConfirm(val) {
+	 	let objs=new BandwidthOnDemandComponent(this.router,this.nsoService,this.http,this.dialogService,this.ngxSmartModalService);
+	 	
+this.messagehtml=`<p><input type='text'/>text</p>`;
+    		var band_title = 'Bandwidth Tab';
+	 	objs.ngxSmartModalService.setModalData(this.sanitized.bypassSecurityTrustHtml(band_title), 'classicModal1');
+	 	
+	       	this.ngxSmartModalService.getModal('classicModal1').open();
+	       	
+
+          
+        }
+        
+        
+}

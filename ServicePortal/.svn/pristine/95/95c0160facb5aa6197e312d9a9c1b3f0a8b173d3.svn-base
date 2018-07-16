@@ -1,0 +1,66 @@
+
+<div *ngFor="let obj of divChild" >
+   <div class="form-group col-md-4" *ngIf="obj.type=='text'">
+      <label for="{{obj.name}}">{{obj.name}}</label>
+      <input type="text" [disabled]="true" class="form-control"  value="{{obj.value}}" name="text" id="text" placeholder="{{obj.name}}">
+   </div>
+   <div *ngIf="obj.type=='select'" class="form-group col-md-4">
+      <label for="{{obj.name}}">{{obj.name}}</label>
+    
+      <select class="form-control"  [disabled]="true" >
+         <option value="">-</option>
+         <option *ngFor="let obj1 of obj.option" value="{{obj1}}" selected="{{obj1}}">{{obj1}}</option>
+      </select>
+   </div>
+   <div *ngIf="obj.type=='choice'" class="form-group col-md-12">
+
+      <div class="SchoiceDiv">
+         <label for="{{obj.name}}">{{obj.name}}</label>
+         
+         <select  class="form-control jsonSelectBox"  [disabled]="true" 
+            (change)="callChoiceSchema($event.target.value,obj.path,obj.name)">
+            <option value="">-</option>
+
+            <option *ngFor="let obj1 of obj.option" 
+            [selected]="obj1.name === obj.value" 
+            [ngValue]="obj1.name">{{obj1.name}}</option>
+         </select>
+      </div>
+     
+ 
+      <div class="myDivJson" *ngFor="let option of obj.option">
+            
+          <div *ngIf="choiceVal && choiceVal == option['name']">
+          <div *ngFor="let option1 of option.caseChildren">           
+          <h1>{{option1['name']}}</h1>
+         <app-parentchild [ParentChild]="option1"></app-parentchild>
+         </div>
+         </div>
+          <div *ngIf="!choiceVal && obj.value && obj.value == option['name']">
+          <div *ngFor="let option1 of option.caseChildren">           
+          <h1>{{option1['name']}}</h1>
+         <app-parentchild [ParentChild]="option1"></app-parentchild>
+         </div>
+         </div>
+      </div>
+   
+
+   </div>
+   <div *ngIf="obj.type=='checkbox'" class="form-group col-md-4">
+      <input type="checkbox" name="checkbox" [disabled]="true" value="check" [checked]="obj.checked">
+      <label for="{{obj.name}}">{{obj.name}}</label>
+   </div>
+   <div *ngIf="obj.type=='table'" class="form-group col-md-12">
+      <table class="table table-bordered">
+         <tr>
+            <th *ngFor="let tableS of obj.children">{{tableS.name}}</th>
+         </tr>
+         <tr *ngFor="let tableS of obj.value">
+            <td *ngFor="let tableSs of tableS">{{tableSs}}</td>
+         </tr>
+      </table>
+   </div>
+
+  
+
+</div>

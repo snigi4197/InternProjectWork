@@ -1,0 +1,89 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/observable/fromEvent");
+require("rxjs/add/observable/merge");
+require("rxjs/add/observable/of");
+require("rxjs/add/operator/do");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/debounceTime");
+require("rxjs/add/operator/switch");
+require("rxjs/add/operator/filter");
+var SearchBoxComponent = (function () {
+    function SearchBoxComponent(el) {
+        this.el = el;
+        this.loading = new core_1.EventEmitter();
+        this.results = new core_1.EventEmitter();
+        this.filterText = "";
+        this.minLength = 1;
+        this.maxResults = Number.MAX_SAFE_INTEGER;
+    }
+    SearchBoxComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.input.nativeElement.focus();
+        var keyUp = Observable_1.Observable.fromEvent(this.input.nativeElement, 'keyup')
+            .map(function (e) { return e.target.value; })
+            .filter(function (text) { return text.length >= _this.minLength; })
+            .debounceTime(250);
+        var search = Observable_1.Observable.fromEvent(this.input.nativeElement, "search")
+            .do(function () { return _this.filterText = ""; })
+            .map(function (e) { return ""; });
+        Observable_1.Observable.merge(keyUp, search)
+            .do(function () { return _this.loading.next(true); })
+            .map(function (query) {
+            return _this.searchData ? _this.searchData(query, _this.maxResults) : Observable_1.Observable.of([]);
+        })
+            .switch()
+            .subscribe(function (results) {
+            _this.loading.next(false);
+            _this.results.next(results);
+        }, function (err) {
+            _this.loading.next(false);
+        });
+    };
+    return SearchBoxComponent;
+}());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], SearchBoxComponent.prototype, "maxResults", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Number)
+], SearchBoxComponent.prototype, "minLength", void 0);
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Function)
+], SearchBoxComponent.prototype, "searchData", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], SearchBoxComponent.prototype, "loading", void 0);
+__decorate([
+    core_1.Output(),
+    __metadata("design:type", core_1.EventEmitter)
+], SearchBoxComponent.prototype, "results", void 0);
+__decorate([
+    core_1.ViewChild('input'),
+    __metadata("design:type", core_1.ElementRef)
+], SearchBoxComponent.prototype, "input", void 0);
+SearchBoxComponent = __decorate([
+    core_1.Component({
+        moduleId: "" + module.id,
+        selector: 'dcn-search-box',
+        styleUrls: ['breadcrumb.component.css'],
+        template: "\n        <div class=\"search-box\">\n            <input #input type=\"search\"\n                [value]=\"filterText\" \n                (input)=\"filterText = $event.target.value\"\n                class=\"input-class\" \n                placeholder=\"search\"\n                 />\n        </div>\n  "
+    }),
+    __metadata("design:paramtypes", [core_1.ElementRef])
+], SearchBoxComponent);
+exports.SearchBoxComponent = SearchBoxComponent;

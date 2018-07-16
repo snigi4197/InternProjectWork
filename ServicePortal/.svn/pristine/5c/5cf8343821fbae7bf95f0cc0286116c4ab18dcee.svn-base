@@ -1,0 +1,89 @@
+import { Component, OnInit ,ViewChild} from '@angular/core';
+declare var nx: any;
+import { DialogComponent, DialogService } from "ng2-bootstrap-modal";
+export interface ConfirmModel {
+  title:string;
+  message;
+}
+@Component({
+  selector: 'app-modalpopup',
+  templateUrl: './modalpopup.component.html',
+  styleUrls: ['./modalpopup.component.scss']
+})
+export class ModalpopupComponent extends DialogComponent<ConfirmModel, boolean> implements ConfirmModel , OnInit {
+ 
+	title: string;
+  	message;
+      
+  constructor(dialogService: DialogService) {super(dialogService); }
+ngOnInit() {
+   
+      	let topologyData = {
+	"nodes": [
+		{
+			"id": 0,
+			"name": "New York"
+		},
+		{
+			"id": 1,
+			"name": "Los Angeles"
+		},
+		{
+			"id": 2,
+			"name": "Houston"
+		}
+	],
+	"links": [
+		{
+			"source": 0,
+			"target": 1
+		},
+		{
+			"source": 0,
+			"target": 2
+		}
+	]
+};
+      let app = new nx.ui.Application();
+
+	// configuration object for next
+	let topologyConfig = {
+		// special configuration for nodes
+		"nodeConfig": {
+			"label": "model.name",
+			"iconType": "router"
+
+		},
+		// special configuration for links
+		"linkConfig": {
+			"linkType": "curve"
+		},
+		// if true, the nodes' icons are shown, otherwise a user sees a dot instead
+		"showIcon": true,
+		// automatically compute the position of nodes
+		"dataProcessor": "force"
+
+	};
+
+	// instantiate Topology class
+	let topology = new nx.graphic.Topology(topologyConfig);
+
+	// load topology data from app/data.js
+	topology.data(topologyData);
+
+	// bind the topology object to the app
+	topology.attach(app);
+
+	// app must run inside a specific container. In our case this is the one with id="topology-container"
+	app.container(document.getElementById("topologycontainer"));
+	console.log(app);
+ 
+    }
+ 
+confirm() {
+    // we set dialog result as true on click on confirm button, 
+    // then we can get dialog result from caller code 
+     this.result = true;
+     this.close();
+  }
+}

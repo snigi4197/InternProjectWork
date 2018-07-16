@@ -1,0 +1,77 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+exports.BREADCRUMB_DATA_KEY = "breadcrumb";
+var BreadcrumbService = (function () {
+    function BreadcrumbService() {
+    }
+    /**
+     *
+     * returns the urls up to current snapshot
+     */
+    BreadcrumbService.prototype.getBaseUrl = function (snapshot) {
+        return snapshot.pathFromRoot.reduce(function (acc, val) {
+            return acc + val.url.map(function (segment) { return segment.path; }).join("/") + "/";
+        }, "");
+    };
+    /**
+     * Returns array of BreadcrumbRoute objects that represent the breadcrumbDropDown
+     */
+    BreadcrumbService.prototype.getBreadcrumbs = function (route) {
+        var breadcrumbs = [];
+        this.getBreadcrumbsRecursive(route, "", breadcrumbs);
+        return breadcrumbs;
+    };
+    BreadcrumbService.prototype.getBreadcrumbsRecursive = function (route, url, breadcrumbs) {
+        //get the child routes
+        var children = route.children;
+        //return if there are no more children
+        if (!children || children.length === 0) {
+            return;
+        }
+        //iterate over each children
+        var child = children.find(function (child) { return child.outlet == router_1.PRIMARY_OUTLET; });
+        if (!child || child.routeConfig.path.length == 0) {
+            return;
+        }
+        //verify the custom property "breadcrumbDropDown" is specified on the route
+        if (!child.snapshot.data.hasOwnProperty(exports.BREADCRUMB_DATA_KEY)) {
+            var name_1 = this.buildPlainBreadcrumbData(child);
+            child.snapshot.data[exports.BREADCRUMB_DATA_KEY] = name_1;
+        }
+        //get the route's URL segment
+        var routeURL = child.snapshot.url.map(function (segment) { return segment.path; }).join("/");
+        //append route URL to URL
+        url += "/" + routeURL;
+        //add breadcrumbDropDown
+        var breadcrumb = {
+            breadcrumb: child.snapshot.data[exports.BREADCRUMB_DATA_KEY],
+            params: child.snapshot.params,
+            url: url
+        };
+        breadcrumbs.push(breadcrumb);
+        return this.getBreadcrumbsRecursive(child, url, breadcrumbs);
+    };
+    BreadcrumbService.prototype.buildPlainBreadcrumbData = function (child) {
+        return {
+            label: child.routeConfig.path,
+            icon: "icon-explanation_mark",
+        };
+    };
+    return BreadcrumbService;
+}());
+BreadcrumbService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [])
+], BreadcrumbService);
+exports.BreadcrumbService = BreadcrumbService;

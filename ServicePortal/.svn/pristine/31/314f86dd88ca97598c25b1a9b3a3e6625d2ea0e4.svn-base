@@ -1,0 +1,6 @@
+footer {
+    text-align: center;
+    padding: 16px 0;
+    color: #5f5b5b;
+    font-size: 13px;
+}

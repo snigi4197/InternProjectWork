@@ -1,0 +1,157 @@
+<div class="container">
+	<h1>Bandwidth Calendaring</h1>
+	<div class="row">
+
+    <div class=" tabData">
+
+
+
+      <ul class="nav nav-tabs" role="tablist" id="myTabs">
+        <li  *ngFor="let uLists of uList; let index = index"
+        class="{{(index == 0)? 'active' : ''}}" >
+        <a  
+        href="#{{uLists | specialchar}}" 
+        attr.aria-controls="{{uLists | specialchar}}" 
+        role="tab"  
+        data-toggle="tab">{{uLists}}</a>
+      </li>
+
+
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content" >
+     <div *ngFor="let uLists1 of uList; let index1 = index" 
+     class="tab-pane {{(index1 == 0)? 'active' : ''}}" 
+     id="{{uLists1 | specialchar}}" 
+     role="tabpanel" attr.aria-labelledby="{{uLists1 | specialchar}}">
+     <div class="wrapper"> 
+      <app-bc-tab-data [bTabData]="uLists1">
+
+      </app-bc-tab-data></div>  
+    </div>
+
+
+  </div>
+</div>
+
+</div>
+</div>
+<ngx-smart-modal #classicModal2 [identifier]="'classicModal2'">
+
+  <h1 >BandWidth Tab</h1>
+  <!--  // <h1 [innerHTML]="classicModal1.getData()"></h1> -->
+
+  <div *ngIf="classicModal2.hasData()">
+    {{classicModal2.getData().ckt_id}}
+    {{classicModal2.getData().serviceName}}
+    {{classicModal2.getData().bandwidth}}
+  </div>
+  <div id="divID">
+    Bandwidth:<input  type='text' placeholder="Bandwidth" id="Btxt" name="txt" [(ngModel)] = "values" (keypress)="eventHandler($event)">
+  </div>
+  <div class="container">
+  <h1>Set bandwidth date and time</h1>
+  <div class="row">
+     <form>
+    <div class="dateTime col-md-12">
+      <div class="dateTimeCss">
+        <label>Set Start Date & Time</label>
+        <div> 
+          <input [owlDateTime]="dt1" id="st_ed_date" style="width: 100%;" [owlDateTimeTrigger]="dt1" placeholder="Date Time" [selectMode]="'range'">
+          
+          <owl-date-time [pickerMode]="'dialog'" #dt1></owl-date-time></div>
+      </div>
+   
+    </div>
+     </form>
+  </div>
+
+
+</div>
+  <button class="button -dark" id="btn_id" [disabled]='btnDisabled'(click)="openBandwidthCalenderPrice(classicModal2.getData());classicModal2.close()">Update</button>
+</ngx-smart-modal>
+<ngx-smart-modal #priceModal [identifier]="'priceModal'">
+ <h1>{{ title }}</h1>
+
+ <div *ngIf="priceModal.hasData()">
+
+ </div>
+ Previous Price:<br>
+ Updated Price :<br>
+ 
+ <input type="checkbox" name="terms" value="terms" id="checkbox" (click)="changeEvent($event)">Accept Terms & Conditions<br>
+ <button class="button -dark" [disabled]='toggleButton'  (click)="resetAll($event);UpdateBandwidthCalender(priceModal.getData());priceModal.close();clr($event); ">Ok</button><!-- refreshFunc() -->
+</ngx-smart-modal>
+<ngx-smart-modal [customClass]="'CssAmit'"   #l3VPNBCModal  [identifier]="'l3VPNBCModal'" [customClass]="'large-modal'">
+  <p><br><br></p>
+  <div *ngIf="l3VPNBCModal.hasData()">
+ <table datatable class="row-border hover" id="vpnLink">
+ <thead>
+       <tr class="rowHeader">
+         <th *ngFor="let hLists2 of l3VPNBCModal.getData().hList1">{{hLists2}}</th>
+    
+       </tr>
+     </thead>
+     <tbody *ngIf="l3VPNBCModal.getData().uList1">
+      <tr *ngFor="let uLists2 of l3VPNBCModal.getData().uList1">
+        
+     <td><a [routerLink]="['/dashboard/schemalink', l3VPNBCModal.getData().bTabData, l3VPNBCModal.getData().vpnId, uLists2[0], 'link']">{{uLists2[0]}}</a>
+     </td>
+     <td>{{uLists2[1]}}</td>
+     <td>{{uLists2[2]}}</td>
+     <td>{{uLists2[3]}}</td>
+          <td>
+            <a (click)="l3vpnBandwidthCalenderShow(uLists2[0],uLists2[3],l3VPNBCModal.getData().bTabData);l3VPNBCModal.close()">Update</a>
+                     </td>
+      </tr>
+     </tbody>
+  </table>
+             </div>
+</ngx-smart-modal>
+<ngx-smart-modal #classicModal3 [identifier]="'classicModal3'">
+
+  <h1 >BandWidth Tab</h1>
+  <!--  // <h1 [innerHTML]="classicModal1.getData()"></h1> -->
+
+  <div *ngIf="classicModal3.hasData()">
+    {{classicModal3.getData().ckt_id}}
+    {{classicModal3.getData().serviceName}}
+    {{classicModal3.getData().bandwidth}}
+  </div>
+  <div id="divID">
+    Bandwidth:<input  type='text' placeholder="Bandwidth" id="l3VPNBtxt" name="l3VPNBtxt" [(ngModel)] = "values" (keypress)="eventHandler($event)">
+  </div>
+  <div class="container">
+  <h1>Set bandwidth date and time</h1>
+  <div class="row">
+     <form>
+    <div class="dateTime col-md-12">
+      <div class="dateTimeCss">
+        <label>Set Start Date & Time</label>
+        <div> 
+          <input [owlDateTime]="dt2" id="l3vpn_st_ed_date" style="width: 100%;" [owlDateTimeTrigger]="dt2" placeholder="Date Time" [selectMode]="'range'">
+          
+          <owl-date-time [pickerMode]="'dialog'" #dt2></owl-date-time></div>
+      </div>
+   
+    </div>
+     </form>
+  </div>
+
+
+</div>
+  <button class="button -dark" id="btn_id" [disabled]='btnDisabled'(click)="openBandwidthCalenderL3VPNPrice(classicModal3.getData());classicModal3.close()">Update</button>
+</ngx-smart-modal>
+<ngx-smart-modal #l3vpnpriceModal [identifier]="'l3vpnpriceModal'">
+ <h1>{{ title }}</h1>
+
+ <div *ngIf="l3vpnpriceModal.hasData()">
+
+ </div>
+ Previous Price:<br>
+ Updated Price :<br>
+ 
+ <input type="checkbox" name="terms" value="terms" id="checkbox" (click)="changeEvent($event)">Accept Terms & Conditions<br>
+ <button class="button -dark" [disabled]='toggleButton'  (click)="resetAll($event);UpdateBandwidthl3vpnCalender(l3vpnpriceModal.getData());l3vpnpriceModal.close();clr($event); ">Ok</button><!-- refreshFunc() -->
+</ngx-smart-modal>

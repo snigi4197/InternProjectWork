@@ -1,0 +1,137 @@
+webpackJsonp(["home.module"],{
+
+/***/ "../../../../../src/app/home/home-routing.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var home_component_1 = __webpack_require__("../../../../../src/app/home/home.component.ts");
+var routes = [
+    {
+        path: '',
+        component: home_component_1.HomeComponent
+    }
+];
+var HomeRoutingModule = /** @class */ (function () {
+    function HomeRoutingModule() {
+    }
+    HomeRoutingModule = __decorate([
+        core_1.NgModule({
+            imports: [router_1.RouterModule.forChild(routes)],
+            exports: [router_1.RouterModule]
+        })
+    ], HomeRoutingModule);
+    return HomeRoutingModule;
+}());
+exports.HomeRoutingModule = HomeRoutingModule;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/home/home.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"container\">  \n            \n\n    <div class=\"row bucket-area\">\n        <div class=\"col-md-12\">\n            \n            <h1>Self Service Portal</h1>\n\n          </div>\n      <div class=\"col-md-12\">\n            <div class=\"col-md-4 col-xs-12\">\n                  <a routerLink=\"/dashboard/inventory\" class=\"bucket-inventory\">\n                      <img src=\"assets/images/inventory.png\" alt=\"\" /><h3>Inventory</h3>\n                      <p> view here >></p>\n                  </a>\n            </div>\n              <div class=\"col-md-4 col-xs-12\">\n                  <a routerLink=\"/dashboard/bandwidth-on-demand\" class=\"bucket-demand\">\n                      <img src=\"assets/images/demand.png\" alt=\"\" /><h3>On Demand Bandwidth</h3>\n                      <p> view here >></p>\n                  </a>\n            </div>     \n            <div class=\"col-md-4 col-xs-12\">\n                  <a routerLink=\"/dashboard/bandwidth-calender\" class=\"bucket-calender\">\n                      <img src=\"assets/images/calendering.png\" alt=\"\" /> <h3>Bandwidth Calendaring</h3>\n                      <p> view here >></p>\n                  </a>\n            </div>\n            \n      </div>\n    </div><!-- row bucket-area -->\n\n    <div class=\"row bucket-area\">\n      <div class=\"col-md-12\">\n            \n               <div class=\"col-md-4 col-xs-12\">\n                  <a routerLink=\"/dashboard/serviceTermination\" class=\"bucket-terminate\">\n                      <img src=\"assets/images/service-termination.png\" alt=\"\" /> <h3>Service Termination</h3>\n                      <p> view here >></p>\n                  </a>\n            </div>\n\n           \n            \n             <div class=\"col-md-4 col-xs-12\">\n                  <a routerLink=\"/dashboard/circuit-ordering\" class=\"bucket-circuit\">\n                      <img src=\"assets/images/circuitOrdering.png\" alt=\"\" /> <h3>Circuit Ordering</h3>\n                      <p> view here >></p>\n                  </a>\n            </div>\n            <div class=\"col-md-4 col-xs-12\">\n                  <a href=\"#\" class=\"bucket-upgrade\">\n                      <img src=\"assets/images/service-upgrade.png\" alt=\"\" /> <h3>Service Upgrade</h3>\n                      <p> view here >></p>\n                  </a>\n            </div>\n      </div>\n    </div><!-- row bucket-area -->\n\n    <div class=\"row bucket-area\">\n      <div class=\"col-md-12 left\">\n            \n                      \n      </div>\n    </div><!-- row bucket-area -->\n\n  </div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/home/home.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".bucket-area {\n  margin-bottom: 20px; }\n\n.bucket-area a {\n  color: #fff; }\n\n.bucket-area a:hover {\n  -webkit-box-shadow: 3px 3px 1px #c5c5c5;\n          box-shadow: 3px 3px 1px #c5c5c5; }\n\n.bucket-area img {\n  float: left;\n  margin: 21px 27px 0 18px; }\n\n.bucket-area h3 {\n  color: #fff;\n  font: normal 20px \"Calibri\",sans-serif;\n  font-weight: bold;\n  text-shadow: 0px 1px 1px #151414;\n  margin-top: 46px;\n  float: left; }\n\n.bucket-area p {\n  width: 100%;\n  text-align: right;\n  padding-right: 20px;\n  display: block;\n  float: left; }\n\n.bucket-inventory {\n  width: 100%;\n  float: left;\n  display: block;\n  min-height: 119px;\n  background: -webkit-gradient(linear, left bottom, right top, from(#2775a2), to(#74c2f9));\n  background: linear-gradient(to top right, #2775a2, #74c2f9);\n  border-radius: 5px; }\n\n.bucket-demand {\n  width: 100%;\n  float: left;\n  display: block;\n  min-height: 119px;\n  background: -webkit-gradient(linear, left bottom, right top, from(#e48c07), to(#fbc158));\n  background: linear-gradient(to top right, #e48c07, #fbc158);\n  border-radius: 5px; }\n\n.bucket-calender {\n  width: 100%;\n  float: left;\n  display: block;\n  min-height: 119px;\n  background: linear-gradient(45deg, #28af45, #50f55d);\n  border-radius: 5px; }\n\n.bucket-upgrade {\n  width: 100%;\n  float: right;\n  display: block;\n  min-height: 119px;\n  border-radius: 5px;\n  background: -webkit-gradient(linear, left bottom, right top, from(#ad9210), to(#ffcb2b));\n  background: linear-gradient(to top right, #ad9210, #ffcb2b); }\n\n.bucket-terminate {\n  width: 100%;\n  float: right;\n  display: block;\n  min-height: 119px;\n  border-radius: 5px;\n  background: linear-gradient(45deg, #10a285, #0edad1); }\n\n.bucket-circuit {\n  width: 100%;\n  float: right;\n  display: block;\n  min-height: 119px;\n  border-radius: 5px;\n  background: linear-gradient(45deg, #ea3957, #ff869a); }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/home/home.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var HomeComponent = /** @class */ (function () {
+    function HomeComponent() {
+    }
+    HomeComponent.prototype.ngOnInit = function () {
+    };
+    HomeComponent = __decorate([
+        core_1.Component({
+            selector: 'app-home',
+            template: __webpack_require__("../../../../../src/app/home/home.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/home/home.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], HomeComponent);
+    return HomeComponent;
+}());
+exports.HomeComponent = HomeComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/home/home.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var common_1 = __webpack_require__("../../../common/esm5/common.js");
+var home_routing_module_1 = __webpack_require__("../../../../../src/app/home/home-routing.module.ts");
+var home_component_1 = __webpack_require__("../../../../../src/app/home/home.component.ts");
+var HomeModule = /** @class */ (function () {
+    function HomeModule() {
+    }
+    HomeModule = __decorate([
+        core_1.NgModule({
+            imports: [
+                common_1.CommonModule,
+                home_routing_module_1.HomeRoutingModule
+            ],
+            declarations: [home_component_1.HomeComponent]
+        })
+    ], HomeModule);
+    return HomeModule;
+}());
+exports.HomeModule = HomeModule;
+
+
+/***/ })
+
+});
+//# sourceMappingURL=home.module.chunk.js.map

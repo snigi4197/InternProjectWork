@@ -1,0 +1,65 @@
+<div class="container">  
+            
+
+    <div class="row bucket-area">
+        <div class="col-md-12">
+            
+            <h1>Self Service Portal</h1>
+
+          </div>
+      <div class="col-md-12">
+            <div class="col-md-4 col-xs-12">
+                  <a routerLink="/dashboard/inventory" class="bucket-inventory">
+                      <img src="assets/images/inventory.png" alt="" /><h3>Inventory</h3>
+                      <p> view here >></p>
+                  </a>
+            </div>
+              <div class="col-md-4 col-xs-12">
+                  <a routerLink="/dashboard/bandwidth-on-demand" class="bucket-demand">
+                      <img src="assets/images/demand.png" alt="" /><h3>On Demand Bandwidth</h3>
+                      <p> view here >></p>
+                  </a>
+            </div>     
+            <div class="col-md-4 col-xs-12">
+                  <a href="#" class="bucket-upgrade">
+                      <img src="assets/images/service-upgrade.png" alt="" /> <h3>Service Upgrade</h3>
+                      <p> view here >></p>
+                  </a>
+            </div>
+      </div>
+    </div><!-- row bucket-area -->
+
+    <div class="row bucket-area">
+      <div class="col-md-12">
+            
+               <div class="col-md-4 col-xs-12">
+                  <a routerLink="/dashboard/serviceTermination" class="bucket-terminate">
+                      <img src="assets/images/service-termination.png" alt="" /> <h3>Service Termination</h3>
+                      <p> view here >></p>
+                  </a>
+            </div>
+
+            <div class="col-md-4 col-xs-12">
+                  <a routerLink="/dashboard/circuit-ordering" class="bucket-circuit">
+                      <img src="assets/images/circuitOrdering.png" alt="" /> <h3>Circuit Ordering</h3>
+                      <p> view here >></p>
+                  </a>
+            </div>
+            <div class="col-md-4 col-xs-12">
+                  <a routerLink="/dashboard/bandwidth-calender" class="bucket-calender">
+                      <img src="assets/images/calendering.png" alt="" /> <h3>Bandwidth Calendaring</h3>
+                      <p> view here >></p>
+                  </a>
+            </div>
+
+      </div>
+    </div><!-- row bucket-area -->
+
+    <div class="row bucket-area">
+      <div class="col-md-12 left">
+            
+                      
+      </div>
+    </div><!-- row bucket-area -->
+
+  </div>

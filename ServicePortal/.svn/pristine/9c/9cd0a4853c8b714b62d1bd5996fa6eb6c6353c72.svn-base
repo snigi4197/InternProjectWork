@@ -1,0 +1,68 @@
+body {
+    font-family: "Calibri", sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    background: #fff;
+}
+
+h1 {
+    color: #1a4766;
+    margin: 45px 0 35px 0;
+    border-bottom: 1px solid #e6e8ea;
+    width: 100%;
+    font-size: 25px;
+}
+
+h2 {
+    font: bold 21px "Cambria", sans-serif;
+    color: #daa508;
+    margin: 16px 0 25px 16px;
+    width: 80%;
+}
+
+.left {
+    padding-left: 92px;
+}
+
+:focus {
+    outline: none;
+}
+
+a {
+    color: #46b111;
+    text-decoration: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    outline: #e8e5e5;
+}
+
+.jsonButton {
+    text-align: center;
+    clear: both;
+}
+
+.SchoiceDiv > select {
+    width: 200px;
+}
+
+.n-popupContainer {
+    z-index: 9999;
+}
+
+.n-topology-tooltip {
+    opacity: 1 !important;
+}
+
+.n-topology.n-topology-blue svg {
+    top: -90px;
+}
+
+.popover.top {
+    margin-top: -100px;
+}
+
+.popover.bottom {
+    margin-top: -100px;
+}

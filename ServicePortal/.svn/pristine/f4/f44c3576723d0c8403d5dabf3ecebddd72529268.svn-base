@@ -1,0 +1,369 @@
+import { Component, OnInit, Input,ViewChild } from '@angular/core';
+import { NsoService } from '../nso.service';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/map';
+import { DomSanitizer } from '@angular/platform-browser';
+import { InventoryComponent } from '../inventory/inventory.component';
+ import { ModalpopupComponent } from '../modalpopup/modalpopup.component';
+    import { DialogService } from "ng2-bootstrap-modal";
+    import {NgxSmartModalService} from 'ngx-smart-modal';
+    declare var nx:any;
+    import { Topologycall } from '../jsonclass/topologycall';
+@Component({
+  selector: 'app-tab-data',
+  templateUrl: './tab-data.component.html',
+  styleUrls: ['./tab-data.component.scss'],
+
+})
+export class TabDataComponent implements OnInit {
+	@Input() bTabData;
+	uList;
+	uList1;
+	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject();
+	dtOptions1: DataTables.Settings = {};
+	dtTrigger1: Subject<any> = new Subject();
+	hList;
+	hList1;
+	title;
+	messageData;
+	list2=[];
+	check;
+	type="link";
+	public htmlContent: string = `<h1>Lorem ipsum dolor sit amet.</h1>`;
+	constructor(private sanitized: DomSanitizer,private router: Router, 
+		private nsoService: NsoService, private http: Http,
+		private dialogService:DialogService,
+		public ngxSmartModalService: NgxSmartModalService) {
+		
+   }
+
+  ngOnInit() {
+  				
+	  let list = ['ckt-id', 'reconcile', 'customer-name', 'bandwidth'];
+	  
+	  if (this.bTabData.indexOf("link")!=-1){
+		  console.log("this.bTabData.indexOf('link')" + this.bTabData);
+		  list = ['vpn-id', 'topology', 'customer-name', 'mesh-rd-value'];
+		  
+	  } 
+
+	  this.hList = list;
+	  console.log('+++++++++++++++');
+	  console.log(this.hList);
+	  const User = {
+		  'serviceName': this.bTabData.replace("link","ml3:vpn"),
+		  "selection": list
+	  }
+	  this.nsoService.nsoData(User).subscribe(data => {
+		  console.log(data);
+		  if (data.result) {
+			  this.uList = data.result.results
+		  } else {
+			  this.router.navigate(['']);
+		  }
+	  });
+  	//////////////////
+	  let headers = new Headers();
+	  headers.append('content-type', 'application/json');
+	  console.log(this.uList);
+	  this.dtOptions = {
+		  pagingType: 'full_numbers',
+		  pageLength: 10
+	  };
+	  this.http.post('api/data', User, { headers: headers })
+		  .map(<any>this.extractData)
+		  .subscribe(data => {
+			  //this.uList = data;
+			  console.log("dataaaaaaaa" + data);
+			  // Calling the DT trigger to manually render the table
+			  this.dtTrigger.next();
+		  }); 
+  }
+	private extractData(res: Response) {
+		const body = res.json();
+		console.log(body);
+		return body || {};
+	}
+		private extractData1(res: Response) {
+		const body = res.json();
+		console.log(body);
+		return body || {};
+	}
+	slideTable(_path,_Val){
+		console.log(_Val);
+		console.log(_path);
+	} 
+	       showConfirm(val,serviceName) {
+	       	this.title="title";
+	  
+    let objs=new InventoryComponent(this.router,this.nsoService,this.http,this.dialogService,this.ngxSmartModalService);
+   
+let HTML= new Topologycall(this.nsoService);
+         let srcpath=HTML.getData("src","/ml2:mpls-l2vpn{"+val+"}/src/access/ml2:device");
+        HTML= new Topologycall(this.nsoService);
+        let destnpath=HTML.getData("destn","/ml2:mpls-l2vpn{"+val+"}/destn/access/ml2:device");
+         HTML= new Topologycall(this.nsoService);
+         let srcinpath=HTML.getData("srcIn","/ml2:mpls-l2vpn{"+val+"}/src/access/interface/ml2:intf-id");
+        HTML= new Topologycall(this.nsoService);
+        let destninpath=HTML.getData("destnIn","/ml2:mpls-l2vpn{"+val+"}/destn/access/interface/ml2:intf-id");
+        // }
+        
+        HTML= new Topologycall(this.nsoService);
+        let srclagg=HTML.getDataquery('srcLagg','/ml2:mpls-l2vpn{'+val+'}/src/lagg','devices',['device']);
+    	HTML= new Topologycall(this.nsoService);
+        let destnlagg=HTML.getDataquery('destnLagg','/ml2:mpls-l2vpn{'+val+'}/destn/lagg','devices',['device']);
+   			
+         setTimeout(()=>{ 
+
+        let topologyData = {
+         /*"nodes": [{"id": 0,"name": srcpath[0].src,"interface": srcinpath[0].srcIn},
+          			{"id": 1,"name": destnpath[0].destn,"interface": destninpath[0].destnIn}],
+          "links" : [{"id": 0,"source": 0,"target": 1},
+          {"id": 1,"source": 1,"target": 0}]*/
+         };
+ 		 
+      
+/*		console.log(srcpath[0].src);
+         console.log(srclagg[0].srcLagg);
+         console.log("destnlaggdestnlaggdestnlaggdestnlaggdestnlagg");
+         console.log(destnpath[0].destn);
+         console.log(destnlagg);*/
+
+         topologyData['nodes'] = [];
+ 		 topologyData['links'] = [];
+         let elements={},elements1={};
+
+         	elements['id']=0;
+         	elements['name']=srcpath[0].src;
+		topologyData['nodes'].push(elements);
+        // topologyData['nodes'].push(elements);
+        let t=0;
+        if(srclagg[0].srcLagg!="data not found"){
+         for(t=0;t<srclagg[0].srcLagg.length;t++){
+         	let srcData=srclagg[0].srcLagg[t][0];
+         	elements={};
+         	elements['id']=(t+1);
+         	elements['name']=srcData;
+				elements1={};
+
+         	elements1['id']=t;
+         	elements1['source']=0;
+         	elements1['target']=(t+1);
+         	topologyData['nodes'].push(elements);
+			topologyData['links'].push(elements1);
+         	 
+         }
+		}	
+		
+        if(destnlagg[0].destnLagg!="data not found"){
+         for(let i=0;i<destnlagg[0].destnLagg.length;i++){
+         	let destnData=destnlagg[0].destnLagg[i][0];
+         	elements={};
+         	t=(t+1);
+         	console.log("trrrrrrrrrrrrrrrrr"+t);
+         	elements['id']=(t);
+         	elements['name']=destnData;
+				elements1={};
+
+         	elements1['id']=(t-1);
+         	elements1['source']=(t-2);
+         	elements1['target']=(t);
+         	topologyData['nodes'].push(elements);
+			topologyData['links'].push(elements1);
+         	 console.log(elements);
+         	 console.log(elements1);
+         }
+		}
+		if(destnpath[0].destn!="data not found"){
+		elements={};
+         	t=(t+1);
+         	console.log("trrrrrrrrrrrrrrrrr"+t);
+         	elements['id']=(t);
+         	elements['name']=destnpath[0].destn;
+				elements1={};
+
+         	elements1['id']=(t-1);
+         	elements1['source']=(t-2);
+         	elements1['target']=(t);
+         	topologyData['links'].push(elements1);
+         	t=(t);
+         	elements1={};
+         	elements1['id']=(t);
+         	elements1['source']=(t-1);
+         	elements1['target']=(t);
+         	topologyData['nodes'].push(elements);
+			topologyData['links'].push(elements1);
+    	
+    }
+    console.log(topologyData['nodes']);
+    	console.log(topologyData['links']);
+      
+//Topology Code Begin
+
+ var Shell = nx.define(nx.ui.Application, {
+        methods: {
+         getContainer: function() {
+              return new nx.dom.Element(document.getElementById('topology'));
+         },
+            start: function () {
+                var topo = new nx.graphic.Topology({
+                    'adaptive': false,
+                            'showIcon': true,
+                            'nodeConfig': {
+                                //'label': 'model.name',
+                                label: function(vertex) {
+                                    if (vertex.get("name") == srcpath[0].src) {
+                                        return vertex.get("name") + " > Start";
+                                    } else if(vertex.get("name") == destnpath[0].destn) {
+                                        return  vertex.get("name") + " > End";
+                                    } else {
+                                        return vertex.get("name")
+                                    }
+                                   /* console.log(vertex.get("name"));
+                                 return vertex.get("name") + "abu";*/
+                                },
+                                'iconType': 'router',
+                                //iconType: '{#icon}',
+                                //'color': '#0how00'
+                                'color': function(vertex){
+                                    if (vertex.get("name") == srcpath[0].src) {
+                                        return  '#108301';
+                                    } else if(vertex.get("name") == destnpath[0].destn) {
+                                        return  '#ff0000';
+                                    } else {
+                                        return '#0how00'
+                                    }
+                                }
+                            },
+                            'linkConfig': {
+                                'linkType': 'curve'
+                            },
+                            'identityKey': 'id', // helps to link source and target
+
+                            'width': 875,
+                            'height': 500,
+                            'dataProcessor': 'force',
+     'enableSmartLabel': true,
+     'enableGradualScaling': true,
+     'supportMultipleLink': true,
+     "scalable": true
+                });
+
+                //console.log(topologyData);
+                topo.data(topologyData);
+                
+                topo.attach(this);
+            }
+        }
+    });
+
+
+    var shell = new Shell();
+
+
+    shell.start();
+//Topology Code End
+
+
+    		this.messageData=`<p><input type='text'/>text</p>`;
+    		var title = `<p><input type='text' />text</p>`;
+			
+    		//objs.ngxSmartModalService.setModalData(this.sanitized.bypassSecurityTrustHtml(title), 'classicModal');
+	       	objs.ngxSmartModalService.getModal('longTextModal').open();
+	       	objs.ngxSmartModalService.getModal('longTextModal').onClose.subscribe((event: Event) => {
+     			console.log('Rickroll modal closed', event);
+     			 
+     			 if(document.getElementById('topology')!==null){
+   				if(document.getElementById('topology').innerHTML!==null){
+   				document.getElementById('topology').innerHTML="";
+   					}
+   			}
+     			console.log(shell);
+    });
+},1700);
+            
+        }
+
+        showLink(vpnId,path){
+        	let dataAll={};
+        	 let objs=new InventoryComponent(this.router,this.nsoService,this.http,this.dialogService,this.ngxSmartModalService);
+   				
+        	objs.list2 = ['ckt-id', 'admin-state', 'customer-address', 'qos/bandwidth'];
+        	this.hList1=this.list2;
+        	const json={
+        		context:path.replace("/link",""),
+        		xpath:"link[starts-with(vpn-id,'"+vpnId+"')]",
+        		selection:objs.list2
+        	}
+        	this.check=vpnId;
+        	this.nsoService.nsoDataquery(json).subscribe(data => {
+		  console.log(data);
+		  if (data.result) {
+			  objs.uList1 = data.result.results;
+			  dataAll={
+			  	'hList1':objs.list2,
+			  	'uList1':objs.uList1,
+			  	'bTabData':path,
+			  	'vpnId':vpnId
+			  }
+			   objs.ngxSmartModalService.getModal('classicModal').onOpen.subscribe((event: Event) => {
+     			console.log(event['data']);
+     			//event['data']=dataAll;
+     			if(event['data']!=null){
+     				event['data']=dataAll;
+     			}else{
+     				objs.ngxSmartModalService.setModalData(dataAll, 'classicModal');
+     			}
+     			console.log(event['data']);
+   				 });
+			  	
+	       		objs.ngxSmartModalService.getModal('classicModal').open();
+			  
+		  } else {
+		  	 dataAll={
+			  	'hList1':objs.list2,
+			  	'uList1':{},
+			  	'bTabData':path,
+			  	'vpnId':vpnId
+			  }
+		  	objs.ngxSmartModalService.getModal('classicModal').onOpen.subscribe((event: Event) => {
+     			console.log(event['data']);
+     			
+     			if(event['data']!=null){
+     				event['data']=dataAll;
+     			}else{
+     				objs.ngxSmartModalService.setModalData(dataAll, 'classicModal');
+     			}
+   				 });
+			  	//objs.ngxSmartModalService.setModalData(dataAll, 'classicModal');
+	       		objs.ngxSmartModalService.getModal('classicModal').open();
+		  }
+	  	});
+       objs.ngxSmartModalService.getModal('classicModal').onClose.subscribe((event: Event) => {
+     			console.log(event['data']);
+     			event['data'].uList1=[];
+     			console.log(event['data']);
+     			console.log(dataAll);
+     			dataAll={};
+     			console.log(dataAll);
+    });
+        let headers = new Headers();
+				  headers.append('content-type', 'application/json');
+				  console.log(objs.uList1);
+				  this.dtOptions1 = {
+					  pagingType: 'full_numbers',
+					  pageLength: 10
+				  };
+				  this.http.post('api/data/query', json, { headers: headers })
+					  .map(<any>this.extractData1)
+					  .subscribe(data => {
+						  //this.uList = data;
+						  console.log("dataaaaaaaa" + data);
+						  // Calling the DT trigger to manually render the table
+						  this.dtTrigger1.next();
+					  }); 
+        }
+}

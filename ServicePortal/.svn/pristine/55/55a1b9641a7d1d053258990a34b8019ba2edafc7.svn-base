@@ -1,0 +1,218 @@
+import { Component, OnInit,Input,ViewChild,ElementRef } from '@angular/core';
+import { NsoService } from '../nso.service';
+import { Router } from '@angular/router';
+import { Http, Headers } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import { ModalpopupComponent } from '../modalpopup/modalpopup.component';
+import { DomSanitizer } from '@angular/platform-browser';
+ import { DialogService } from "ng2-bootstrap-modal";
+ import {NgxSmartModalService} from 'ngx-smart-modal';
+ import { AuthService } from '../auth.service';
+import { BandwidthcalenderComponent } from '../bandwidthcalender/bandwidthcalender.component';
+import 'rxjs/add/operator/map';
+@Component({
+  selector: 'app-bc-tab-data',
+  templateUrl: './bc-tab-data.component.html',
+  styleUrls: ['./bc-tab-data.component.scss']
+})
+export class BcTabDataComponent implements OnInit {
+
+@Input() bTabData;
+	uList;
+	dtOptions: DataTables.Settings = {};
+	dtTrigger: Subject<any> = new Subject();
+	hList;
+	message:String;
+	title1;
+	messagehtml;
+	uList1;
+	dtOptions1: DataTables.Settings = {};
+	dtTrigger1: Subject<any> = new Subject();
+	hList1;
+	list2=[];
+	check;
+	type="link";
+	@ViewChild('dataContainer') d1:ElementRef;
+
+	
+	constructor(private sanitized: DomSanitizer,private router: Router, private nsoService: NsoService, private http: Http,private dialogService:DialogService,
+		private elementRef:ElementRef,private ngxSmartModalService:NgxSmartModalService, private authService: AuthService)  {
+		
+   }
+   ngAfterViewInit() {
+  
+}
+
+  ngOnInit() {
+
+  		
+	  let list = ['ckt-id', 'bandwidth','Update_bandwidth'];
+	  if (this.bTabData.indexOf("link")!=-1){
+		  console.log("this.bTabData.indexOf('link')" + this.bTabData);
+		  list = ['vpn-id', 'mesh-rd-value'];
+	  } 
+
+	  this.hList = list;
+	  console.log('+++++++++++++++');
+	  console.log(this.hList);
+	  const User = {
+		  'serviceName': this.bTabData,
+		  "selection": list
+	  }
+	  this.nsoService.nsoData(User).subscribe(data => {
+	  	 console.log("======================================================");
+		  console.log(data);
+		  if (data.result) {
+			  this.uList = data.result.results
+		  } else {
+			  this.router.navigate(['']);
+		  }
+	  });
+  	//////////////////
+	  let headers = new Headers();
+	  headers.append('content-type', 'application/json');
+	  console.log(this.uList);
+	  this.dtOptions = {
+		  pagingType: 'full_numbers',
+		  pageLength: 10
+	  };
+	  this.http.post('api/data', User, { headers: headers })
+		  .map(<any>this.extractData)
+		  .subscribe(data => {
+			  //this.uList = data;
+			  console.log("dataaaaaaaa" + data);
+			  // Calling the DT trigger to manually render the table
+			  this.dtTrigger.next();
+		  }); 
+		
+  }
+
+	private extractData(res: Response) {
+		const body = res.json();
+		console.log(body);
+		return body || {};
+	}
+	private extractData1(res: Response) {
+		const body = res.json();
+		console.log(body);
+		return body || {};
+	}
+	slideTable(_path,_Val){
+		console.log(_Val);
+		console.log(_path);
+	} 
+	 updateBandwidthConfirm(cktId_Val,bndWidth_Val,serviceName) {
+	 	console.log("cktId_Val"+cktId_Val);
+	 	console.log("Value_bandwidth"+  bndWidth_Val);
+	 		this.title1="jjj"
+console.log("Value of btadate"+this.bTabData);
+	 	serviceName=this.bTabData;
+		this.messagehtml="Bandwidth Tab";
+    		var band_title = 'Bandwidth Tab';
+    		console.log('//////////////////////////////');
+    		
+    	//console.log(this.ngxSmartModalService.resetModalData('classicModal1'));
+    	/*if(this.ngxSmartModalService.resetModalData('classicModal1')==null)
+    	{*/
+var objs= new BandwidthcalenderComponent(this.router,this.nsoService,this.http,this.dialogService,this.ngxSmartModalService,this.authService);
+
+let data={
+	'ckt_id':cktId_Val,
+	'serviceName':serviceName,
+	'old_bandwidth':bndWidth_Val
+}
+ objs.ngxSmartModalService.setModalData(data, 'classicModal2');
+	 
+	 	
+	 	
+	 	
+	       	objs.ngxSmartModalService.getModal('classicModal2').open();
+    	}
+	 	/*else{
+
+	 	alert('data updating');
+	 	}*/
+     showLink(vpnId,path){
+        	let dataAll={};
+        	 let objs=new BandwidthcalenderComponent(this.router,this.nsoService,this.http,this.dialogService,this.ngxSmartModalService,this.authService);
+   				
+        	objs.list2 = ['ckt-id', 'admin-state', 'customer-address', 'qos/bandwidth','Update_Bandwidth'];
+        	this.hList1=this.list2;
+        	const json={
+        		context:path.replace("/link",""),
+        		xpath:"link[starts-with(vpn-id,'"+vpnId+"')]",
+        		selection:objs.list2
+        	}
+        	this.check=vpnId;
+        	this.nsoService.nsoDataquery(json).subscribe(data => {
+		  console.log(data);
+		  if (data.result) {
+			  objs.uList1 = data.result.results;
+			  dataAll={
+			  	'hList1':objs.list2,
+			  	'uList1':objs.uList1,
+			  	'bTabData':path,
+			  	'vpnId':vpnId
+			  }
+			   objs.ngxSmartModalService.getModal('l3VPNBCModal').onOpen.subscribe((event: Event) => {
+     			console.log(event['data']);
+     			//event['data']=dataAll;
+     			if(event['data']!=null){
+     				event['data']=dataAll;
+     			}else{
+     				objs.ngxSmartModalService.setModalData(dataAll, 'l3VPNBCModal');
+     			}
+     			console.log(event['data']);
+   				 });
+			  	
+	       		objs.ngxSmartModalService.getModal('l3VPNBCModal').open();
+			  
+		  } else {
+		  	 dataAll={
+			  	'hList1':objs.list2,
+			  	'uList1':{},
+			  	'bTabData':path,
+			  	'vpnId':vpnId
+			  }
+		  	objs.ngxSmartModalService.getModal('l3VPNBCModal').onOpen.subscribe((event: Event) => {
+     			console.log(event['data']);
+     			
+     			if(event['data']!=null){
+     				event['data']=dataAll;
+     			}else{
+     				objs.ngxSmartModalService.setModalData(dataAll, 'l3VPNBCModal');
+     			}
+   				 });
+			  	//objs.ngxSmartModalService.setModalData(dataAll, 'l3VPNModal');
+	       		objs.ngxSmartModalService.getModal('l3VPNBCModal').open();
+		  }
+	  	});
+       objs.ngxSmartModalService.getModal('l3VPNBCModal').onClose.subscribe((event: Event) => {
+     			console.log(event['data']);
+     			event['data'].uList1=[];
+     			console.log(event['data']);
+     			console.log(dataAll);
+     			dataAll={};
+     			console.log(dataAll);
+    });
+        let headers = new Headers();
+				  headers.append('content-type', 'application/json');
+				  console.log(objs.uList1);
+				  this.dtOptions1 = {
+					  pagingType: 'full_numbers',
+					  pageLength: 10
+				  };
+				  this.http.post('api/data/query', json, { headers: headers })
+					  .map(<any>this.extractData1)
+					  .subscribe(data => {
+						  //this.uList = data;
+						  console.log("dataaaaaaaa" + data);
+						  // Calling the DT trigger to manually render the table
+						  this.dtTrigger1.next();
+					  }); 
+        }
+    }
+
+        
+        
+

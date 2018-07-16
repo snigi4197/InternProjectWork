@@ -1,0 +1,77 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var breadcrumb_service_1 = require("./breadcrumb.service");
+var router_1 = require("@angular/router");
+describe('breadcrumbDropDown service', function () {
+    var breadcrumbService;
+    var breadcrumb;
+    var activatedRoute;
+    beforeEach(function () {
+        breadcrumbService = new breadcrumb_service_1.BreadcrumbService();
+    });
+    it('should have NO  breadcrumbDropDown calling with minimal data', function () {
+        activatedRoute = {};
+        var currentUrl = "currentUrl";
+        breadcrumb = breadcrumbService.getBreadcrumbs(activatedRoute);
+        expect(breadcrumb.length).toBe(0);
+    });
+    it('should have NO  breadcrumbDropDown when there is an empty children array', function () {
+        activatedRoute = {
+            children: []
+        };
+        breadcrumb = breadcrumbService.getBreadcrumbs(activatedRoute);
+        expect(breadcrumb.length).toBe(0);
+    });
+    it('should have NO  breadcrumbDropDown when it has one child with no primary outlet', function () {
+        activatedRoute = {
+            children: [{ outlet: "NO_PRIMARY" }]
+        };
+        breadcrumb = breadcrumbService.getBreadcrumbs(activatedRoute);
+    });
+    describe('when not data is available', function () {
+        var currBreadcrumb;
+        beforeEach(function () {
+            activatedRoute = {
+                children: [
+                    { outlet: "NO_PRIMARY" },
+                    {
+                        outlet: router_1.PRIMARY_OUTLET,
+                        routeConfig: { path: "myUrlConfig" },
+                        snapshot: {
+                            data: [],
+                            url: [{
+                                    path: "myUrl"
+                                }]
+                        }
+                    }
+                ]
+            };
+            breadcrumb = breadcrumbService.getBreadcrumbs(activatedRoute);
+            currBreadcrumb = breadcrumb[0];
+        });
+        it('should have only one breadcrumbDropDown', function () {
+            expect(breadcrumb.length).toBe(1);
+        });
+        it('should have a url according to the snapshot path', function () {
+            expect(currBreadcrumb.url).toBe("/" + activatedRoute.children[1].snapshot.url[0].path);
+        });
+        it('should have its label from the configuration', function () {
+            expect(currBreadcrumb.breadcrumb.label).toBe(activatedRoute.children[1].routeConfig.path);
+        });
+        it('should have its icon hard coded', function () {
+            expect(currBreadcrumb.breadcrumb.icon).toBe("icon-explanation_mark");
+        });
+        describe('when data is supplied from the user', function () {
+            beforeEach(function () {
+                activatedRoute.children[1].snapshot.data[breadcrumb_service_1.BREADCRUMB_DATA_KEY] = {
+                    label: "user defined"
+                };
+                breadcrumb = breadcrumbService.getBreadcrumbs(activatedRoute);
+                currBreadcrumb = breadcrumb[0];
+            });
+            it('should use the user defined data', function () {
+                expect(currBreadcrumb.breadcrumb.label).toBe("user defined");
+            });
+        });
+    });
+});

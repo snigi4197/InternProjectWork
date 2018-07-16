@@ -1,0 +1,25 @@
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { ServiceTerminationTabComponent } from './service-termination-tab.component';
+
+describe('ServiceTerminationTabComponent', () => {
+  let component: ServiceTerminationTabComponent;
+  let fixture: ComponentFixture<ServiceTerminationTabComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ ServiceTerminationTabComponent ]
+    })
+    .compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ServiceTerminationTabComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

@@ -1,0 +1,72 @@
+.bucket-area{margin-bottom:20px;}
+.bucket-area a:hover{ box-shadow:3px 3px 1px #c5c5c5;}
+.bucket-area img {float:left;margin:21px 38px 0 18px;}
+.bucket-area h3{color:#3a4b80;font-size:18px; margin-top:46px;float:left;}
+.bucket-area p{width:100%; text-align:right; padding-right: 20px;display: block;float:left;}
+
+.bucket-demand{
+    width:95%; 
+    display:block;
+    min-height:119px;
+    background:#f9f9f9;
+    box-shadow:2px 2px 1px #ccc;    
+    border:1px solid #eae7e7;
+    border-left: 7px solid #5356c1; 
+    margin-left:35px;
+    }
+
+.bucket-inventory{
+  width:95%; 
+  float: right;
+  display:block;
+  min-height:119px;
+    background:#f9f9f9;
+  box-shadow:2px 2px 1px #ccc;    
+    border:1px solid #eae7e7;
+  border-left: 7px solid #0c8dd7;
+    }
+  .bucket-calender{
+    width:95%; 
+    float: left;
+    display:block;
+    min-height:119px;
+    background:#f9f9f9;
+    box-shadow:2px 2px 1px #ccc;    
+    border:1px solid #eae7e7;
+    border-left: 7px solid #1c67b4;
+    margin-left: 35px;
+    }
+
+.bucket-upgrade{
+    width:95%; 
+    float: right;
+    display:block;
+    min-height:119px;
+    background:#f9f9f9;
+    box-shadow:2px 2px 1px #ccc;    
+    border:1px solid #eae7e7;
+    border-left: 7px solid #3a50b1;
+  }
+
+.bucket-terminate{
+    width:95%; 
+    float: left;
+    display:block;
+    min-height:119px;
+    background:#f9f9f9;
+    box-shadow:2px 2px 1px #ccc;    
+    border:1px solid #eae7e7;
+    border-left: 7px solid #46b6d0;
+    margin-left: 35px;
+    }
+
+.bucket-circuit{
+    width:95%; 
+    float: right;
+    display:block;
+    min-height:119px;
+    background:#f9f9f9;
+    box-shadow:2px 2px 1px #ccc;    
+    border:1px solid #eae7e7;
+    border-left: 7px solid #0288c0;
+  }

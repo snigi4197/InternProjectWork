@@ -1,0 +1,37 @@
+
+
+ 	<div *ngFor="let _obj1 of ParentChild['children']">
+ 		 <div *ngIf="_obj1.type=='div'" class="form-group col-md-12">
+				<div *ngIf="_obj1.presence">
+					<h3><input type="checkbox" name="{{_obj1['name']}}"> {{_obj1['name']}} </h3>
+					 
+
+				</div>
+				<div *ngIf="!_obj1.presence">
+					<h5>{{_obj1['name']}} </h5>
+
+				</div>
+				<div *ngIf="_obj1.children">
+ 
+
+					<app-parentchild [ParentChild]="_obj1"></app-parentchild>
+				</div> 
+
+ 		 </div>
+ 		 
+ 		 
+ 	</div>
+
+ 	<div *ngIf="ParentChild.children">
+ 	<app-divfields [divChild]="ParentChild.children"></app-divfields>
+ 	</div>
+
+ 	 <div *ngIf="ParentChild.type=='multiselect'" class="form-group col-md-12">
+	
+       <label for="{{ParentChild.name}}">{{ParentChild.name}}</label>
+       <select class="form-control" multiple>
+         <option value="">-</option>
+         <option *ngFor="let obj1 of ParentChild.value" value="{{obj1}}" selected="{{obj1}}">{{obj1}}</option>
+      </select>
+   	</div>
+

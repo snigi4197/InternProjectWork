@@ -1,0 +1,15 @@
+import { TestBed, inject } from '@angular/core/testing';
+
+import { NsoService } from './nso.service';
+
+describe('NsoService', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [NsoService]
+    });
+  });
+
+  it('should be created', inject([NsoService], (service: NsoService) => {
+    expect(service).toBeTruthy();
+  }));
+});

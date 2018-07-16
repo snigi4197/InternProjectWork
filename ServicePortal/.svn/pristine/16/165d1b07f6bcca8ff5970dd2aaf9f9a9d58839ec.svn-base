@@ -1,0 +1,30 @@
+var mysql=require('mysql');
+var connectionProvider=require('../configDB/mySqlConnectionProvider');
+
+module.exports.register=function(req,res){
+    var today = new Date();
+    var users={
+        "username":req.body.username,
+        "email":req.body.email,
+        "password":req.body.password,
+         "registered_date":today,
+        "updated_date":today
+    }
+   // console.log(req.body.username);
+    var connection =connectionProvider.getSqlConnection();
+    connection.query('INSERT INTO ssp_users SET ?',users, function (error, results, fields) {
+      if (error) {
+        res.json({
+            status:false,
+            message:'there are some error with query'+error+''+results+''+fields+''+users.username
+        })
+      }else{
+          res.json({
+            status:true,
+            data:results,
+            message:'user registered sucessfully'
+        })
+      }
+    });
+    connectionProvider.closeSqlConnection(connection);
+}

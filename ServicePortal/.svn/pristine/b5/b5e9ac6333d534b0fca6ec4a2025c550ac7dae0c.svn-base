@@ -1,0 +1,1193 @@
+webpackJsonp(["main"],{
+
+/***/ "../../../../../src/$$_lazy_route_resource lazy recursive":
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"app/bandwidth-on-demand/bandwidth-on-demand.module": [
+		"../../../../../src/app/bandwidth-on-demand/bandwidth-on-demand.module.ts",
+		"common",
+		"bandwidth-on-demand.module"
+	],
+	"app/bandwidthcalender/bandwidthcalender.module": [
+		"../../../../../src/app/bandwidthcalender/bandwidthcalender.module.ts",
+		"common",
+		"bandwidthcalender.module"
+	],
+	"app/circuit-ordering/circuit-ordering.module": [
+		"../../../../../src/app/circuit-ordering/circuit-ordering.module.ts",
+		"circuit-ordering.module"
+	],
+	"app/home/home.module": [
+		"../../../../../src/app/home/home.module.ts",
+		"home.module"
+	],
+	"app/inventory/inventory.module": [
+		"../../../../../src/app/inventory/inventory.module.ts",
+		"common",
+		"inventory.module"
+	],
+	"app/manage-profile/manage-profile.module": [
+		"../../../../../src/app/manage-profile/manage-profile.module.ts",
+		"manage-profile.module"
+	],
+	"app/service-schema/service-schema.module": [
+		"../../../../../src/app/service-schema/service-schema.module.ts",
+		"common",
+		"service-schema.module"
+	],
+	"app/service-termination/service-termination.module": [
+		"../../../../../src/app/service-termination/service-termination.module.ts",
+		"common",
+		"service-termination.module"
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids)
+		return Promise.reject(new Error("Cannot find module '" + req + "'."));
+	return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(function() {
+		return __webpack_require__(ids[0]);
+	});
+};
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = "../../../../../src/$$_lazy_route_resource lazy recursive";
+module.exports = webpackAsyncContext;
+
+/***/ }),
+
+/***/ "../../../../../src/app/app-routing.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var login_component_1 = __webpack_require__("../../../../../src/app/login/login.component.ts");
+var loginp_component_1 = __webpack_require__("../../../../../src/app/loginp/loginp.component.ts");
+var register_component_1 = __webpack_require__("../../../../../src/app/register/register.component.ts");
+var dashboard_component_1 = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
+var routes = [
+    { path: 'login', component: login_component_1.LoginComponent,
+        children: [
+            { path: '', component: loginp_component_1.LoginpComponent },
+            { path: 'register', component: register_component_1.RegisterComponent }
+        ] },
+    { path: 'dashboard', component: dashboard_component_1.DashboardComponent,
+        children: [
+            { path: '', loadChildren: 'app/home/home.module#HomeModule' },
+            { path: 'manage-profile', loadChildren: 'app/manage-profile/manage-profile.module#ManageProfileModule' },
+            { path: 'inventory', loadChildren: 'app/inventory/inventory.module#InventoryModule' },
+            { path: 'bandwidth-on-demand', loadChildren: 'app/bandwidth-on-demand/bandwidth-on-demand.module#BandwidthOnDemandModule' },
+            { path: 'bandwidth-calender', loadChildren: 'app/bandwidthcalender/bandwidthcalender.module#BandwidthcalenderModule' },
+            { path: 'serviceTermination', loadChildren: 'app/service-termination/service-termination.module#ServiceTerminationModule' },
+            { path: 'circuit-ordering', loadChildren: 'app/circuit-ordering/circuit-ordering.module#CircuitOrderingModule' },
+            { path: 'schema/:id/:id2', loadChildren: 'app/service-schema/service-schema.module#ServiceSchemaModule' },
+            { path: 'schemalink/:id/:id2/:id3/:id4', loadChildren: 'app/service-schema/service-schema.module#ServiceSchemaModule' }
+        ]
+    },
+    { path: '',
+        redirectTo: '/login',
+        pathMatch: 'full'
+    },
+    { path: '**', redirectTo: '/login', pathMatch: 'full' }
+];
+var AppRoutingModule = /** @class */ (function () {
+    function AppRoutingModule() {
+    }
+    AppRoutingModule = __decorate([
+        core_1.NgModule({
+            imports: [router_1.RouterModule.forRoot(routes)],
+            exports: [router_1.RouterModule]
+        })
+    ], AppRoutingModule);
+    return AppRoutingModule;
+}());
+exports.AppRoutingModule = AppRoutingModule;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<router-outlet></router-outlet>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var AppComponent = /** @class */ (function () {
+    function AppComponent() {
+    }
+    AppComponent = __decorate([
+        core_1.Component({
+            selector: 'app-root',
+            template: __webpack_require__("../../../../../src/app/app.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/app.component.scss")]
+        })
+    ], AppComponent);
+    return AppComponent;
+}());
+exports.AppComponent = AppComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/app.module.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var platform_browser_1 = __webpack_require__("../../../platform-browser/esm5/platform-browser.js");
+var animations_1 = __webpack_require__("../../../platform-browser/esm5/animations.js");
+var forms_1 = __webpack_require__("../../../forms/esm5/forms.js");
+var app_routing_module_1 = __webpack_require__("../../../../../src/app/app-routing.module.ts");
+var ng2_bootstrap_modal_1 = __webpack_require__("../../../../ng2-bootstrap-modal/index.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+var app_component_1 = __webpack_require__("../../../../../src/app/app.component.ts");
+var login_component_1 = __webpack_require__("../../../../../src/app/login/login.component.ts");
+var loginp_component_1 = __webpack_require__("../../../../../src/app/loginp/loginp.component.ts");
+var register_component_1 = __webpack_require__("../../../../../src/app/register/register.component.ts");
+var validate_service_1 = __webpack_require__("../../../../../src/app/validate.service.ts");
+var auth_service_1 = __webpack_require__("../../../../../src/app/auth.service.ts");
+var core_2 = __webpack_require__("../../../../@agm/core/index.js");
+var header_component_1 = __webpack_require__("../../../../../src/app/header/header.component.ts");
+var footer_component_1 = __webpack_require__("../../../../../src/app/footer/footer.component.ts");
+var dashboard_component_1 = __webpack_require__("../../../../../src/app/dashboard/dashboard.component.ts");
+var nso_service_1 = __webpack_require__("../../../../../src/app/nso.service.ts");
+var modalpopup_component_1 = __webpack_require__("../../../../../src/app/modalpopup/modalpopup.component.ts");
+var safe_pipe_1 = __webpack_require__("../../../../safe-pipe/index.js");
+var ng_pick_datetime_1 = __webpack_require__("../../../../ng-pick-datetime/picker.js");
+var AppModule = /** @class */ (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        core_1.NgModule({
+            declarations: [
+                app_component_1.AppComponent,
+                login_component_1.LoginComponent,
+                loginp_component_1.LoginpComponent,
+                register_component_1.RegisterComponent,
+                header_component_1.HeaderComponent,
+                footer_component_1.FooterComponent,
+                dashboard_component_1.DashboardComponent,
+                modalpopup_component_1.ModalpopupComponent
+            ],
+            imports: [
+                safe_pipe_1.SafePipeModule,
+                ng_pick_datetime_1.OwlDateTimeModule,
+                ng_pick_datetime_1.OwlNativeDateTimeModule,
+                platform_browser_1.BrowserModule,
+                animations_1.BrowserAnimationsModule,
+                app_routing_module_1.AppRoutingModule,
+                forms_1.FormsModule,
+                ng2_bootstrap_modal_1.BootstrapModalModule,
+                forms_1.ReactiveFormsModule,
+                http_1.HttpModule,
+                core_2.AgmCoreModule.forRoot({
+                    apiKey: 'AIzaSyBNh5nWHiGuP44dgvJZBFfW9nZYiTLw1HI',
+                    libraries: ["places"]
+                }),
+                ng2_bootstrap_modal_1.BootstrapModalModule.forRoot({ container: document.body })
+            ],
+            providers: [validate_service_1.ValidateService, auth_service_1.AuthService, nso_service_1.NsoService],
+            entryComponents: [
+                modalpopup_component_1.ModalpopupComponent
+            ],
+            bootstrap: [app_component_1.AppComponent]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+exports.AppModule = AppModule;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/auth.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+__webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+var AuthService = /** @class */ (function () {
+    function AuthService(http) {
+        this.http = http;
+    }
+    AuthService.prototype.registerUser = function (user) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/register', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.authenticateUser = function (user) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/authenticate', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.profileDataUser = function (user) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/profileData', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.profileUpdateUser = function (user) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/profileUpdate', user, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService.prototype.bandwidthCalendaring = function (bandCal) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/bandwidthCalendaring', bandCal, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    AuthService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], AuthService);
+    return AuthService;
+}());
+exports.AuthService = AuthService;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/dashboard/dashboard.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<app-header></app-header>\n<router-outlet></router-outlet>\n<app-footer></app-footer>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/dashboard/dashboard.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/dashboard/dashboard.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var DashboardComponent = /** @class */ (function () {
+    function DashboardComponent() {
+    }
+    DashboardComponent.prototype.ngOnInit = function () {
+    };
+    DashboardComponent = __decorate([
+        core_1.Component({
+            selector: 'app-dashboard',
+            template: __webpack_require__("../../../../../src/app/dashboard/dashboard.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/dashboard/dashboard.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], DashboardComponent);
+    return DashboardComponent;
+}());
+exports.DashboardComponent = DashboardComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/footer/footer.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<footer>Copyright © 2018 Cisco</footer>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/footer/footer.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "footer {\n  text-align: center;\n  font-size: 11px;\n  padding: 8px 0;\n  color: #eae6e6;\n  background: #3b73b3;\n  bottom: 0;\n  position: fixed;\n  width: 100%; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/footer/footer.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var FooterComponent = /** @class */ (function () {
+    function FooterComponent() {
+    }
+    FooterComponent.prototype.ngOnInit = function () {
+    };
+    FooterComponent = __decorate([
+        core_1.Component({
+            selector: 'app-footer',
+            template: __webpack_require__("../../../../../src/app/footer/footer.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/footer/footer.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], FooterComponent);
+    return FooterComponent;
+}());
+exports.FooterComponent = FooterComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/header/header.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<header>     \n  <div class=\"container-fluid\">\n    <div class=\"row\">\n        <div class=\"logo col-md-6\"><a routerLink=\"/dashboard\"><img src=\"assets/images/cisco-logo-inner.png\" alt=\"\" /></a></div>\n        <div class=\"logo col-md-6\">\n          <div class=\"navtabs\">\n            <ul>\n              \n              <li>\n                <a href=\"#\" class=\"btn-lctn\" (click)=\"locationBox($event);false\">\n                    <span class=\"glyphicon glyphicon-map-marker\"></span> Locations</a>\n                <ul [hidden]=\"!locationT\" class=\"locationC\" id=\"myLocationSerch\" >\n                  \n                  <a href=\"#\" (click)= \"closeDiv($event);false\" class=\"closeBtn\">x</a>\n\n                  <li><input type=\"text\" placeholder=\"Search for location\" autocorrect=\"off\" autocapitalize=\"off\" spellcheck=\"off\"   #search> </li>\n                </ul>\n              </li>\n\n\n              <li><div class=\"btn-group\">\n  <a href=\"#\" class=\"dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\"><span class=\"glyphicon glyphicon-user\"></span>\n    {{loginUser}}\n  </a>\n  <div class=\"dropdown-menu\">\n    <a routerLink=\"/dashboard/manage-profile\">Manage Profile</a>\n  </div>\n</div></li>\n               <li><a (click)=\"logout()\"><span class=\"glyphicon glyphicon-log-out\"></span> &nbsp;Logout</a></li>\n             <!-- <li><a href=\"\"><img src=\"../../../assets/images/settings.png\" alt=\"\" /></a></li>-->\n            </ul>\n          </div>\n\n        </div>\n    </div>\n  </div>\n</header>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/header/header.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "header {\n  background: -webkit-gradient(linear, left top, right top, from(#3b73b3), to(#6090c7));\n  background: linear-gradient(to right, #3b73b3, #6090c7);\n  -webkit-box-shadow: 0 0 11px rgba(0, 0, 0, 0.13);\n          box-shadow: 0 0 11px rgba(0, 0, 0, 0.13);\n  padding: 1px 5px 1px 5px;\n  z-index: 999;\n  width: 100%; }\n\n.navtabs {\n  float: right; }\n\n.navtabs ul {\n  margin: 0px;\n  padding: 0px;\n  list-style: none; }\n\n.navtabs ul li {\n  float: left;\n  position: relative;\n  z-index: 9;\n  font-size: 13px; }\n\n.navtabs ul li a {\n  color: #fff;\n  padding: 10px 10px;\n  display: block;\n  line-height: 31px; }\n\n.navtabs ul li a:hover, .navtabs ul li:hover > a,\n.navtabs ul li a:focus, .navtabs ul li a:active {\n  background: #326790; }\n\n.dropdown-menu {\n  border-radius: 0px;\n  background-color: #2467a0;\n  padding: 0px 0 0px 0px;\n  -webkit-box-shadow: 3px 1px 9px rgba(0, 0, 0, 0.175);\n          box-shadow: 3px 1px 9px rgba(0, 0, 0, 0.175);\n  color: #fff; }\n\n.dropdown-toggle::after {\n  display: inline-block;\n  width: 0;\n  height: 0;\n  margin-left: .255em;\n  vertical-align: .255em;\n  content: \"\";\n  border-top: .3em solid;\n  border-right: .3em solid transparent;\n  border-bottom: 0;\n  border-left: .3em solid transparent; }\n\n.dropdown-menu a:hover {\n  background: #3d90d0 !important; }\n\n.dropdown-menu a {\n  line-height: 21px !important; }\n\n.locationC {\n  width: 270px;\n  position: absolute;\n  z-index: 99;\n  top: 52px;\n  left: 0;\n  background: #e0e3e3;\n  padding: 8px 10px;\n  border: 1px solid #d7d7d7; }\n\n.locationC li {\n  margin: 0;\n  padding: 0;\n  width: 100%; }\n\n.locationC input {\n  border: none;\n  background: none;\n  width: 100%;\n  padding-left: 10px;\n  padding-right: 10px;\n  line-height: 33px;\n  margin-top: 6px; }\n\n.closeBtn {\n  position: absolute;\n  top: -18px;\n  right: -1px;\n  z-index: 999;\n  color: #0480ec !important;\n  font-size: 18px;\n  font-weight: bold !important; }\n\n.closeBtn:hover {\n  background: none !important;\n  color: gray !important; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/header/header.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var nso_service_1 = __webpack_require__("../../../../../src/app/nso.service.ts");
+var core_2 = __webpack_require__("../../../../@agm/core/index.js");
+var HeaderComponent = /** @class */ (function () {
+    function HeaderComponent(elementRef, router, nsoService, mapsAPILoader, ngZone) {
+        this.elementRef = elementRef;
+        this.router = router;
+        this.nsoService = nsoService;
+        this.mapsAPILoader = mapsAPILoader;
+        this.ngZone = ngZone;
+        this.locationT = false;
+    }
+    HeaderComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.loginUser = localStorage.getItem("loginUser");
+        this.loginEmail = localStorage.getItem("loginEmail");
+        //Start
+        this.mapsAPILoader.load().then(function () {
+            var autocomplete = new google.maps.places.Autocomplete(_this.searchElement.nativeElement, { types: ["address"] });
+            autocomplete.addListener("place_changed", function () {
+                _this.ngZone.run(function () {
+                    var place = autocomplete.getPlace();
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                });
+            });
+        });
+    };
+    HeaderComponent.prototype.logout = function () {
+        var _this = this;
+        this.nsoService.nsoLogout().subscribe(function (data) {
+            console.log(data);
+            if (data) {
+                localStorage.removeItem("loginUser");
+                localStorage.removeItem("loginEmail");
+                localStorage.clear();
+                _this.router.navigate(['']);
+            }
+            else {
+            }
+        });
+    };
+    HeaderComponent.prototype.locationBox = function (_ev) {
+        _ev.stopPropagation();
+        this.locationT = !this.locationT;
+    };
+    HeaderComponent.prototype.closeDiv = function (e) {
+        this.locationT = false;
+    };
+    __decorate([
+        core_1.ViewChild('search'),
+        __metadata("design:type", core_1.ElementRef)
+    ], HeaderComponent.prototype, "searchElement", void 0);
+    HeaderComponent = __decorate([
+        core_1.Component({
+            selector: 'app-header',
+            template: __webpack_require__("../../../../../src/app/header/header.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/header/header.component.scss")]
+        }),
+        __metadata("design:paramtypes", [core_1.ElementRef,
+            router_1.Router, nso_service_1.NsoService,
+            core_2.MapsAPILoader, core_1.NgZone])
+    ], HeaderComponent);
+    return HeaderComponent;
+}());
+exports.HeaderComponent = HeaderComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/login/login.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!--<div class=\"login_logo\">\n\t<img src=\"assets/images/cisco-logo.png\" alt=\"\">\n</div>-->\n<section class=\"container-fluid login\">\n<div class=\"loginBlock\">\n\t<div class=\"BlueBar\">\n\t\t<div class=\"login_logo\">\n\t\t\t<img src=\"assets/images/cisco-logo.png\" alt=\"\">\n\t\t</div>\n\t\t<p>User Login</p></div>\n\t<div class=\"loginAnchor\">\n\t\t<a routerLink=\"/login\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Login</a>\n\n\t\t<a routerLink=\"/login/register\" routerLinkActive=\"active\" [routerLinkActiveOptions]=\"{exact: true}\">Register</a>\n\t</div>\n<router-outlet></router-outlet>\n</div>\n</section>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/login/login.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+var escape = __webpack_require__("../../../../css-loader/lib/url/escape.js");
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".login_logo {\n  padding: 67px 0 0 0;\n  text-align: center; }\n  .login_logo img {\n    max-width: 100%; }\n  .BlueBar {\n  background: #2196F3;\n  width: 223px;\n  float: left;\n  min-height: 347px; }\n  .BlueBar p {\n  color: #fff;\n  font-size: 18px;\n  padding: 4px 0;\n  text-align: center;\n  line-height: 34px; }\n  .secondCol {\n  background: url(" + escape(__webpack_require__("../../../../../src/assets/images/bodyBg.jpg")) + ") no-repeat left top;\n  position: fixed;\n  right: 0px;\n  height: 100%;\n  width: 60%; }\n  .loginBlock {\n  width: 700px;\n  margin: 0 auto;\n  background: #fff;\n  overflow: hidden;\n  margin-top: 76px;\n  border-radius: 8px; }\n  .loginAnchor {\n  margin-bottom: 20px;\n  float: right;\n  width: 399px;\n  margin-top: 20px; }\n  .loginAnchor a {\n  width: 114px;\n  padding: 6px 10px;\n  display: inline-block;\n  text-align: center;\n  font: 16px \"OpenSans-Semibold\",sans-serif;\n  text-transform: uppercase;\n  color: #797a86;\n  border-radius: 3px;\n  border-bottom: 3px solid #b0b3b5; }\n  .loginAnchor a.active {\n  border-bottom: 3px solid #5375d2;\n  color: #277cbf; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/login/login.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var LoginComponent = /** @class */ (function () {
+    function LoginComponent() {
+    }
+    LoginComponent.prototype.ngOnInit = function () {
+    };
+    LoginComponent = __decorate([
+        core_1.Component({
+            selector: 'app-login',
+            template: __webpack_require__("../../../../../src/app/login/login.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/login/login.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], LoginComponent);
+    return LoginComponent;
+}());
+exports.LoginComponent = LoginComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/loginp/loginp.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<section class=\"\">\n   <div class=\"\">\n      <div class=\"loginWrapper\">\n         <form [formGroup]=\"form\" (ngSubmit)=\"onSubmit(form.value)\">\n            <div class=\"form-group\">                      \n               <input type=\"email\" class=\"form-control\" name=\"email\" formControlName=\"email\" id=\"email\" placeholder=\"Email\">\n               <!--  -->\n                <span style=\"color: red\" *ngIf=\"form.controls['email'].errors \n                && (form.controls['email'].dirty || form.controls['email'].touched)\">\n                        <span [hidden]=\"!form.controls['email'].errors.required\">\n                           First Name is Required\n                        </span>\n                         <span [hidden]=\"!form.controls['email'].errors.pattern\">\n                           Please enter Valid name between character min 3 to max 15.\n                        </span>\n\n                     </span>\n               <!--  -->\n            </div>\n            <div class=\"form-group\">\n               <input type=\"password\" class=\"form-control\" name=\"password\" formControlName=\"password\" id=\"password\" placeholder=\"Password\">\n               <!--  -->\n               <span style=\"color: red\" *ngIf=\"form.controls['password'].errors \n                && (form.controls['password'].dirty || form.controls['password'].touched)\">\n                <span style=\"color: red\" *ngIf=\"!form.controls['password'].errors.pattern\">\n                  Enter a Valid Password\n               </span>  </span>\n                <!--  -->\n            </div>\n            <button [disabled]=\"!form.valid\" type=\"submit\" class=\"loginBtn\">Login</button> \n            <a href=\"\">forgot password ?</a>\n         </form>\n      </div>\n       \n   </div>\n</section>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/loginp/loginp.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".loginWrapper {\n  width: 373px;\n  float: left;\n  margin-left: 36px;\n  padding-bottom: 10px; }\n\n.loginBtn {\n  background: #dc9510;\n  border-radius: 30px;\n  text-transform: uppercase;\n  padding: 0px 30px 3px 30px;\n  line-height: 31px;\n  border: none;\n  color: #fff;\n  margin-top: 15px; }\n\n.loginBtn:hover, .loginBtn:focus, .loginBtn:active {\n  background: #f3a411; }\n\n.loginWrapper a {\n  float: right;\n  font-style: italic;\n  margin-top: 15px; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/loginp/loginp.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var forms_1 = __webpack_require__("../../../forms/esm5/forms.js");
+var validate_service_1 = __webpack_require__("../../../../../src/app/validate.service.ts");
+var auth_service_1 = __webpack_require__("../../../../../src/app/auth.service.ts");
+var nso_service_1 = __webpack_require__("../../../../../src/app/nso.service.ts");
+var LoginpComponent = /** @class */ (function () {
+    function LoginpComponent(validateService, authService, router, nsoService) {
+        this.validateService = validateService;
+        this.authService = authService;
+        this.router = router;
+        this.nsoService = nsoService;
+        this.flag = false;
+    }
+    LoginpComponent.prototype.ngOnInit = function () {
+        this.form = new forms_1.FormGroup({
+            email: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required
+                //Validators.pattern('[a-zA-Z]+')
+            ])),
+            password: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required
+                //Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[_+/+-+.+@])(?=.*?[0-9]).{6,12}$')
+            ]))
+        });
+    };
+    LoginpComponent.prototype.onSubmit = function (formo) {
+        var _this = this;
+        console.log(formo);
+        this.authService.authenticateUser(formo).subscribe(function (data) {
+            console.log(data);
+            if (data.status) {
+                console.log(data.userName);
+                localStorage.setItem("loginUser", data.userName);
+                localStorage.setItem("loginEmail", data.userEmail);
+                var dataaa = localStorage.getItem("loginUser");
+                console.log(dataaa);
+                _this.nsoService.nsoLogin().subscribe(function (data) {
+                    console.log(data);
+                    if (data) {
+                        _this.nsoService.nsoTrans().subscribe(function (data) {
+                            console.log(data);
+                            if (data) {
+                                _this.router.navigate(['/dashboard']);
+                            }
+                            else {
+                            }
+                        });
+                    }
+                    else {
+                    }
+                });
+            }
+            else {
+                _this.router.navigate(['']);
+            }
+        });
+    };
+    LoginpComponent.prototype.onLoginSubmit = function () {
+    };
+    LoginpComponent = __decorate([
+        core_1.Component({
+            selector: 'app-loginp',
+            template: __webpack_require__("../../../../../src/app/loginp/loginp.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/loginp/loginp.component.scss")]
+        }),
+        __metadata("design:paramtypes", [validate_service_1.ValidateService,
+            auth_service_1.AuthService,
+            router_1.Router,
+            nso_service_1.NsoService])
+    ], LoginpComponent);
+    return LoginpComponent;
+}());
+exports.LoginpComponent = LoginpComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/modalpopup/modalpopup.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"modal-dialog\">\n                <div class=\"modal-content\">\n                   <div class=\"modal-header\">\n                     <button type=\"button\" class=\"close\" (click)=\"close()\" >&times;</button>\n                     <h4 class=\"modal-title\">{{title || 'Confirm'}}</h4>\n                   </div>\n                   <div class=\"modal-body\" id=\"topologycontainer\">\n                     \n                   </div>\n                   <div class=\"modal-footer\">\n                     <button type=\"button\" class=\"btn btn-success\" (click)=\"confirm()\">OK</button>\n                     <button type=\"button\" class=\"btn btn-default\" (click)=\"close()\" >Cancel</button>\n                   </div>\n                 </div>\n              </div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/modalpopup/modalpopup.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/modalpopup/modalpopup.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var ng2_bootstrap_modal_1 = __webpack_require__("../../../../ng2-bootstrap-modal/index.js");
+var ModalpopupComponent = /** @class */ (function (_super) {
+    __extends(ModalpopupComponent, _super);
+    function ModalpopupComponent(dialogService) {
+        return _super.call(this, dialogService) || this;
+    }
+    ModalpopupComponent.prototype.ngOnInit = function () {
+        var topologyData = {
+            "nodes": [
+                {
+                    "id": 0,
+                    "name": "New York"
+                },
+                {
+                    "id": 1,
+                    "name": "Los Angeles"
+                },
+                {
+                    "id": 2,
+                    "name": "Houston"
+                }
+            ],
+            "links": [
+                {
+                    "source": 0,
+                    "target": 1
+                },
+                {
+                    "source": 0,
+                    "target": 2
+                }
+            ]
+        };
+        var app = new nx.ui.Application();
+        // configuration object for next
+        var topologyConfig = {
+            // special configuration for nodes
+            "nodeConfig": {
+                "label": "model.name",
+                "iconType": "router"
+            },
+            // special configuration for links
+            "linkConfig": {
+                "linkType": "curve"
+            },
+            // if true, the nodes' icons are shown, otherwise a user sees a dot instead
+            "showIcon": true,
+            // automatically compute the position of nodes
+            "dataProcessor": "force"
+        };
+        // instantiate Topology class
+        var topology = new nx.graphic.Topology(topologyConfig);
+        // load topology data from app/data.js
+        topology.data(topologyData);
+        // bind the topology object to the app
+        topology.attach(app);
+        // app must run inside a specific container. In our case this is the one with id="topology-container"
+        app.container(document.getElementById("topologycontainer"));
+        console.log(app);
+    };
+    ModalpopupComponent.prototype.confirm = function () {
+        // we set dialog result as true on click on confirm button, 
+        // then we can get dialog result from caller code 
+        this.result = true;
+        this.close();
+    };
+    ModalpopupComponent = __decorate([
+        core_1.Component({
+            selector: 'app-modalpopup',
+            template: __webpack_require__("../../../../../src/app/modalpopup/modalpopup.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/modalpopup/modalpopup.component.scss")]
+        }),
+        __metadata("design:paramtypes", [ng2_bootstrap_modal_1.DialogService])
+    ], ModalpopupComponent);
+    return ModalpopupComponent;
+}(ng2_bootstrap_modal_1.DialogComponent));
+exports.ModalpopupComponent = ModalpopupComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/nso.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var http_1 = __webpack_require__("../../../http/esm5/http.js");
+__webpack_require__("../../../../rxjs/_esm5/add/operator/map.js");
+var NsoService = /** @class */ (function () {
+    function NsoService(http) {
+        this.http = http;
+    }
+    NsoService.prototype.nsoLogin = function () {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/login', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoLogout = function () {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/logout', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoTrans = function () {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/trans', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoCommit = function () {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/commit', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoData = function (json) {
+        console.log(json);
+        console.log("llllllllllllll");
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/data', json, { headers: headers })
+            .map(function (res) {
+            console.log(res);
+            console.log("~~~~~~~~~");
+            return res.json();
+        });
+    };
+    NsoService.prototype.nsoServices = function () {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/services', { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoServicesSchema = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('/api/services/schema', json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoServicesSchemaByLink = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('/api/services/schemalink', json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoServicesSchemaGetValue = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('/api/services/getvalue', json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoServicesSchemaSetValue = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('/api/services/setvalue', json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoServicesSchemaGetCase = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('/api/services/getcase', json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoDataquery = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('api/data/query', json, { headers: headers })
+            .map(function (res) {
+            return res.json();
+        });
+    };
+    NsoService.prototype.nsoServicesSchemaExists = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('/api/services/exists', json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService.prototype.nsoServicesCheckSync = function (json) {
+        var headers = new http_1.Headers();
+        headers.append('content-type', 'application/json');
+        return this.http.post('/api/services/sync', json, { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
+    NsoService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], NsoService);
+    return NsoService;
+}());
+exports.NsoService = NsoService;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/register/register.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "\n\n<!-- Form Name -->\n \n<div class=\"loginWrapper\">\n<!-- Text input-->\n<form [formGroup]=\"rform\" (ngSubmit)=\"onSubmit(rform.value)\">\n                \n <div class=\"form-group\">                      \n               <input type=\"text\" class=\"form-control\" name=\"username\" formControlName=\"username\" id=\"username\" placeholder=\"User Name\">\n               <!--  -->\n                <span style=\"color: red\" *ngIf=\"rform.controls['username'].errors \n                && (rform.controls['username'].dirty || rform.controls['username'].touched)\">\n                        <span [hidden]=\"!rform.controls['username'].errors.required\">\n                           First Name is Required\n                        </span>\n                         <span [hidden]=\"!rform.controls['username'].errors.pattern\">\n                           Please enter Valid username between character min 3 to max 15.\n                        </span>\n\n                     </span>\n               <!--  -->\n            </div>\n\n                <div class=\"form-group\">\n                   \n                   <input type=\"text\" class=\"form-control\" name=\"email\" formControlName=\"email\" id=\"email\" placeholder=\"Email\">\n                   <span style=\"color: red\" *ngIf=\"rform.controls['email'].errors \n                && (rform.controls['email'].dirty || rform.controls['email'].touched)\">\n                        <span [hidden]=\"!rform.controls['email'].errors.required\">\n                           Last Name is Required\n                        </span>\n                         <span [hidden]=\"!rform.controls['email'].errors.pattern\">\n                           Please enter Valid name between character min 3 to max 15.\n                        </span>\n\n                     </span>\n                </div>\n                \n                <div class=\"form-group\">\n                   \n                    <input type=\"text\" class=\"form-control\" name=\"password\" formControlName=\"password\" id=\"password\" placeholder=\"Password\">\n                    <span style=\"color: red\" *ngIf=\"rform.controls['password'].errors \n                && (rform.controls['password'].dirty || rform.controls['password'].touched)\">\n                    <span [hidden]=\"!rform.controls['password'].errors.required\">\n                           Phon Number is Required\n                        </span>\n                      <span style=\"color: red\" *ngIf=\"!MyForm.controls['password'].valid\">Enter Valid Number</span>\n                    </span>\n                </div>\n    \n                <div class=\"form-group\">\n                   \n                    <input type=\"text\" class=\"form-control\" name=\"customer_name\" formControlName=\"customer_name\" id=\"customer_name\" placeholder=\"Customer Name\">\n                    <span style=\"color: red\" *ngIf=\"rform.controls['customer_name'].errors \n                && (rform.controls['customer_name'].dirty || rform.controls['customer_name'].touched)\">\n                    <span [hidden]=\"!rform.controls['customer_name'].errors.required\">\n                           Phon Number is Required\n                        </span>\n                      <span style=\"color: red\" *ngIf=\"!MyForm.controls['customer_name'].valid\">Enter Valid Number</span>\n                    </span>\n                </div>\n                <div class=\"form-group\">\n                   \n                    <input type=\"text\" class=\"form-control\" name=\"phone_number\" formControlName=\"phone_number\" id=\"phone_number\" placeholder=\"Phone Number\">\n                    <span style=\"color: red\" *ngIf=\"rform.controls['phone_number'].errors \n                && (rform.controls['phone_number'].dirty || rform.controls['phone_number'].touched)\">\n                    <span [hidden]=\"!rform.controls['phone_number'].errors.required\">\n                           Phon Number is Required\n                        </span>\n                      <span style=\"color: red\" *ngIf=\"!MyForm.controls['phone_number'].valid\">Enter Valid Number</span>\n                    </span>\n                </div>\n                <button type=\"submit\" class=\"registerBtn\">Register</button>\n                </form>\n</div>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/register/register.component.scss":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".loginWrapper {\n  width: 400px;\n  float: left;\n  margin-left: 36px; }\n\n.registerBtn {\n  background: #dc9510;\n  border-radius: 30px;\n  text-transform: uppercase;\n  padding: 0px 22px 3px 22px;\n  line-height: 28px;\n  border: none;\n  color: #fff; }\n\n.form-control, .form-group {\n  margin-bottom: 6px; }\n\n.form-group span {\n  font-size: 11px; }\n\n.registerBtn:hover, .registerBtn:active, .registerBtn:focus {\n  background: #f3a411; }\n", ""]);
+
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
+
+/***/ }),
+
+/***/ "../../../../../src/app/register/register.component.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var router_1 = __webpack_require__("../../../router/esm5/router.js");
+var forms_1 = __webpack_require__("../../../forms/esm5/forms.js");
+var validate_service_1 = __webpack_require__("../../../../../src/app/validate.service.ts");
+var auth_service_1 = __webpack_require__("../../../../../src/app/auth.service.ts");
+var RegisterComponent = /** @class */ (function () {
+    function RegisterComponent(validateService, authService, router) {
+        this.validateService = validateService;
+        this.authService = authService;
+        this.router = router;
+    }
+    RegisterComponent.prototype.ngOnInit = function () {
+        this.rform = new forms_1.FormGroup({
+            username: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.pattern('[a-zA-Z]+')
+            ])),
+            email: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required
+                //Validators.pattern('[a-zA-Z]+')
+            ])),
+            password: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required
+                // Validators.pattern('[a-zA-Z]+')
+            ])),
+            customer_name: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required,
+                forms_1.Validators.pattern('[a-zA-Z]+')
+            ])),
+            phone_number: new forms_1.FormControl("", forms_1.Validators.compose([
+                forms_1.Validators.required
+                //Validators.pattern('[0-9]+{12}')
+            ])),
+        });
+    };
+    RegisterComponent.prototype.onSubmit = function (User) {
+        var _this = this;
+        console.log(User);
+        /* if (!this.validateService.validateRegister(User)) {
+           console.log("Please fill in all fields");
+            return false;
+         }
+         if (!this.validateService.validateEmail(User.email)) {
+           console.log("Please use a valid email");
+           return false;
+         }*/
+        this.authService.registerUser(User).subscribe(function (data) {
+            console.log(data);
+            if (data.status) {
+                _this.router.navigate(['/login']);
+            }
+            else {
+                _this.router.navigate(['']);
+            }
+        });
+    };
+    RegisterComponent = __decorate([
+        core_1.Component({
+            selector: 'app-register',
+            template: __webpack_require__("../../../../../src/app/register/register.component.html"),
+            styles: [__webpack_require__("../../../../../src/app/register/register.component.scss")]
+        }),
+        __metadata("design:paramtypes", [validate_service_1.ValidateService, auth_service_1.AuthService, router_1.Router])
+    ], RegisterComponent);
+    return RegisterComponent;
+}());
+exports.RegisterComponent = RegisterComponent;
+
+
+/***/ }),
+
+/***/ "../../../../../src/app/validate.service.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var ValidateService = /** @class */ (function () {
+    function ValidateService() {
+    }
+    ValidateService.prototype.validateRegister = function (user) {
+        if (user.email == undefined || user.username == undefined || user.password == undefined) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    ValidateService.prototype.validateEmail = function (email) {
+        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email.toLowerCase());
+    };
+    ValidateService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [])
+    ], ValidateService);
+    return ValidateService;
+}());
+exports.ValidateService = ValidateService;
+
+
+/***/ }),
+
+/***/ "../../../../../src/assets/images/bodyBg.jpg":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "bodyBg.b0f9a23acdd71ed3f3b4.jpg";
+
+/***/ }),
+
+/***/ "../../../../../src/environments/environment.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// The file contents for the current environment will overwrite these during build.
+// The build system defaults to the dev environment which uses `environment.ts`, but if you do
+// `ng build --env=prod` then `environment.prod.ts` will be used instead.
+// The list of which env maps to which file can be found in `.angular-cli.json`.
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.environment = {
+    production: false
+};
+
+
+/***/ }),
+
+/***/ "../../../../../src/main.ts":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = __webpack_require__("../../../core/esm5/core.js");
+var platform_browser_dynamic_1 = __webpack_require__("../../../platform-browser-dynamic/esm5/platform-browser-dynamic.js");
+var app_module_1 = __webpack_require__("../../../../../src/app/app.module.ts");
+var environment_1 = __webpack_require__("../../../../../src/environments/environment.ts");
+if (environment_1.environment.production) {
+    core_1.enableProdMode();
+}
+platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule)
+    .catch(function (err) { return console.log(err); });
+
+
+/***/ }),
+
+/***/ 0:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__("../../../../../src/main.ts");
+
+
+/***/ })
+
+},[0]);
+//# sourceMappingURL=main.bundle.js.map

@@ -1,0 +1,15 @@
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-circuit-ordering',
+  templateUrl: './circuit-ordering.component.html',
+  styleUrls: ['./circuit-ordering.component.scss']
+})
+export class CircuitOrderingComponent implements OnInit {
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+}

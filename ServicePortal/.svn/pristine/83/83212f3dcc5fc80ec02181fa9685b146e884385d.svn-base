@@ -1,0 +1,16 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { ManageProfileRoutingModule } from './manage-profile-routing.module';
+import {ManageProfileComponent} from './manage-profile.component';
+
+@NgModule({
+  imports: [
+    CommonModule,
+     FormsModule,
+    ReactiveFormsModule,
+    ManageProfileRoutingModule
+  ],
+  declarations: [ManageProfileComponent]
+})
+export class ManageProfileModule { }

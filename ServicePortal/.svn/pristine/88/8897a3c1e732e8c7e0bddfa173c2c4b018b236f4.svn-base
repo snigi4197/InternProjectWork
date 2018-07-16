@@ -1,0 +1,78 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var breadcrumb_service_1 = require("./breadcrumb.service");
+var BreadcrumbComponent = (function () {
+    function BreadcrumbComponent(breadcrumbService, activatedRoute, router) {
+        this.breadcrumbService = breadcrumbService;
+        this.activatedRoute = activatedRoute;
+        this.router = router;
+        this.breadcrumbRoutes = [];
+        this.homeBreadcrumbRoute = {
+            breadcrumb: {
+                label: "",
+                icon: "fa fa-home home-icon"
+            },
+            url: "",
+            params: undefined
+        };
+    }
+    Object.defineProperty(BreadcrumbComponent.prototype, "homeBreadcrumb", {
+        set: function (breadcrumb) {
+            if (breadcrumb) {
+                this.homeBreadcrumbRoute.breadcrumb = breadcrumb;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    BreadcrumbComponent.prototype.isString = function (val) {
+        return typeof val == "string";
+    };
+    Object.defineProperty(BreadcrumbComponent.prototype, "hasRoutes", {
+        get: function () {
+            return this.breadcrumbRoutes && this.breadcrumbRoutes.length > 0;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    BreadcrumbComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.router.events.filter(function (event) { return event instanceof router_1.NavigationEnd; }).subscribe(function (event) {
+            _this.breadcrumbRoutes = [];
+            if (!_this.homeBreadcrumbRoute.breadcrumb.hide)
+                _this.breadcrumbRoutes.push(_this.homeBreadcrumbRoute);
+            (_a = _this.breadcrumbRoutes).push.apply(_a, _this.breadcrumbService.getBreadcrumbs(_this.activatedRoute.root)
+                .filter(function (breadcrumb) { return !breadcrumb.breadcrumb.hide; }));
+            var _a;
+        });
+    };
+    return BreadcrumbComponent;
+}());
+__decorate([
+    core_1.Input(),
+    __metadata("design:type", Object),
+    __metadata("design:paramtypes", [Object])
+], BreadcrumbComponent.prototype, "homeBreadcrumb", null);
+BreadcrumbComponent = __decorate([
+    core_1.Component({
+        moduleId: "" + module.id,
+        selector: "dcn-breadcrumb",
+        styleUrls: ["breadcrumb.component.css"],
+        template: "\n\n<div class=\"breadcrumb\">\n\n  <ng-container *ngFor=\"let route of breadcrumbRoutes; let inx = index; let isLast=last\" >\n    <div *ngIf=\"!route.breadcrumb.hide\" class=\"breadcrumb-holder\">\n      <a [routerLink]=\"[route.url]\" class=\"breadcrumb-link\">\n        <i *ngIf=\"route.breadcrumb.icon && inx==0\" class=\"{{route.breadcrumb.icon}} home-icon\"></i>\n        <i *ngIf=\"route.breadcrumb.icon && inx!=0\" class=\"{{route.breadcrumb.icon}} icon link-icon\" ></i>\n        <span *ngIf=\"!isString(route.breadcrumb.label)\">{{route.breadcrumb.label |async}}</span>\n        <span *ngIf=\"isString(route.breadcrumb.label)\">{{route.breadcrumb.label}}</span>\n      </a>\n      <dcn-breadcrumb-popup [isLast]=\"isLast\" [breadcrumbDropDown]=\"route.breadcrumb.dropDown\"></dcn-breadcrumb-popup>\n    </div>\n  </ng-container>\n</div>\n\n"
+    }),
+    __metadata("design:paramtypes", [breadcrumb_service_1.BreadcrumbService,
+        router_1.ActivatedRoute,
+        router_1.Router])
+], BreadcrumbComponent);
+exports.BreadcrumbComponent = BreadcrumbComponent;

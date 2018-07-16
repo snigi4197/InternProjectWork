@@ -1,0 +1,29 @@
+import { Component, OnInit,Input } from '@angular/core';
+import {AccordionModule} from "ng2-accordion";
+import { ActivatedRoute } from "@angular/router";
+import { NsoService } from '../nso.service';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import { Jsonview } from '../jsonclass/Jsonview';
+import 'rxjs/add/operator/map';
+@Component({
+  selector: 'app-parentchild',
+  templateUrl: './parentchild.component.html',
+  styleUrls: ['./parentchild.component.scss']
+})
+export class ParentchildComponent implements OnInit {
+ @Input() ParentChild;
+ subSelectParentChild;
+  constructor(private router: Router, 
+		private nsoService: NsoService, private http: Http,
+		private route: ActivatedRoute) { }
+
+  ngOnInit() {
+  	
+  }
+      
+
+
+}
+  

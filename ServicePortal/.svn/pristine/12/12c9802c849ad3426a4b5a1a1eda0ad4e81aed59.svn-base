@@ -1,0 +1,84 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from "@angular/common";
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DataTablesModule } from 'angular-datatables';
+import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { HttpModule } from '@angular/http';
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { LoginpComponent } from './loginp/loginp.component';
+import { RegisterComponent } from './register/register.component';
+import { HomeComponent } from './home/home.component';
+import { ValidateService } from './validate.service';
+import { AuthService } from './auth.service';
+import {AgmCoreModule} from '@agm/core';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { InventoryComponent } from './inventory/inventory.component';
+import { NsoService } from './nso.service';
+import { SpecialcharPipe } from './specialchar.pipe';
+import { TabDataComponent } from './tab-data/tab-data.component';
+import { ServiceSchemaComponent } from './service-schema/service-schema.component';
+import {AccordionModule} from "ng2-accordion";
+import { ParentchildComponent } from './parentchild/parentchild.component';
+import { BandwidthOnDemandComponent } from './bandwidth-on-demand/bandwidth-on-demand.component';
+import { SubParentChildComponent } from './sub-parent-child/sub-parent-child.component';
+import { DivfieldsComponent } from './divfields/divfields.component';
+import { ModalpopupComponent } from './modalpopup/modalpopup.component';
+import{BodTabDataComponent} from './bod-tab-data/bod-tab-data.component';
+import { CircuitOrderingComponent } from './circuit-ordering/circuit-ordering.component';
+import { SafePipeModule } from 'safe-pipe';
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    LoginpComponent,
+    RegisterComponent,
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    DashboardComponent,
+    InventoryComponent,
+    SpecialcharPipe,
+    TabDataComponent,
+    ServiceSchemaComponent,
+    ParentchildComponent,
+    BandwidthOnDemandComponent,
+    SubParentChildComponent,
+    DivfieldsComponent,
+    ModalpopupComponent,
+    BodTabDataComponent,
+    CircuitOrderingComponent
+  ],
+  imports: [
+   SafePipeModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    FormsModule,
+    BootstrapModalModule,
+    ReactiveFormsModule,
+    HttpModule,
+    DataTablesModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBNh5nWHiGuP44dgvJZBFfW9nZYiTLw1HI',
+      libraries : ["places"]
+
+    }) ,
+    AccordionModule,
+    NgxSmartModalModule.forRoot(),
+  BootstrapModalModule.forRoot({container:document.body})
+  ],
+  providers: [ValidateService, AuthService, NsoService,NgxSmartModalService],
+
+  entryComponents: [
+        ModalpopupComponent
+      ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

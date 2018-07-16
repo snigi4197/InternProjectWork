@@ -1,0 +1,31 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {FormsModule} from '@angular/forms';
+//import{ServiceSchemaComponent} from '../service-schema/service-schema.component'
+import { InventoryRoutingModule } from './inventory-routing.module';
+import {InventoryComponent} from './inventory.component';
+import {TabDataComponent} from '../tab-data/tab-data.component';
+import { SpecialcharPipe_Inventory } from '../specialchar.pipe';
+import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { DataTablesModule } from 'angular-datatables';
+import { BootstrapModalModule } from 'ng2-bootstrap-modal';
+import {AccordionModule} from "ng2-accordion";
+import { DivfieldsComponent_Inventory } from '../divfields/divfields.component'; 
+import { ParentchildComponent_Inventory } from '../parentchild/parentchild.component';
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    DataTablesModule,
+    AccordionModule,
+    BootstrapModalModule,
+    NgxSmartModalModule.forRoot(),
+
+    InventoryRoutingModule
+  ],
+  declarations: [InventoryComponent,DivfieldsComponent_Inventory,ParentchildComponent_Inventory,TabDataComponent,
+    SpecialcharPipe_Inventory],
+    providers:[NgxSmartModalService]
+     
+})
+export class InventoryModule { }

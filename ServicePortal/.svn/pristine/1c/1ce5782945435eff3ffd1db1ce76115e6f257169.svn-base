@@ -1,0 +1,18 @@
+import { ActivatedRoute, ActivatedRouteSnapshot } from "@angular/router";
+import { BreadcrumbRoute } from "./breadcrumb-model";
+export declare const BREADCRUMB_DATA_KEY = "breadcrumb";
+export declare class BreadcrumbService {
+    private breadcrumbs;
+    constructor();
+    /**
+     *
+     * returns the urls up to current snapshot
+     */
+    getBaseUrl(snapshot: ActivatedRouteSnapshot): string;
+    /**
+     * Returns array of BreadcrumbRoute objects that represent the breadcrumbDropDown
+     */
+    getBreadcrumbs(route: ActivatedRoute): BreadcrumbRoute[];
+    private getBreadcrumbsRecursive(route, url, breadcrumbs);
+    private buildPlainBreadcrumbData(child);
+}

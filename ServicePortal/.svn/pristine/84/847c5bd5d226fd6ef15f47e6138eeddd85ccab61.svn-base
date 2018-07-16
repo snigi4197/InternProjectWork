@@ -1,0 +1,17 @@
+import { OnInit } from "@angular/core";
+import { Router, ActivatedRoute } from "@angular/router";
+import { BreadcrumbService } from "./breadcrumb.service";
+import { BreadcrumbRoute, Breadcrumb } from "./breadcrumb-model";
+import { Observable } from "rxjs/Observable";
+export declare class BreadcrumbComponent implements OnInit {
+    private breadcrumbService;
+    private activatedRoute;
+    private router;
+    homeBreadcrumb: Breadcrumb;
+    homeBreadcrumbRoute: BreadcrumbRoute;
+    isString(val: string | Observable<string>): boolean;
+    readonly hasRoutes: boolean;
+    breadcrumbRoutes: BreadcrumbRoute[];
+    constructor(breadcrumbService: BreadcrumbService, activatedRoute: ActivatedRoute, router: Router);
+    ngOnInit(): void;
+}

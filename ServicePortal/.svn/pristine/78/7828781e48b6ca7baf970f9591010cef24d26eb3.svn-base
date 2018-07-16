@@ -1,0 +1,142 @@
+//@import "~ng-pick-datetime/assets/style/picker.min.css";
+body {
+    font-family: "Calibri", sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    background: #fff;
+}
+
+h1 {
+    color: #1a4766;
+    margin: 45px 0 35px 0;
+    border-bottom: 1px solid #e6e8ea;
+    width: 100%;
+    font-size: 25px;
+    font-family: "Cambria", sans-serif;
+}
+
+h2 {
+    font: bold 21px "Cambria", sans-serif;
+    color: #daa508;
+    margin: 16px 0 25px 16px;
+    width: 80%;
+}
+
+
+
+h5{
+   font: normal 18px "Calibri", sans-serif;
+    color: #0cb8d6;
+    margin: 16px 0 25px 16px;
+    width: 97%;
+    text-transform: capitalize;
+    background: #e6f3f3;
+    padding: 5px 10px;
+    border-left: 3px solid;
+}
+
+.left {
+    padding-left: 92px;
+}
+
+:focus {
+    outline: none;
+}
+
+a {
+    color: #46b111;
+    text-decoration: none;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    outline: #e8e5e5;
+}
+
+.jsonButton {
+    text-align: center;
+    clear: both;
+}
+
+.SchoiceDiv > select {
+    width: 200px;
+}
+
+.n-popupContainer {
+    z-index: 9999;
+}
+
+.n-topology-tooltip {
+    opacity: 1 !important;
+}
+
+/* .n-topology.n-topology-blue svg {
+    top: -90px;
+}
+
+.popover.top {
+    margin-top: -100px;
+}
+
+.popover.bottom {
+    margin-top: -100px;
+} */
+.CssAmit {
+    max-width: 900px !important;
+}
+
+#topology {
+    width: 875px;
+    height: 500px;
+}
+
+.cdk-overlay-container {
+    z-index : 2000;
+}
+ 
+ .CssAmit .ng-star-inserted{ 
+    border: 1px solid #d0cbcb;
+    background: #f1f1f1;
+    padding: 10px;}
+
+ table.dataTable.no-footer{border-bottom:none;}  
+
+ .CssAmit .ng-star-inserted td{border:1px solid #bdbbbb;}
+
+  .CssAmit .rowHeader th{
+    background: #407196;
+    color: #fff;
+}
+
+.panel-group .panel{margin-bottom: 5px;}
+
+.panel-title a {
+    color: #177ab7;
+    font-size: 16px;
+    text-transform: capitalize;
+}
+
+ .panel-title .caret{
+    float: right;
+    margin-top: 8px;
+    color: #2356cc;
+}
+
+  .panel-body{
+   max-height: 200px;
+    overflow-y: auto;
+}
+
+ .glyphicon.glyphicon-plus{
+    color: #428a0e;
+    font-size: 12px; 
+    margin-top:2px;  
+}
+
+.sorting_1 a{float:left;width:90px;}
+
+footer{
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    }

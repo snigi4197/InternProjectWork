@@ -1,0 +1,33 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var breadcrumb_component_1 = require("./breadcrumb.component");
+var common_1 = require("@angular/common");
+var router_1 = require("@angular/router");
+var breadcrumb_service_1 = require("./breadcrumb.service");
+var breadcrumb_popup_component_1 = require("./breadcrumb-popup.component");
+var searchbox_component_1 = require("./searchbox.component");
+var route_place_holder_component_1 = require("./route-place-holder.component");
+var breadcrumb_router_service_1 = require("./breadcrumb-router.service");
+var breadcrumb_resolver_1 = require("./breadcrumb.resolver");
+var BreadcrumbDynamicResolver_1 = require("./BreadcrumbDynamicResolver");
+var BreadcrumbModule = (function () {
+    function BreadcrumbModule() {
+    }
+    return BreadcrumbModule;
+}());
+BreadcrumbModule = __decorate([
+    core_1.NgModule({
+        imports: [common_1.CommonModule, router_1.RouterModule],
+        declarations: [breadcrumb_component_1.BreadcrumbComponent, breadcrumb_popup_component_1.BreadcrumbPopupComponent, searchbox_component_1.SearchBoxComponent, route_place_holder_component_1.RoutePlaceHolderComponent],
+        exports: [breadcrumb_component_1.BreadcrumbComponent, route_place_holder_component_1.RoutePlaceHolderComponent],
+        providers: [breadcrumb_service_1.BreadcrumbService, breadcrumb_router_service_1.BreadcrumbRouterService, breadcrumb_resolver_1.BreadcrumbResolver, BreadcrumbDynamicResolver_1.BreadcrumbDynamicResolver]
+    })
+], BreadcrumbModule);
+exports.BreadcrumbModule = BreadcrumbModule;

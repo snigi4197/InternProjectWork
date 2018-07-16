@@ -1,0 +1,47 @@
+import { Component, OnInit} from '@angular/core';
+import { NsoService } from '../nso.service';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/map';
+import * as $ from 'jquery';
+import { TabDataComponent } from '../tab-data/tab-data.component';
+    import { DialogService } from "ng2-bootstrap-modal";
+    import {NgxSmartModalService} from 'ngx-smart-modal';
+
+@Component({
+  selector: 'app-inventory',
+  templateUrl: './inventory.component.html',
+  styleUrls: ['./inventory.component.scss']
+})
+export class InventoryComponent implements OnInit {
+	uList;
+	dtOptions: DataTables.Settings = {};
+	serviceData: string;
+	messageData;
+	hList1;
+	uList1;
+	// We use this trigger because fetching the list of persons can be quite long,
+	// thus we ensure the data is fetched before rendering
+	dtTrigger: Subject<any> = new Subject();
+	constructor(private router: Router,private nsoService: NsoService,
+	 private http: Http,private dialogService:DialogService,
+	 public ngxSmartModalService: NgxSmartModalService) { 
+		
+		this.nsoService.nsoServices().subscribe(data => {
+			console.log(data);
+			if (data.result) {
+				this.uList = Object.keys(data.result.service_points);
+			} else {
+				this.router.navigate(['']);
+			}
+		});
+	}
+
+  ngOnInit() {
+	  
+	
+
+	
+}
+}

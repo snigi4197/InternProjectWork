@@ -1,0 +1,169 @@
+import { Component, OnInit } from '@angular/core';
+import {AccordionModule} from "ng2-accordion";
+import { ActivatedRoute } from "@angular/router";
+import { NsoService } from '../nso.service';
+import { Router } from '@angular/router';
+import { Http } from '@angular/http';
+import { Subject } from 'rxjs/Subject';
+import { Jsonview } from '../jsonclass/Jsonview';
+import 'rxjs/add/operator/map';
+declare var $: any;
+
+@Component({
+  selector: 'app-service-schema',
+  templateUrl: './service-schema.component.html',
+   /*template: `
+<div *ngFor="let obj of g1">{{obj.name}}</div>
+  `,*/
+  styleUrls: ['./service-schema.component.scss']
+})
+export class ServiceSchemaComponent implements OnInit {
+	getParam;
+	jsonData;
+	metaData;
+
+	parentName;
+	parentChild;
+	childrenList;
+	container;
+	 json;
+	 pJSON;
+	 subParentChild;
+	 subParentChildDiv;
+	 subParentChildDivChild;
+	 serviceName;
+	 selection;
+
+	constructor(private router: Router, 
+		private nsoService: NsoService, private http: Http,
+		private route: ActivatedRoute) {
+		this.route.params.subscribe(params => this.getParam = params);
+   }
+
+  ngOnInit() {
+	 // this.getParam = this.route.params.subscribe(params => params);
+	  //console.log(this.getParam.id);
+	  if(typeof this.getParam.id4!='undefined'){
+	  	this.serviceName=this.getParam.id;
+	  	this.selection=this.getParam.id3;
+	  }else{
+	  	this.serviceName=this.getParam.id.replace("link","ml3:vpn")
+	  	this.selection=this.getParam.id2;
+	  }
+	  const User = {
+		  'serviceName': this.serviceName,
+		  "selection": this.selection
+
+	  }
+
+	  this.nsoService.nsoServicesSchema(User).subscribe(data => {
+	  	console.log("data==============================");
+		  console.log(data);
+		  this.metaData = data['result']['data'];
+		  let _data = data['result']['data'];
+		  let _meta = data['result']['meta'];
+		  let _keyPath = _meta['keypath'];
+		  if (data.result) {
+			       let HTML = new Jsonview(this.nsoService,_data,_meta,_keyPath);
+			       //console.log("call class method");
+			       console.log(HTML.firstAcordian());
+			        let jsonData=HTML.firstAcordian();
+			        //console.log(jsonData[0].name);
+			        this.parentName=jsonData[0].name;
+			        this.childrenList=jsonData[0].children;
+			        //console.log(jsonData[0].type);
+			        //console.log(jsonData[0].children)
+			        let g=jsonData[0].children.length;
+			        this.json=jsonData[0].children;
+			        this.pJSON=jsonData[0].name;
+			        let parChi=[];
+			        let contai=[];
+			        for(let i=0;i<g;i++)
+			        {
+			        		//console.log('////////////////////////////');
+			        		if(this.json[i].type=="div"){
+			        		//console.log(this.json[i].name);
+			        		contai.push(this.json[i]);
+			        	}else{
+			        		parChi.push(this.json[i]);
+			        	}
+			        		
+			        		
+			        }
+			        this.parentChild=this.json;
+			        this.container=contai;
+			        //console.log("++++++++++++++++++++++++++++++");
+			        //console.log(this.parentChild);
+			         //console.log(this.container);
+
+		  } else {
+			  this.router.navigate(['']);
+		  }
+	  });
+	  ////////////
+
+	  function toggleIcon(e) {
+		  $(e.target)
+			  .prev('.panel-heading')
+			  .find(".more-less")
+			  .toggleClass('glyphicon-plus glyphicon-minus');
+	  }
+	  $('.panel-group').on('hidden.bs.collapse', toggleIcon);
+	  $('.panel-group').on('shown.bs.collapse', toggleIcon);
+	  ////////////
+
+
+
+  }
+  getSchema(path,qname,name){
+  	alert(path+"/"+qname);
+	let contai=[];
+  	 
+  	 const URL = {
+		  'URL': (path+"/"+qname)
+
+	  }
+  	  this.nsoService.nsoServicesSchemaByLink(URL).subscribe(data => {
+		  console.log(data);
+		  this.metaData = data['result']['data'];
+		  let _data = data['result']['data'];
+		  let _meta = data['result']['meta'];
+		  let _keyPath = _meta['keypath'];
+		  if (data.result) {
+			       let HTML = new Jsonview(this.nsoService,_data,_meta,_keyPath);
+			       console.log("call class method");
+			       console.log(HTML.firstAcordian());
+			        let jsonData=HTML.firstAcordian();
+			        
+			        let children=jsonData[0].children;
+			        console.log(children);
+			        for(let i=0;i<children.length;i++){
+			        		contai.push(children[i]);
+			        		if(children[i].children!=null){
+			        			 //this.getSchema(children[i].path,children[i].qname,children[i].name);
+			        		}
+			        }
+			        this.subParentChild=contai;
+			    }
+			});   
+  	 		 console.log("----------------------------------");			
+			console.log(this.subParentChild); 
+			 console.log("++++++++++++++++++++++++++++++++++");
+  }
+  /*getValue(path,qname,name){
+  	alert(path+"/"+qname);
+	let contai=[];
+  	 
+  	 const URL = {
+		  'URL': (path+"/"+qname)
+
+	  }
+  	  this.nsoService.nsoServicesSchemaGetValue(URL).subscribe(data => {
+		  console.log(data);
+
+			});   
+		return "test";	
+  }*/
+ 
+ 
+}

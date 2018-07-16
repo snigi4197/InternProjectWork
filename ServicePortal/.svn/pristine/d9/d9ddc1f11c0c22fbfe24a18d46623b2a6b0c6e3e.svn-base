@@ -1,0 +1,25 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {FormsModule} from '@angular/forms'
+
+
+import { BandwidthOnDemandRoutingModule } from './bandwidth-on-demand-routing.module';
+import {BandwidthOnDemandComponent} from './bandwidth-on-demand.component';
+import{BodTabDataComponent} from '../bod-tab-data/bod-tab-data.component';
+import { NgxSmartModalModule, NgxSmartModalService } from 'ngx-smart-modal';
+import { DataTablesModule } from 'angular-datatables';
+import {SpecialcharPipe_BOD} from '../specialchar.pipe';
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+     NgxSmartModalModule.forRoot(),
+    DataTablesModule,
+    BandwidthOnDemandRoutingModule,
+    
+  ],
+  declarations: [BandwidthOnDemandComponent,SpecialcharPipe_BOD,BodTabDataComponent],
+   providers:[NgxSmartModalService]
+   
+})
+export class BandwidthOnDemandModule { }

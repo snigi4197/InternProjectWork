@@ -1,0 +1,13 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { CircuitOrderingRoutingModule } from './circuit-ordering-routing.module';
+import {CircuitOrderingComponent} from './circuit-ordering.component';
+@NgModule({
+  imports: [
+    CommonModule,
+    CircuitOrderingRoutingModule
+  ],
+  declarations: [CircuitOrderingComponent]
+})
+export class CircuitOrderingModule { }

@@ -1,0 +1,36 @@
+<section class="">
+   <div class="">
+      <div class="loginWrapper">
+         <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
+            <div class="form-group">                      
+               <input type="email" class="form-control" name="email" formControlName="email" id="email" placeholder="Email">
+               <!--  -->
+                <span style="color: red" *ngIf="form.controls['email'].errors 
+                && (form.controls['email'].dirty || form.controls['email'].touched)">
+                        <span [hidden]="!form.controls['email'].errors.required">
+                           First Name is Required
+                        </span>
+                         <span [hidden]="!form.controls['email'].errors.pattern">
+                           Please enter Valid name between character min 3 to max 15.
+                        </span>
+
+                     </span>
+               <!--  -->
+            </div>
+            <div class="form-group">
+               <input type="password" class="form-control" name="password" formControlName="password" id="password" placeholder="Password">
+               <!--  -->
+               <span style="color: red" *ngIf="form.controls['password'].errors 
+                && (form.controls['password'].dirty || form.controls['password'].touched)">
+                <span style="color: red" *ngIf="!form.controls['password'].errors.pattern">
+                  Enter a Valid Password
+               </span>  </span>
+                <!--  -->
+            </div>
+            <button [disabled]="!form.valid" type="submit" class="loginBtn">Login</button> 
+            <a href="">forgot password ?</a>
+         </form>
+      </div>
+       
+   </div>
+</section>

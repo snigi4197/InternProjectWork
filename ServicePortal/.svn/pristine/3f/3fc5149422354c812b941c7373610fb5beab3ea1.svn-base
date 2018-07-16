@@ -1,0 +1,100 @@
+import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/map';
+@Injectable()
+export class NsoService {
+
+	constructor(private http: Http) { }
+	nsoLogin() {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('api/login', { headers: headers })
+			.map(res => res.json());
+	}
+	nsoLogout() {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('api/logout', { headers: headers })
+			.map(res => res.json());
+	}
+	nsoTrans() {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('api/trans', { headers: headers })
+			.map(res => res.json());
+	}
+	nsoCommit() {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('api/commit', { headers: headers })
+			.map(res => res.json());
+	}
+	nsoData(json) {
+		console.log(json);
+		console.log("llllllllllllll");
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('api/data', json, { headers: headers })
+			.map(res => {
+				console.log(res);
+				console.log("~~~~~~~~~");
+				return res.json()
+			});
+	}
+	nsoServices() {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('api/services', { headers: headers })
+			.map(res => res.json());
+	}
+	nsoServicesSchema(json) {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('/api/services/schema', json, { headers: headers })
+			.map(res => res.json());
+	}
+	nsoServicesSchemaByLink(json) {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('/api/services/schemalink', json, { headers: headers })
+			.map(res => res.json());
+	}
+	nsoServicesSchemaGetValue(json) {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('/api/services/getvalue', json, { headers: headers })
+			.map(res => res.json());
+	}
+	nsoServicesSchemaSetValue(json) {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('/api/services/setvalue', json, { headers: headers })
+			.map(res => res.json());
+	}
+	nsoServicesSchemaGetCase(json) {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('/api/services/getcase', json, { headers: headers })
+			.map(res => res.json());
+	}
+	nsoDataquery(json) {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('api/data/query', json, { headers: headers })
+			.map(res => {
+				return res.json()
+			});
+	}
+	nsoServicesSchemaExists(json) {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('/api/services/exists', json, { headers: headers })
+			.map(res => res.json());
+	}
+	nsoServicesCheckSync(json) {
+		let headers = new Headers();
+		headers.append('content-type', 'application/json');
+		return this.http.post('/api/services/sync', json, { headers: headers })
+			.map(res => res.json());
+	}
+}

@@ -1,0 +1,59 @@
+.breadcrumb .breadcrumb {
+  color: white;
+  background-color: #0cb6e7;
+}
+.breadcrumb .arrowUp {
+  border-bottom-color: white;
+}
+.breadcrumb .breadcrumb-holder,
+.breadcrumb .breadcrumb-holder:after {
+  background: #0cb6e7;
+  transition: all 0.5s;
+}
+.breadcrumb .breadcrumb-holder .breadcrumbPopup {
+  background-color: white;
+}
+.breadcrumb .breadcrumb-link,
+.breadcrumb .breadcrumb-link:hover {
+  color: white;
+}
+.breadcrumb .search-box .input-class {
+  background-color: white;
+  color: black;
+}
+.breadcrumb .menu-button {
+  color: white;
+}
+.breadcrumb .menu-button .arrow {
+  fill: white;
+}
+.breadcrumb .menu-button.has-popup:hover,
+.breadcrumb .menu-button.is-active {
+  color: white;
+}
+.breadcrumb .popover .breadcrumbPopup {
+  border-left-color: #ddd;
+}
+.breadcrumb .popover .breadcrumbPopup .breadcrumb-popup-link {
+  color: #3e4959;
+}
+.breadcrumb .popover .breadcrumbPopup .breadcrumb-popup-link.is-selected {
+  background-color: #F3F4F6;
+}
+.breadcrumb .popover .breadcrumbPopup .breadcrumb-popup-link.is-selected .breadcrumb-popup-link-icon,
+.breadcrumb .popover .breadcrumbPopup .breadcrumb-popup-link.is-selected .breadcrumb-popup-link-text {
+  color: #0cb6e7;
+}
+.breadcrumb .popover .breadcrumbPopup .breadcrumb-popup-link.is-disabled .breadcrumb-popup-link-icon,
+.breadcrumb .popover .breadcrumbPopup .breadcrumb-popup-link.is-disabled .breadcrumb-popup-link-text {
+  color: #a0a0a0;
+}
+.breadcrumb .popover .breadcrumbPopup .breadcrumb-popup-link:visited {
+  color: #3e4959;
+}
+.breadcrumb .popover .breadcrumbPopup .breadcrumb-popup-link-icon {
+  color: #a0a0a0;
+}
+.breadcrumb .popover .breadcrumbPopup .breadcrumb-popup-link-text {
+  color: #3e4959;
+}

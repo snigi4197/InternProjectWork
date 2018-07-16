@@ -1,0 +1,29 @@
+import { Component, OnInit,Input } from '@angular/core';
+ 
+@Component({
+  selector: 'app-divfields',
+  templateUrl: './divfields.component.html',
+  styleUrls: ['./divfields.component.scss']
+})
+export class DivfieldsComponent implements OnInit {
+	@Input() divChild;
+	choiceVal:string ;
+  constructor() { }
+
+  ngOnInit() {
+     
+  }
+ amit(_am){
+   alert(_am);
+ if(_am != 'undefined'){
+this.choiceVal=_am;
+alert(this.choiceVal);
+return "";
+ }
+  
+ }
+  callChoiceSchema(value,path_name,name){
+ 
+  	this.choiceVal=value;
+  }
+}
